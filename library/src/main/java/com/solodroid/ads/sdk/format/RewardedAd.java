@@ -24,7 +24,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.applovin.adview.AppLovinIncentivizedInterstitial;
 import com.applovin.adview.AppLovinInterstitialAd;
 import com.applovin.adview.AppLovinInterstitialAdDialog;
 import com.applovin.mediation.MaxAd;
@@ -35,13 +34,11 @@ import com.applovin.mediation.ads.MaxRewardedAd;
 import com.applovin.sdk.AppLovinAd;
 import com.applovin.sdk.AppLovinAdDisplayListener;
 import com.applovin.sdk.AppLovinAdLoadListener;
-import com.applovin.sdk.AppLovinAdRewardListener;
 import com.applovin.sdk.AppLovinAdSize;
-import com.applovin.sdk.AppLovinAdVideoPlaybackListener;
 import com.applovin.sdk.AppLovinSdk;
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
-import com.facebook.ads.RewardedVideoAdListener;
+import com.facebook.ads.RewardedInterstitialAdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
@@ -64,8 +61,6 @@ import com.unity3d.ads.UnityAds;
 import com.unity3d.ads.UnityAdsShowOptions;
 import com.wortise.ads.rewarded.models.Reward;
 
-import java.util.Map;
-
 public class RewardedAd {
 
     @SuppressWarnings("deprecation")
@@ -75,7 +70,7 @@ public class RewardedAd {
         private final Activity activity;
         private com.google.android.gms.ads.rewarded.RewardedAd adMobRewardedAd;
         private com.google.android.gms.ads.rewarded.RewardedAd adManagerRewardedAd;
-        private com.facebook.ads.RewardedVideoAd fanRewardedVideoAd;
+        private com.facebook.ads.RewardedInterstitialAd fanRewardedVideoAd;
         private StartAppAd startAppAd;
         private MaxRewardedAd applovinMaxRewardedAd;
         public AppLovinInterstitialAdDialog appLovinInterstitialAdDialog;
@@ -247,41 +242,53 @@ public class RewardedAd {
 
                     case FAN:
                     case FACEBOOK:
-                        fanRewardedVideoAd = new com.facebook.ads.RewardedVideoAd(activity, fanRewardedId);
+                        fanRewardedVideoAd = new com.facebook.ads.RewardedInterstitialAd(activity, fanRewardedId);
                         fanRewardedVideoAd.loadAd(fanRewardedVideoAd.buildLoadAdConfig()
-                                .withAdListener(new RewardedVideoAdListener() {
+                                .withAdListener(new RewardedInterstitialAdListener() {
                                     @Override
-                                    public void onRewardedVideoCompleted() {
-                                        onComplete.onRewardedAdComplete();
-                                        Log.d(TAG, "[" + mainAds + "] " + "rewarded ad complete");
-                                    }
-
-                                    @Override
-                                    public void onRewardedVideoClosed() {
-                                        loadRewardedAd(onComplete, onDismiss);
-                                        onDismiss.onRewardedAdDismissed();
-                                        Log.d(TAG, "[" + mainAds + "] " + "rewarded ad closed");
-                                    }
-
-                                    @Override
-                                    public void onError(Ad ad, AdError adError) {
+                                    public void onError(Ad ad, AdError error) {
+                                        // Rewarded interstitial ad failed to load
                                         loadRewardedBackupAd(onComplete, onDismiss);
                                         Log.d(TAG, "[" + mainAds + "] " + "failed to load rewarded ad: " + fanRewardedId + ", try to load backup ad: " + backupAds);
                                     }
 
                                     @Override
                                     public void onAdLoaded(Ad ad) {
+                                        // Rewarded interstitial ad is loaded and ready to be displayed
                                         Log.d(TAG, "[" + mainAds + "] " + "rewarded ad loaded");
                                     }
 
                                     @Override
                                     public void onAdClicked(Ad ad) {
-
+                                        // Rewarded interstitial ad clicked
+                                        Log.d(TAG, "Rewarded interstitial ad clicked!");
                                     }
 
                                     @Override
                                     public void onLoggingImpression(Ad ad) {
+                                        // Rewarded Interstitial ad impression - the event will fire when the
+                                        // interstitial starts playing
+                                        Log.d(TAG, "Rewarded interstitial ad impression logged!");
+                                    }
 
+                                    @Override
+                                    public void onRewardedInterstitialCompleted() {
+                                        // Rewarded Interstitial View Complete - the interstitial has been played to the end.
+                                        // You can use this event to initialize your reward
+                                        onComplete.onRewardedAdComplete();
+                                        Log.d(TAG, "[" + mainAds + "] " + "rewarded ad complete");
+
+                                        // Call method to give reward
+                                        // giveReward();
+                                    }
+
+                                    @Override
+                                    public void onRewardedInterstitialClosed() {
+                                        // The Rewarded Interstitial ad was closed - this can occur during the interstitial
+                                        // by closing the app, or closing the end card.
+                                        loadRewardedAd(onComplete, onDismiss);
+                                        onDismiss.onRewardedAdDismissed();
+                                        Log.d(TAG, "[" + mainAds + "] " + "rewarded ad closed");
                                     }
                                 })
                                 .build());
@@ -581,40 +588,49 @@ public class RewardedAd {
 
                     case FAN:
                     case FACEBOOK:
-                        fanRewardedVideoAd = new com.facebook.ads.RewardedVideoAd(activity, fanRewardedId);
+                        fanRewardedVideoAd = new com.facebook.ads.RewardedInterstitialAd(activity, fanRewardedId);
                         fanRewardedVideoAd.loadAd(fanRewardedVideoAd.buildLoadAdConfig()
-                                .withAdListener(new RewardedVideoAdListener() {
+                                .withAdListener(new RewardedInterstitialAdListener() {
                                     @Override
-                                    public void onRewardedVideoCompleted() {
-                                        onComplete.onRewardedAdComplete();
-                                        Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad complete");
-                                    }
-
-                                    @Override
-                                    public void onRewardedVideoClosed() {
-                                        loadRewardedAd(onComplete, onDismiss);
-                                        onDismiss.onRewardedAdDismissed();
-                                        Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad closed");
-                                    }
-
-                                    @Override
-                                    public void onError(Ad ad, AdError adError) {
+                                    public void onError(Ad ad, AdError error) {
+                                        // Rewarded interstitial ad failed to load
                                         Log.d(TAG, "[" + backupAds + "] [backup] " + "failed to load rewarded ad: " + fanRewardedId + ", try to load backup ad: " + backupAds);
                                     }
 
                                     @Override
                                     public void onAdLoaded(Ad ad) {
+                                        // Rewarded interstitial ad is loaded and ready to be displayed
                                         Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad loaded");
                                     }
 
                                     @Override
                                     public void onAdClicked(Ad ad) {
-
+                                        // Rewarded interstitial ad clicked
+                                        Log.d(TAG, "Rewarded interstitial ad clicked!");
                                     }
 
                                     @Override
                                     public void onLoggingImpression(Ad ad) {
+                                        // Rewarded Interstitial ad impression - the event will fire when the
+                                        // interstitial starts playing
+                                        Log.d(TAG, "Rewarded interstitial ad impression logged!");
+                                    }
 
+                                    @Override
+                                    public void onRewardedInterstitialCompleted() {
+                                        // Rewarded Interstitial View Complete - the interstitial has been played to the end.
+                                        // You can use this event to initialize your reward
+                                        onComplete.onRewardedAdComplete();
+                                        Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad complete");
+                                    }
+
+                                    @Override
+                                    public void onRewardedInterstitialClosed() {
+                                        // The Rewarded Interstitial ad was closed - this can occur during the interstitial
+                                        // by closing the app, or closing the end card.
+                                        loadRewardedAd(onComplete, onDismiss);
+                                        onDismiss.onRewardedAdDismissed();
+                                        Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad closed");
                                     }
                                 })
                                 .build());
