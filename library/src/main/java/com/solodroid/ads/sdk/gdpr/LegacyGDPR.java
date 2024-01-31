@@ -12,6 +12,7 @@ import com.google.ads.consent.ConsentStatus;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 public class LegacyGDPR {
 
@@ -100,7 +101,7 @@ public class LegacyGDPR {
             try {
                 mUrl = new URL(privacyPolicyUrl);
             } catch (MalformedURLException e) {
-                Log.e("GDPR", e.getMessage());
+                Log.e("GDPR", Objects.requireNonNull(e.getMessage()));
             }
             return mUrl;
         }

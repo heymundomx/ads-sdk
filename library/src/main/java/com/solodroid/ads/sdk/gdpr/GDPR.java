@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.applovin.sdk.AppLovinPrivacySettings;
 import com.applovin.sdk.AppLovinSdk;
-import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.ump.ConsentDebugSettings;
 import com.google.android.ump.ConsentForm;
@@ -109,9 +108,7 @@ public class GDPR {
         UserMessagingPlatform.loadConsentForm(activity, consentForm -> {
                     this.consentForm = consentForm;
                     if (consentInformation.getConsentStatus() == ConsentInformation.ConsentStatus.REQUIRED) {
-                        consentForm.show(activity, formError -> {
-                            loadForm(activity);
-                        });
+                        consentForm.show(activity, formError -> loadForm(activity));
                     }
                 },
                 formError -> {
@@ -124,11 +121,11 @@ public class GDPR {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(s.getBytes());
             byte[] messageDigest = digest.digest();
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++) {
-                String h = Integer.toHexString(0xFF & messageDigest[i]);
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                StringBuilder h = new StringBuilder(Integer.toHexString(0xFF & b));
                 while (h.length() < 2)
-                    h = "0" + h;
+                    h.insert(0, "0");
                 hexString.append(h);
             }
             return hexString.toString();

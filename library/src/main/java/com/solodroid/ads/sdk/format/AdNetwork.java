@@ -27,7 +27,6 @@ import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.AdapterStatus;
 import com.ironsource.mediationsdk.IronSource;
-import com.ironsource.mediationsdk.sdk.InitializationListener;
 import com.solodroid.ads.sdk.helper.AudienceNetworkInitializeHelper;
 import com.startapp.sdk.adsbase.StartAppAd;
 import com.startapp.sdk.adsbase.StartAppSDK;
@@ -35,9 +34,14 @@ import com.unity3d.mediation.IInitializationListener;
 import com.unity3d.mediation.InitializationConfiguration;
 import com.unity3d.mediation.UnityMediation;
 import com.unity3d.mediation.errors.SdkInitializationError;
+import com.wortise.ads.AdContentRating;
+import com.wortise.ads.AdSettings;
 import com.wortise.ads.WortiseSdk;
+import com.wortise.ads.consent.ConsentManager;
 
 import java.util.Map;
+
+import kotlin.Unit;
 
 public class AdNetwork {
 
@@ -186,16 +190,18 @@ public class AdNetwork {
                     case FAN_BIDDING_IRONSOURCE:
                         String advertisingId = IronSource.getAdvertiserId(activity);
                         IronSource.setUserId(advertisingId);
-                        IronSource.init(activity, ironSourceAppKey, () -> {
-                            Log.d(TAG, "[" + adNetwork + "] initialize complete");
-                        });
+                        IronSource.init(activity, ironSourceAppKey, () -> Log.d(TAG, "[" + adNetwork + "] initialize complete"));
 //                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.REWARDED_VIDEO);
 //                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.INTERSTITIAL);
 //                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.BANNER);
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId);
+                        AdSettings.setMaxAdContentRating(activity, AdContentRating.G);
+                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
+                            ConsentManager.requestIfRequired(activity);
+                            return Unit.INSTANCE;
+                        });
                         break;
                 }
                 Log.d(TAG, "[" + adNetwork + "] is selected as Primary Ads");
@@ -266,16 +272,18 @@ public class AdNetwork {
                     case FAN_BIDDING_IRONSOURCE:
                         String advertisingId = IronSource.getAdvertiserId(activity);
                         IronSource.setUserId(advertisingId);
-                        IronSource.init(activity, ironSourceAppKey, () -> {
-                            Log.d(TAG, "[" + adNetwork + "] initialize complete");
-                        });
+                        IronSource.init(activity, ironSourceAppKey, () -> Log.d(TAG, "[" + adNetwork + "] initialize complete"));
 //                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.REWARDED_VIDEO);
 //                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.INTERSTITIAL);
 //                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.BANNER);
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId);
+                        AdSettings.setMaxAdContentRating(activity, AdContentRating.G);
+                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
+                            ConsentManager.requestIfRequired(activity);
+                            return Unit.INSTANCE;
+                        });
                         break;
 
                     case NONE:
