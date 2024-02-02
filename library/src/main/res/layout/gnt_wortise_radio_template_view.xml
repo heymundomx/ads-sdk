@@ -2,7 +2,8 @@
 <com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/native_ad_view"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/native_ad_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -61,7 +62,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:contentDescription="@string/img_content_description"
-                                android:scaleType="centerCrop" />
+                                android:scaleType="centerCrop"
+                                tools:ignore="ImageContrastCheck" />
 
                         </RelativeLayout>
 
@@ -88,7 +90,8 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    tools:ignore="UselessParent">
 
                                     <TextView
                                         android:id="@+id/primary"
@@ -144,12 +147,14 @@
                                     android:layout_height="wrap_content"
                                     android:layout_toStartOf="@+id/ad_options_view"
                                     android:gravity="center_vertical"
-                                    android:orientation="horizontal">
+                                    android:orientation="horizontal"
+                                    android:baselineAligned="false">
 
                                     <LinearLayout
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1">
+                                        android:layout_weight="1"
+                                        tools:ignore="UselessParent">
 
                                         <TextView
                                             android:id="@+id/body"
@@ -159,7 +164,8 @@
                                             android:gravity="start"
                                             android:maxLines="2"
                                             android:text=""
-                                            android:textSize="@dimen/radio_secondary_font_size" />
+                                            android:textSize="@dimen/radio_secondary_font_size"
+                                            tools:ignore="TooDeepLayout" />
 
                                     </LinearLayout>
 
@@ -189,7 +195,8 @@
                             android:text=""
                             android:textColor="@color/gnt_white"
                             android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                     </RelativeLayout>
 

@@ -198,8 +198,10 @@ public class AdNetwork {
 
                     case WORTISE:
                         AdSettings.setMaxAdContentRating(activity, AdContentRating.G);
+                        // Inicialización del SDK
                         WortiseSdk.initialize(activity, wortiseAppId, () -> {
-                            ConsentManager.requestIfRequired(activity);
+                            // Solicitar consentimiento si es necesario
+                            ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
                             return Unit.INSTANCE;
                         });
                         break;
@@ -280,8 +282,10 @@ public class AdNetwork {
 
                     case WORTISE:
                         AdSettings.setMaxAdContentRating(activity, AdContentRating.G);
+                        // Inicialización del SDK
                         WortiseSdk.initialize(activity, wortiseAppId, () -> {
-                            ConsentManager.requestIfRequired(activity);
+                            // Solicitar consentimiento si es necesario
+                            ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
                             return Unit.INSTANCE;
                         });
                         break;

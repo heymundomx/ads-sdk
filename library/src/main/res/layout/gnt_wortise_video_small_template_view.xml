@@ -2,7 +2,8 @@
 <com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/native_ad_view"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/native_ad_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -75,7 +76,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:contentDescription="@string/img_content_description"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="centerCrop"
+                            tools:ignore="ImageContrastCheck" />
 
                     </RelativeLayout>
 
@@ -94,7 +96,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UselessParent">
 
                             <TextView
                                 android:id="@+id/primary"
@@ -135,7 +138,8 @@
                                 android:layout_height="42dp"
                                 android:text=""
                                 android:textColor="@color/gnt_white"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                         </LinearLayout>
 
