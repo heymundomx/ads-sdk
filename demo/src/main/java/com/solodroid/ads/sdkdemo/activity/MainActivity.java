@@ -15,12 +15,10 @@ import static com.solodroid.ads.sdkdemo.data.Constant.STYLE_RADIO;
 import static com.solodroid.ads.sdkdemo.data.Constant.STYLE_VIDEO_LARGE;
 import static com.solodroid.ads.sdkdemo.data.Constant.STYLE_VIDEO_SMALL;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.DefaultLifecycleObserver;
@@ -48,9 +45,6 @@ import com.solodroid.ads.sdk.format.NativeAd;
 import com.solodroid.ads.sdk.format.NativeAdView;
 import com.solodroid.ads.sdk.format.RewardedAd;
 import com.solodroid.ads.sdk.gdpr.GDPR;
-import com.solodroid.ads.sdk.util.OnRewardedAdCompleteListener;
-import com.solodroid.ads.sdk.util.OnRewardedAdDismissedListener;
-import com.solodroid.ads.sdk.util.OnRewardedAdErrorListener;
 import com.solodroid.ads.sdkdemo.BuildConfig;
 import com.solodroid.ads.sdkdemo.R;
 import com.solodroid.ads.sdkdemo.data.Constant;
@@ -216,9 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 .setIronSourceInterstitialId(Constant.IRONSOURCE_INTERSTITIAL_ID)
                 .setWortiseInterstitialId(Constant.WORTISE_INTERSTITIAL_ID)
                 .setInterval(Constant.INTERSTITIAL_AD_INTERVAL)
-                .build(() -> {
-                    Log.d(TAG, "onAdDismissed");
-                });
+                .build(() -> Log.d(TAG, "onAdDismissed"));
     }
 
     private void loadRewardedAd() {
@@ -234,44 +226,19 @@ public class MainActivity extends AppCompatActivity {
                 .setApplovinDiscRewardedZoneId(Constant.APPLOVIN_DISC_REWARDED_ZONE_ID)
                 .setIronSourceRewardedId(Constant.IRONSOURCE_REWARDED_ID)
                 .setWortiseRewardedId(Constant.WORTISE_REWARDED_ID)
-                .build(new OnRewardedAdCompleteListener() {
-                    @Override
-                    public void onRewardedAdComplete() {
-                        Toast.makeText(getApplicationContext(), "Rewarded complete", Toast.LENGTH_SHORT).show();
-                    }
-                }, new OnRewardedAdDismissedListener() {
-                    @Override
-                    public void onRewardedAdDismissed() {
+                .build(() -> Toast.makeText(getApplicationContext(), "Rewarded complete", Toast.LENGTH_SHORT).show(), () -> {
 
-                    }
                 });
     }
 
     private void showRewardedAd() {
-        rewardedAd.show(new OnRewardedAdCompleteListener() {
-            @Override
-            public void onRewardedAdComplete() {
-                Toast.makeText(getApplicationContext(), "Rewarded complete", Toast.LENGTH_SHORT).show();
-            }
-        }, new OnRewardedAdDismissedListener() {
-            @Override
-            public void onRewardedAdDismissed() {
+        rewardedAd.show(() -> Toast.makeText(getApplicationContext(), "Rewarded complete", Toast.LENGTH_SHORT).show(), () -> {
 
-            }
-        }, new OnRewardedAdErrorListener() {
-            @Override
-            public void onRewardedAdError() {
-                Toast.makeText(getApplicationContext(), "Rewarded error", Toast.LENGTH_SHORT).show();
-            }
-        });
+        }, () -> Toast.makeText(getApplicationContext(), "Rewarded error", Toast.LENGTH_SHORT).show());
     }
 
     private void showInterstitialAd() {
-        interstitialAd.show(() -> {
-            Log.d(TAG, "onAdShowed");
-        }, () -> {
-            Log.d(TAG, "onAdDismissed");
-        });
+        interstitialAd.show(() -> Log.d(TAG, "onAdShowed"), () -> Log.d(TAG, "onAdDismissed"));
 
     }
 
@@ -350,45 +317,43 @@ public class MainActivity extends AppCompatActivity {
 
     private void showAdChooser() {
         final String[] ads = {"AdMob", "Google Ad Manager", "Start.io", "AppLovin MAX", "AppLovin Discovery", "Unity Ads", "ironSource", "FAN (Waterfall)", "Wortise"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Ad");
-        builder.setItems(ads, (dialog, which) -> {
-            String selectedItem = ads[which];
-            switch (selectedItem) {
-                case "AdMob":
-                    Constant.AD_NETWORK = ADMOB;
-                    break;
-                case "Google Ad Manager":
-                    Constant.AD_NETWORK = GOOGLE_AD_MANAGER;
-                    break;
-                case "Start.io":
-                    Constant.AD_NETWORK = STARTAPP;
-                    break;
-                case "AppLovin MAX":
-                    Constant.AD_NETWORK = APPLOVIN_MAX;
-                    break;
-                case "AppLovin Discovery":
-                    Constant.AD_NETWORK = APPLOVIN_DISCOVERY;
-                    break;
-                case "Unity Ads":
-                    Constant.AD_NETWORK = UNITY;
-                    break;
-                case "ironSource":
-                    Constant.AD_NETWORK = IRONSOURCE;
-                    break;
-                case "FAN (Waterfall)":
-                    Constant.AD_NETWORK = FAN;
-                    break;
-                case "Wortise":
-                    Constant.AD_NETWORK = WORTISE;
-                    break;
-                default:
-                    Constant.AD_NETWORK = ADMOB;
-                    break;
-            }
-            recreate();
-        });
-        builder.show();
+
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Select Ad")
+                .setItems(ads, (dialog, which) -> {
+                    String selectedItem = ads[which];
+                    switch (selectedItem) {
+                        case "AdMob":
+                            Constant.AD_NETWORK = ADMOB;
+                            break;
+                        case "Google Ad Manager":
+                            Constant.AD_NETWORK = GOOGLE_AD_MANAGER;
+                            break;
+                        case "Start.io":
+                            Constant.AD_NETWORK = STARTAPP;
+                            break;
+                        case "AppLovin MAX":
+                            Constant.AD_NETWORK = APPLOVIN_MAX;
+                            break;
+                        case "AppLovin Discovery":
+                            Constant.AD_NETWORK = APPLOVIN_DISCOVERY;
+                            break;
+                        case "Unity Ads":
+                            Constant.AD_NETWORK = UNITY;
+                            break;
+                        case "ironSource":
+                            Constant.AD_NETWORK = IRONSOURCE;
+                            break;
+                        case "FAN (Waterfall)":
+                            Constant.AD_NETWORK = FAN;
+                            break;
+                        case "Wortise":
+                            Constant.AD_NETWORK = WORTISE;
+                            break;
+                    }
+                    recreate();
+                })
+                .show();
     }
 
     private void setNativeAdStyle(LinearLayout nativeAdView) {
@@ -413,54 +378,50 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeNativeAdStyle() {
         final String[] styles = {"Default", "News", "Radio", "Video Small", "Video Large"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Native Style");
-        builder.setItems(styles, (dialog, which) -> {
-            String selectedItem = styles[which];
-            switch (selectedItem) {
-                case "Default":
-                    Constant.NATIVE_STYLE = STYLE_DEFAULT;
-                    break;
-                case "News":
-                    Constant.NATIVE_STYLE = STYLE_NEWS;
-                    break;
-                case "Radio":
-                    Constant.NATIVE_STYLE = STYLE_RADIO;
-                    break;
-                case "Video Small":
-                    Constant.NATIVE_STYLE = STYLE_VIDEO_SMALL;
-                    break;
-                case "Video Large":
-                    Constant.NATIVE_STYLE = STYLE_VIDEO_LARGE;
-                    break;
-                default:
-                    Constant.NATIVE_STYLE = STYLE_DEFAULT;
-                    break;
-            }
-            recreate();
-        });
-        builder.show();
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Select Native Style")
+                .setItems(styles, (dialog, which) -> {
+                    String selectedItem = styles[which];
+                    switch (selectedItem) {
+                        case "Default":
+                            Constant.NATIVE_STYLE = STYLE_DEFAULT;
+                            break;
+                        case "News":
+                            Constant.NATIVE_STYLE = STYLE_NEWS;
+                            break;
+                        case "Radio":
+                            Constant.NATIVE_STYLE = STYLE_RADIO;
+                            break;
+                        case "Video Small":
+                            Constant.NATIVE_STYLE = STYLE_VIDEO_SMALL;
+                            break;
+                        case "Video Large":
+                            Constant.NATIVE_STYLE = STYLE_VIDEO_LARGE;
+                            break;
+                    }
+                    recreate();
+                })
+                .show();
     }
 
     private void showExitDialog() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_exit, null);
-
         LinearLayout nativeAdViewContainer = view.findViewById(R.id.native_ad_view);
         setNativeAdStyle(nativeAdViewContainer);
         loadNativeAdView(view);
 
-        AlertDialog.Builder dialog = new MaterialAlertDialogBuilder(this);
-        dialog.setView(view);
-        dialog.setCancelable(false);
-        dialog.setPositiveButton("Exit", (dialogInterface, i) -> {
-            super.onBackPressed();
-            destroyBannerAd();
-            destroyAppOpenAd();
-            Constant.isAppOpen = false;
-        });
-        dialog.setNegativeButton("Cancel", null);
-        dialog.show();
+        new MaterialAlertDialogBuilder(this)
+                .setView(view)
+                .setCancelable(false)
+                .setPositiveButton("Exit", (dialogInterface, i) -> {
+                    super.onBackPressed();
+                    destroyBannerAd();
+                    destroyAppOpenAd();
+                    Constant.isAppOpen = false;
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     private void destroyBannerAd() {

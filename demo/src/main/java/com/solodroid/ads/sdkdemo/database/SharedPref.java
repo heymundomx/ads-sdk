@@ -16,7 +16,7 @@ public class SharedPref {
     Context context;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    private String KEY_POSTS = "posts";
+    private final String KEY_POSTS = "posts";
 
     public SharedPref(Context context) {
         this.context = context;

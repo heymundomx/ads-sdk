@@ -111,7 +111,7 @@ public class AppLovinCustomEventInterstitial implements CustomEventInterstitial,
 
     // Ad Load Listener
     @Override
-    public void requestInterstitialAd(@NonNull final Context context, @NonNull final CustomEventInterstitialListener listener, final String serverParameter, final MediationAdRequest mediationAdRequest, final Bundle customEventExtras) {
+    public void requestInterstitialAd(@NonNull final Context context, @NonNull final CustomEventInterstitialListener listener, final String serverParameter, @NonNull final MediationAdRequest mediationAdRequest, final Bundle customEventExtras) {
         log(DEBUG, "Requesting AppLovin interstitial...");
 
         // SDK versions BELOW 7.2.0 require a instance of an Activity to be passed in as the context

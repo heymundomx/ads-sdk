@@ -155,7 +155,7 @@ public class NativeTemplateStyle {
      */
     public static class Builder {
 
-        private NativeTemplateStyle styles;
+        private final NativeTemplateStyle styles;
 
         public Builder() {
             this.styles = new NativeTemplateStyle();

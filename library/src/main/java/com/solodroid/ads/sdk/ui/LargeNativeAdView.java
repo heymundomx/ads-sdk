@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -18,11 +17,6 @@ public class LargeNativeAdView extends LinearLayout {
     private Context mContext;
     private AttributeSet attrs;
     private int styleAttr;
-    private View view;
-
-    private Drawable adMobDrawable;
-    private Drawable startAppDrawable;
-
     private Button btnNativeAdMob;
     private Button btnNativeStartApp;
 
@@ -53,12 +47,11 @@ public class LargeNativeAdView extends LinearLayout {
 
     @SuppressLint("CustomViewStyleable")
     private void initView() {
-        this.view = this;
         inflate(mContext, R.layout.view_native_ad_large, this);
         TypedArray arr = mContext.obtainStyledAttributes(attrs, R.styleable.NativeAdView, styleAttr, 0);
 
-        adMobDrawable = arr.getDrawable(R.styleable.NativeAdView_adMobNativeButton);
-        startAppDrawable = arr.getDrawable(R.styleable.NativeAdView_startappNativeButton);
+        Drawable adMobDrawable = arr.getDrawable(R.styleable.NativeAdView_adMobNativeButton);
+        Drawable startAppDrawable = arr.getDrawable(R.styleable.NativeAdView_startappNativeButton);
 
         btnNativeAdMob = findViewById(R.id.cta);
         btnNativeStartApp = findViewById(R.id.startapp_native_button);
