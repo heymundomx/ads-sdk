@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class LegacyGDPR {
 
-    Activity activity;
+    private final Activity activity;
 
     public LegacyGDPR(Activity activity) {
         this.activity = activity;
@@ -25,21 +25,24 @@ public class LegacyGDPR {
     public static Bundle getBundleAd(Activity activity) {
         Bundle extras = new Bundle();
         ConsentInformation consentInformation = ConsentInformation.getInstance(activity);
-        if (consentInformation.getConsentStatus().equals(ConsentStatus.NON_PERSONALIZED)) {
+        ConsentStatus consentStatus = consentInformation.getConsentStatus();
+        if (consentStatus != null && consentStatus.equals(ConsentStatus.NON_PERSONALIZED)) {
             extras.putString("npa", "1");
         }
         return extras;
     }
 
     public void updateLegacyGDPRConsentStatus(String adMobPublisherId, String privacyPolicyUrl) {
+        if (activity == null) {
+            // Manejar caso en que activity es nulo
+            return;
+        }
+
         ConsentInformation consentInformation = ConsentInformation.getInstance(activity);
-        // for debug needed
-        //consentInformation.addTestDevice("6E03755720167250AEBF7573B4E86B62");
-        //consentInformation.setDebugGeography(DebugGeography.DEBUG_GEOGRAPHY_EEA);
         consentInformation.requestConsentInfoUpdate(new String[]{adMobPublisherId}, new ConsentInfoUpdateListener() {
             @Override
             public void onConsentInfoUpdated(ConsentStatus consentStatus) {
-                // User's consent status successfully updated. Display the consent consentForm if Consent Status is UNKNOWN
+                // User's consent status successfully updated. Display the consentForm if Consent Status is UNKNOWN
                 if (consentStatus == ConsentStatus.UNKNOWN) {
                     new GDPRForm(activity).displayConsentForm(privacyPolicyUrl);
                 }
@@ -49,7 +52,6 @@ public class LegacyGDPR {
             public void onFailedToUpdateConsentInfo(String errorDescription) {
                 // Consent consentForm error.
                 Log.e("GDPR", errorDescription);
-
             }
         });
         Log.d("GDPR", "Legacy GDPR is selected");
@@ -58,14 +60,25 @@ public class LegacyGDPR {
     private static class GDPRForm {
 
         private ConsentForm consentForm;
-        Activity activity;
+        private final Activity activity;
 
         private GDPRForm(Activity activity) {
             this.activity = activity;
         }
 
         private void displayConsentForm(String privacyPolicyUrl) {
-            ConsentForm.Builder builder = new ConsentForm.Builder(activity, getUrlPrivacyPolicy(privacyPolicyUrl));
+            if (activity == null) {
+                // Manejar caso en que activity es nulo
+                return;
+            }
+
+            URL privacyPolicyURL = getUrlPrivacyPolicy(privacyPolicyUrl);
+            if (privacyPolicyURL == null) {
+                // Manejar caso en que la URL de la política de privacidad es nula
+                return;
+            }
+
+            ConsentForm.Builder builder = new ConsentForm.Builder(activity, privacyPolicyURL);
             builder.withPersonalizedAdsOption();
             builder.withNonPersonalizedAdsOption();
             builder.withListener(new ConsentFormListener() {
@@ -97,6 +110,11 @@ public class LegacyGDPR {
         }
 
         private URL getUrlPrivacyPolicy(String privacyPolicyUrl) {
+            if (privacyPolicyUrl == null) {
+                // Manejar caso en que privacyPolicyUrl es nulo
+                return null;
+            }
+
             URL mUrl = null;
             try {
                 mUrl = new URL(privacyPolicyUrl);
@@ -106,6 +124,4 @@ public class LegacyGDPR {
             return mUrl;
         }
     }
-
-
 }

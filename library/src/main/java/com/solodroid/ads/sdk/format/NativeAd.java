@@ -589,13 +589,14 @@ public class NativeAd {
                                     @Override
                                     public void onNativeFailedToLoad(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.wortise.ads.AdError adError) {
                                         wortiseLoadAttempts++;
-                                        // Intenta cargar el anuncio de Wortise una segunda vez
-                                        mGoogleNativeAd.load();
                                         Log.d(TAG, "Wortise Native Ad failed to load: " + adError.getMessage());
                                         if (wortiseLoadAttempts >= 2) {
                                             // Si la carga falla dos veces, carga el anuncio de respaldo
                                             loadBackupNativeAd();
                                             Log.d(TAG, "Loading backup native ad");
+                                        } else {
+                                            // Intenta cargar el anuncio de Wortise una segunda vez
+                                            mGoogleNativeAd.load();
                                         }
                                     }
 

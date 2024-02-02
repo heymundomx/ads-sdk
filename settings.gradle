@@ -30,6 +30,6 @@ dependencyResolutionManagement {
         }
     }
 }
-rootProject.name = "AdsSDK"
+rootProject.name = "ads-sdk"
 include ':demo'
 include ':library'

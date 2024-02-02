@@ -18,7 +18,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -30,7 +29,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAd;
@@ -43,7 +41,6 @@ import com.solodroid.ads.sdk.R;
  */
 public class TemplateView extends FrameLayout {
 
-    private int templateType;
     private NativeTemplateStyle styles;
     private NativeAd nativeAd;
     private NativeAdView nativeAdView;
@@ -74,7 +71,6 @@ public class TemplateView extends FrameLayout {
         initView(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TemplateView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView(context, attrs);
@@ -265,6 +261,7 @@ public class TemplateView extends FrameLayout {
 
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attributeSet, R.styleable.TemplateView, 0, 0);
 
+        int templateType;
         try {
             templateType = attributes.getResourceId(R.styleable.TemplateView_gnt_template_type, R.layout.gnt_admob_medium_template_view);
         } finally {

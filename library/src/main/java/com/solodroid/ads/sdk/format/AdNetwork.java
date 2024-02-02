@@ -55,8 +55,6 @@ public class AdNetwork {
         private String adMobAppId = "";
         private String startappAppId = "0";
         private String unityGameId = "";
-        private String appLovinSdkKey = "";
-        private String mopubBannerId = "";
         private String ironSourceAppKey = "";
         private String wortiseAppId = "";
         private boolean debug = true;
@@ -102,12 +100,10 @@ public class AdNetwork {
         }
 
         public Initialize setAppLovinSdkKey(String appLovinSdkKey) {
-            this.appLovinSdkKey = appLovinSdkKey;
             return this;
         }
 
         public Initialize setMopubBannerId(String mopubBannerId) {
-            this.mopubBannerId = mopubBannerId;
             return this;
         }
 
@@ -281,13 +277,8 @@ public class AdNetwork {
                         break;
 
                     case WORTISE:
-                        AdSettings.setMaxAdContentRating(activity, AdContentRating.G);
-                        // Inicialización del SDK
-                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
-                            // Solicitar consentimiento si es necesario
-                            ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
-                            return Unit.INSTANCE;
-                        });
+                        WortiseSdk.initialize(activity, wortiseAppId);
+                        ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
                         break;
 
                     case NONE:

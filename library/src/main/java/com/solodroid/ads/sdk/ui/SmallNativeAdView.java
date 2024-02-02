@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -18,11 +17,6 @@ public class SmallNativeAdView extends LinearLayout {
     private Context mContext;
     private AttributeSet attrs;
     private int styleAttr;
-    private View view;
-
-    private Drawable adMobDrawable;
-    private Drawable startAppDrawable;
-
     private Button btnNativeAdMob;
     private Button btnNativeStartApp;
 
@@ -53,26 +47,30 @@ public class SmallNativeAdView extends LinearLayout {
 
     @SuppressLint("CustomViewStyleable")
     private void initView() {
-        this.view = this;
         inflate(mContext, R.layout.view_native_ad_news, this);
-        TypedArray arr = mContext.obtainStyledAttributes(attrs, R.styleable.NativeAdView, styleAttr, 0);
 
-        adMobDrawable = arr.getDrawable(R.styleable.NativeAdView_adMobNativeButton);
-        startAppDrawable = arr.getDrawable(R.styleable.NativeAdView_startappNativeButton);
+        TypedArray arr = null;
+        try {
+            arr = mContext.obtainStyledAttributes(attrs, R.styleable.NativeAdView, styleAttr, 0);
 
-        btnNativeAdMob = findViewById(R.id.cta);
-        btnNativeStartApp = findViewById(R.id.startapp_native_button);
+            Drawable adMobDrawable = arr.getDrawable(R.styleable.NativeAdView_adMobNativeButton);
+            Drawable startAppDrawable = arr.getDrawable(R.styleable.NativeAdView_startappNativeButton);
 
-        if (adMobDrawable != null) {
-            setAdMobNativeButtonColor(adMobDrawable);
+            btnNativeAdMob = findViewById(R.id.cta);
+            btnNativeStartApp = findViewById(R.id.startapp_native_button);
+
+            if (adMobDrawable != null) {
+                setAdMobNativeButtonColor(adMobDrawable);
+            }
+
+            if (startAppDrawable != null) {
+                setStartAppNativeButtonColor(startAppDrawable);
+            }
+        } finally {
+            if (arr != null) {
+                arr.recycle();
+            }
         }
-
-        if (startAppDrawable != null) {
-            setStartAppNativeButtonColor(startAppDrawable);
-        }
-
-        arr.recycle();
-
     }
 
     public void setAdMobNativeButtonColor(Drawable background) {

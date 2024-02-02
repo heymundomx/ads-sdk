@@ -59,7 +59,7 @@ public class AppLovinCustomEventBanner implements CustomEventBanner {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void requestBannerAd(@NonNull final Context context, @NonNull final CustomEventBannerListener customEventBannerListener, final String serverParameter, final AdSize adSize, final MediationAdRequest mediationAdRequest, final Bundle customEventExtras) {
+    public void requestBannerAd(@NonNull final Context context, @NonNull final CustomEventBannerListener customEventBannerListener, final String serverParameter, @NonNull final AdSize adSize, @NonNull final MediationAdRequest mediationAdRequest, final Bundle customEventExtras) {
         // SDK versions BELOW 7.1.0 require a instance of an Activity to be passed in as the context
         if (AppLovinSdk.VERSION_CODE < 710 && !(context instanceof Activity)) {
             log(ERROR, "Unable to request AppLovin banner. Invalid context provided.");

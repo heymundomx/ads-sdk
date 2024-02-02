@@ -18,7 +18,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -30,7 +29,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAd;
@@ -74,7 +72,6 @@ public class AdManagerTemplateView extends FrameLayout {
         initView(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public AdManagerTemplateView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView(context, attrs);
@@ -262,16 +259,18 @@ public class AdManagerTemplateView extends FrameLayout {
     }
 
     private void initView(Context context, AttributeSet attributeSet) {
-
-        TypedArray attributes = context.getTheme().obtainStyledAttributes(attributeSet, R.styleable.TemplateView, 0, 0);
+        TypedArray attributes = null;
 
         try {
+            attributes = context.getTheme().obtainStyledAttributes(attributeSet, R.styleable.TemplateView, 0, 0);
             templateType = attributes.getResourceId(R.styleable.TemplateView_gnt_template_type, R.layout.gnt_ad_manager_medium_template_view);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(templateType, this);
         } finally {
-            attributes.recycle();
+            if (attributes != null) {
+                attributes.recycle();
+            }
         }
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(templateType, this);
     }
 
     @Override
