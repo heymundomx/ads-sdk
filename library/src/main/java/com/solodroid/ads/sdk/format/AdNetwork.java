@@ -34,8 +34,6 @@ import com.unity3d.mediation.IInitializationListener;
 import com.unity3d.mediation.InitializationConfiguration;
 import com.unity3d.mediation.UnityMediation;
 import com.unity3d.mediation.errors.SdkInitializationError;
-import com.wortise.ads.AdContentRating;
-import com.wortise.ads.AdSettings;
 import com.wortise.ads.WortiseSdk;
 import com.wortise.ads.consent.ConsentManager;
 
@@ -193,13 +191,8 @@ public class AdNetwork {
                         break;
 
                     case WORTISE:
-                        AdSettings.setMaxAdContentRating(activity, AdContentRating.G);
-                        // Inicialización del SDK
-                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
-                            // Solicitar consentimiento si es necesario
-                            ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
-                            return Unit.INSTANCE;
-                        });
+                        WortiseSdk.initialize(activity, wortiseAppId);
+                        ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
                         break;
                 }
                 Log.d(TAG, "[" + adNetwork + "] is selected as Primary Ads");
