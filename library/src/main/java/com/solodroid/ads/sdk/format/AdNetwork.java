@@ -186,8 +186,10 @@ public class AdNetwork {
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId);
-                        ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
+                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
+                            ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
+                            return Unit.INSTANCE;
+                        });
                         break;
                 }
                 Log.d(TAG, "[" + adNetwork + "] is selected as Primary Ads");
@@ -262,8 +264,10 @@ public class AdNetwork {
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId);
-                        ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
+                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
+                            ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
+                            return Unit.INSTANCE;
+                        });
                         break;
 
                     case NONE:
