@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.heymundomx.ads.sdkdemo">
+    package="com.solodroid.ads.sdkdemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.heymundomx.ads.sdkdemo.application.MyApplication"
+        android:name="com.solodroid.ads.sdkdemo.application.MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +26,7 @@
             android:value="@string/applovin_sdk_key" />
 
         <activity
-            android:name="com.heymundomx.ads.sdkdemo.activity.ActivitySplash"
+            android:name="com.solodroid.ads.sdkdemo.activity.ActivitySplash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,10 +36,10 @@
         </activity>
 
         <activity
-            android:name="com.heymundomx.ads.sdkdemo.activity.MainActivity"
+            android:name="com.solodroid.ads.sdkdemo.activity.MainActivity"
             android:exported="true" />
 
-        <activity android:name="com.heymundomx.ads.sdkdemo.activity.SecondActivity" />
+        <activity android:name="com.solodroid.ads.sdkdemo.activity.SecondActivity" />
 
     </application>
 
