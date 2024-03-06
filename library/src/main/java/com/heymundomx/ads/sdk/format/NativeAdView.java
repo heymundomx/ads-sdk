@@ -115,6 +115,7 @@ public class NativeAdView {
         private String appLovinNativeId = "";
         private String appLovinDiscMrecZoneId = "";
         private String wortiseNativeId = "";
+        private String alienAdsNativeId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
         private boolean legacyGDPR = false;
@@ -179,6 +180,11 @@ public class NativeAdView {
 
         public Builder setWortiseNativeId(String wortiseNativeId) {
             this.wortiseNativeId = wortiseNativeId;
+            return this;
+        }
+
+        public Builder setAlienAdsNativeId(String alienAdsNativeId) {
+            this.alienAdsNativeId = alienAdsNativeId;
             return this;
         }
 
@@ -576,14 +582,14 @@ public class NativeAdView {
                         if (wortiseNativeAd.getVisibility() != View.VISIBLE) {
                             mGoogleNativeAd = new GoogleNativeAd(activity, wortiseNativeId, new GoogleNativeAd.Listener() {
                                 @Override
-                                public void onNativeClicked(@NonNull GoogleNativeAd googleNativeAd) {
-
-                                }
-
-                                @Override
                                 public void onNativeFailedToLoad(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.wortise.ads.AdError adError) {
                                     loadBackupNativeAd();
                                     Log.d(TAG, "Wortise Native Ad failed loaded");
+                                }
+
+                                @Override
+                                public void onNativeClicked(@NonNull GoogleNativeAd googleNativeAd) {
+
                                 }
 
                                 @Override
@@ -991,13 +997,13 @@ public class NativeAdView {
                         if (wortiseNativeAd.getVisibility() != View.VISIBLE) {
                             mGoogleNativeAd = new GoogleNativeAd(activity, wortiseNativeId, new GoogleNativeAd.Listener() {
                                 @Override
-                                public void onNativeClicked(@NonNull GoogleNativeAd googleNativeAd) {
-
+                                public void onNativeFailedToLoad(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.wortise.ads.AdError adError) {
+                                    Log.d(TAG, "[Backup] Wortise Native Ad failed loaded");
                                 }
 
                                 @Override
-                                public void onNativeFailedToLoad(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.wortise.ads.AdError adError) {
-                                    Log.d(TAG, "[Backup] Wortise Native Ad failed loaded");
+                                public void onNativeClicked(@NonNull GoogleNativeAd googleNativeAd) {
+
                                 }
 
                                 @Override

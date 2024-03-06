@@ -91,6 +91,7 @@ public class BannerAd {
         private String mopubBannerId = "";
         private String ironSourceBannerId = "";
         private String wortiseBannerId = "";
+        private String alienAdsBannerId = "";
         private int placementStatus = 1;
         private boolean darkTheme = false;
         private boolean legacyGDPR = false;
@@ -161,6 +162,11 @@ public class BannerAd {
 
         public Builder setWortiseBannerId(String wortiseBannerId) {
             this.wortiseBannerId = wortiseBannerId;
+            return this;
+        }
+
+        public Builder setAlienAdsBannerId(String alienAdsBannerId) {
+            this.alienAdsBannerId = alienAdsBannerId;
             return this;
         }
 
@@ -518,7 +524,7 @@ public class BannerAd {
                         wortiseBannerAd.setListener(new com.wortise.ads.banner.BannerAd.Listener() {
                             @Override
                             public void onBannerClicked(@NonNull com.wortise.ads.banner.BannerAd bannerAd) {
-                                // Existing code for banner click handling
+
                             }
 
                             @Override
@@ -530,7 +536,7 @@ public class BannerAd {
 
                             @Override
                             public void onBannerImpression(@NonNull com.wortise.ads.banner.BannerAd bannerAd) {
-                                // Add code here to handle banner impression events
+
                             }
 
                             @Override
@@ -882,7 +888,7 @@ public class BannerAd {
                         wortiseBannerAd.setListener(new com.wortise.ads.banner.BannerAd.Listener() {
                             @Override
                             public void onBannerClicked(@NonNull com.wortise.ads.banner.BannerAd bannerAd) {
-                                // Existing code for banner click handling
+
                             }
 
                             @Override
@@ -894,7 +900,7 @@ public class BannerAd {
 
                             @Override
                             public void onBannerImpression(@NonNull com.wortise.ads.banner.BannerAd bannerAd) {
-                                // Add code here to handle banner impression events
+
                             }
 
                             @Override

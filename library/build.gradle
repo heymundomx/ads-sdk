@@ -46,8 +46,8 @@ dependencies {
     implementation 'com.wortise:android-sdk:1.5.1'
 
     //AdMob mediation
-    implementation 'com.google.ads.mediation:applovin:12.1.0.1'
-    implementation 'com.google.ads.mediation:unity:4.9.2.0'
+    implementation 'com.google.ads.mediation:applovin:12.2.0.0'
+    implementation 'com.google.ads.mediation:unity:4.9.3.0'
     implementation 'com.google.ads.mediation:ironsource:7.8.1.1'
     implementation 'com.google.ads.mediation:facebook:6.16.0.0'
 
@@ -74,5 +74,4 @@ dependencies {
 
     //GDPR
     implementation 'com.google.android.ump:user-messaging-platform:2.2.0'
-    implementation 'com.google.android.ads.consent:consent-library:1.0.8'
 }

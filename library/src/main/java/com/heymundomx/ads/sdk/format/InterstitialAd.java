@@ -96,6 +96,7 @@ public class InterstitialAd {
         private String mopubInterstitialId = "";
         private String ironSourceInterstitialId = "";
         private String wortiseInterstitialId = "";
+        private String alienAdsInterstitialId = "";
         private int placementStatus = 1;
         private int interval = 3;
         private boolean legacyGDPR = false;
@@ -179,6 +180,11 @@ public class InterstitialAd {
 
         public Builder setWortiseInterstitialId(String wortiseInterstitialId) {
             this.wortiseInterstitialId = wortiseInterstitialId;
+            return this;
+        }
+
+        public Builder setAlienAdsInterstitialId(String alienAdsInterstitialId) {
+            this.alienAdsInterstitialId = alienAdsInterstitialId;
             return this;
         }
 
@@ -475,7 +481,7 @@ public class InterstitialAd {
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
                             @Override
                             public void onInterstitialClicked(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad clicks
+
                             }
 
                             @Override
@@ -492,12 +498,12 @@ public class InterstitialAd {
 
                             @Override
                             public void onInterstitialFailedToShow(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd, @NonNull com.wortise.ads.AdError adError) {
-                                // Your code for handling interstitial ad show failures
+
                             }
 
                             @Override
                             public void onInterstitialImpression(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad impressions
+
                             }
 
                             @Override
@@ -507,7 +513,7 @@ public class InterstitialAd {
 
                             @Override
                             public void onInterstitialShown(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad shown events
+
                             }
                         });
                         wortiseInterstitialAd.loadAd();
@@ -787,7 +793,7 @@ public class InterstitialAd {
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
                             @Override
                             public void onInterstitialClicked(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad clicks
+
                             }
 
                             @Override
@@ -803,12 +809,12 @@ public class InterstitialAd {
 
                             @Override
                             public void onInterstitialFailedToShow(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd, @NonNull com.wortise.ads.AdError adError) {
-                                // Your code for handling interstitial ad show failures
+
                             }
 
                             @Override
                             public void onInterstitialImpression(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad impressions
+
                             }
 
                             @Override
@@ -818,7 +824,7 @@ public class InterstitialAd {
 
                             @Override
                             public void onInterstitialShown(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad shown events
+
                             }
                         });
                         wortiseInterstitialAd.loadAd();
@@ -1329,7 +1335,7 @@ public class InterstitialAd {
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
                             @Override
                             public void onInterstitialClicked(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad clicks
+
                             }
 
                             @Override
@@ -1347,13 +1353,12 @@ public class InterstitialAd {
 
                             @Override
                             public void onInterstitialFailedToShow(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd, @NonNull com.wortise.ads.AdError adError) {
-                                // Your code for handling interstitial ad show failures
-                                // Consider calling onInterstitialAdDismissedListener.onInterstitialAdDismissed() here if you want to treat it as a dismissal
+
                             }
 
                             @Override
                             public void onInterstitialImpression(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad impressions
+
                             }
 
                             @Override
@@ -1363,7 +1368,7 @@ public class InterstitialAd {
 
                             @Override
                             public void onInterstitialShown(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad shown events
+
                             }
                         });
                         wortiseInterstitialAd.loadAd();
@@ -1648,7 +1653,7 @@ public class InterstitialAd {
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
                             @Override
                             public void onInterstitialClicked(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad clicks
+
                             }
 
                             @Override
@@ -1665,13 +1670,12 @@ public class InterstitialAd {
 
                             @Override
                             public void onInterstitialFailedToShow(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd, @NonNull com.wortise.ads.AdError adError) {
-                                // Your code for handling interstitial ad show failures
-                                // Consider calling onInterstitialAdDismissedListener.onInterstitialAdDismissed() here if you want to treat it as a dismissal
+
                             }
 
                             @Override
                             public void onInterstitialImpression(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad impressions
+
                             }
 
                             @Override
@@ -1681,7 +1685,7 @@ public class InterstitialAd {
 
                             @Override
                             public void onInterstitialShown(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
-                                // Your code for handling interstitial ad shown events
+
                             }
                         });
                         wortiseInterstitialAd.loadAd();

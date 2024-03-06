@@ -231,12 +231,12 @@ public class AppOpenAd {
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                             @Override
                             public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se hace clic en el anuncio
+
                             }
 
                             @Override
                             public void onAppOpenDismissed(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se cierra el anuncio
+
                             }
 
                             @Override
@@ -254,17 +254,17 @@ public class AppOpenAd {
 
                             @Override
                             public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se muestra el anuncio
+
                             }
 
                             @Override
                             public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se genera una impresión del anuncio
+
                             }
 
                             @Override
                             public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                // Implementar la lógica para cuando no se puede mostrar el anuncio
+
                             }
                         });
                         wortiseAppOpenAd.loadAd();
@@ -361,7 +361,7 @@ public class AppOpenAd {
                             wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                                 @Override
                                 public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    // Implementar la lógica para el clic en el anuncio
+
                                 }
 
                                 @Override
@@ -388,12 +388,12 @@ public class AppOpenAd {
 
                                 @Override
                                 public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    // Implementar la lógica para cuando se genera una impresión del anuncio
+
                                 }
 
                                 @Override
                                 public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                    // Implementar la lógica para cuando no se puede mostrar el anuncio
+
                                 }
                             });
                             wortiseAppOpenAd.showAd(activity);
@@ -506,7 +506,7 @@ public class AppOpenAd {
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                             @Override
                             public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para el clic en el anuncio
+
                             }
 
                             @Override
@@ -531,17 +531,17 @@ public class AppOpenAd {
 
                             @Override
                             public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se muestra el anuncio
+
                             }
 
                             @Override
                             public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se genera una impresión del anuncio
+
                             }
 
                             @Override
                             public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                // Implementar la lógica para cuando no se puede mostrar el anuncio
+
                             }
                         });
                         wortiseAppOpenAd.loadAd();
@@ -639,7 +639,7 @@ public class AppOpenAd {
                             wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                                 @Override
                                 public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    // Implementar la lógica para el clic en el anuncio
+
                                 }
 
                                 @Override
@@ -653,7 +653,6 @@ public class AppOpenAd {
                                 public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
                                     wortiseAppOpenAd = null;
                                     loadAppOpenAd();
-                                    // No es necesario llamar a loadAppOpenAd() aquí, ya que se llama en onAppOpenLoaded
                                     Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad load failed: " + adError);
                                 }
 
@@ -664,17 +663,17 @@ public class AppOpenAd {
 
                                 @Override
                                 public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    // Implementar la lógica para cuando se muestra el anuncio
+
                                 }
 
                                 @Override
                                 public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    // Implementar la lógica para cuando se genera una impresión del anuncio
+
                                 }
 
                                 @Override
                                 public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                    // Implementar la lógica para cuando no se puede mostrar el anuncio
+
                                 }
                             });
                             wortiseAppOpenAd.showAd(activity);
@@ -788,7 +787,7 @@ public class AppOpenAd {
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                             @Override
                             public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para el clic en el anuncio
+
                             }
 
                             @Override
@@ -806,24 +805,23 @@ public class AppOpenAd {
 
                             @Override
                             public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Mostrar el anuncio de respaldo inmediatamente después del principal
                                 showBackupAppOpenAd(onShowAdCompleteListener);
                                 Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad loaded");
                             }
 
                             @Override
                             public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se muestra el anuncio
+
                             }
 
                             @Override
                             public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se genera una impresión del anuncio
+
                             }
 
                             @Override
                             public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                // Implementar la lógica para cuando no se puede mostrar el anuncio
+
                             }
                         });
                         wortiseAppOpenAd.loadAd();
@@ -947,12 +945,12 @@ public class AppOpenAd {
 
                                 @Override
                                 public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    // Implementar la lógica para cuando se genera una impresión del anuncio
+
                                 }
 
                                 @Override
                                 public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                    // Implementar la lógica para cuando no se puede mostrar el anuncio
+
                                 }
                             });
                             wortiseAppOpenAd.showAd(activity);
@@ -1095,12 +1093,12 @@ public class AppOpenAd {
 
                             @Override
                             public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                // Implementar la lógica para cuando se genera una impresión del anuncio
+
                             }
 
                             @Override
                             public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                // Implementar la lógica para cuando no se puede mostrar el anuncio
+
                             }
                         });
                         wortiseAppOpenAd.loadAd();
@@ -1223,12 +1221,12 @@ public class AppOpenAd {
 
                                 @Override
                                 public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    // Implementar la lógica para cuando se genera una impresión del anuncio
+
                                 }
 
                                 @Override
                                 public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                    // Implementar la lógica para cuando no se puede mostrar el anuncio
+
                                 }
                             });
                             wortiseAppOpenAd.showAd(activity);
