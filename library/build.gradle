@@ -39,29 +39,29 @@ dependencies {
     //Primary Ad Networks
     implementation 'com.google.android.gms:play-services-ads:22.6.0'
     implementation 'com.startapp:inapp-sdk:4.11.5'
-    implementation 'com.applovin:applovin-sdk:12.2.0'
+    implementation 'com.applovin:applovin-sdk:12.3.1'
     implementation 'com.unity3d.ads:unity-ads:4.9.3'
-    implementation 'com.ironsource.sdk:mediationsdk:7.8.1'
+    implementation 'com.ironsource.sdk:mediationsdk:7.9.0'
     implementation 'com.facebook.android:audience-network-sdk:6.16.0'
     implementation 'com.wortise:android-sdk:1.5.1'
 
     //AdMob mediation
-    implementation 'com.google.ads.mediation:applovin:12.2.0.0'
+    implementation 'com.google.ads.mediation:applovin:12.3.0.0'
     implementation 'com.google.ads.mediation:unity:4.9.3.0'
-    implementation 'com.google.ads.mediation:ironsource:7.8.1.1'
+    implementation 'com.google.ads.mediation:ironsource:7.9.0.0'
     implementation 'com.google.ads.mediation:facebook:6.16.0.0'
 
     //Applovin mediation
-    implementation 'com.applovin.mediation:google-ad-manager-adapter:22.6.0.1'
-    implementation 'com.applovin.mediation:google-adapter:22.6.0.1'
+    implementation 'com.applovin.mediation:google-ad-manager-adapter:23.0.0.0'
+    implementation 'com.applovin.mediation:google-adapter:23.0.0.0'
     implementation 'com.applovin.mediation:unityads-adapter:4.9.3.0'
-    implementation 'com.applovin.mediation:ironsource-adapter:7.7.0.0.0'
+    implementation 'com.applovin.mediation:ironsource-adapter:7.9.0.0.0'
     implementation 'com.applovin.mediation:facebook-adapter:6.16.0.2'
 
     //ironSource mediation
-    implementation 'com.ironsource.adapters:admobadapter:4.3.42'
-    implementation 'com.ironsource.adapters:applovinadapter:4.3.41'
-    implementation 'com.ironsource.adapters:unityadsadapter:4.3.34'
+    implementation 'com.ironsource.adapters:admobadapter:4.3.43'
+    implementation 'com.ironsource.adapters:applovinadapter:4.3.42'
+    implementation 'com.ironsource.adapters:unityadsadapter:4.3.35'
     implementation 'com.ironsource.adapters:facebookadapter:4.3.45'
 
     //Unity ads mediation
