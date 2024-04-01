@@ -140,7 +140,6 @@ public class AdNetwork {
                         StartAppSDK.init(activity, startappAppId, false);
                         StartAppSDK.setTestAdsEnabled(debug);
                         StartAppAd.disableSplash();
-                        StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                         break;
                     case UNITY:
                         UnityAds.initialize(activity, unityGameId, debug, new IUnityAdsInitializationListener() {
