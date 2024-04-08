@@ -521,7 +521,6 @@ public class BannerAd {
                         wortiseBannerAd.setAdUnitId(wortiseBannerId);
                         wortiseBannerView = activity.findViewById(R.id.wortise_banner_view_container);
                         wortiseBannerView.addView(wortiseBannerAd);
-                        wortiseBannerAd.loadAd();
                         wortiseBannerAd.setListener(new com.wortise.ads.banner.BannerAd.Listener() {
                             @Override
                             public void onBannerClicked(@NonNull com.wortise.ads.banner.BannerAd bannerAd) {
@@ -546,6 +545,7 @@ public class BannerAd {
                                 Log.d(TAG, "Wortise banner loaded");
                             }
                         });
+                        wortiseBannerAd.loadAd();
                         break;
 
                     case NONE:
@@ -885,7 +885,6 @@ public class BannerAd {
                         wortiseBannerAd.setAdUnitId(wortiseBannerId);
                         wortiseBannerView = activity.findViewById(R.id.wortise_banner_view_container);
                         wortiseBannerView.addView(wortiseBannerAd);
-                        wortiseBannerAd.loadAd();
                         wortiseBannerAd.setListener(new com.wortise.ads.banner.BannerAd.Listener() {
                             @Override
                             public void onBannerClicked(@NonNull com.wortise.ads.banner.BannerAd bannerAd) {
@@ -910,6 +909,7 @@ public class BannerAd {
                                 Log.d(TAG, "Wortise banner loaded");
                             }
                         });
+                        wortiseBannerAd.loadAd();
                         break;
                 }
                 Log.d(TAG, "Banner Ad is enabled");

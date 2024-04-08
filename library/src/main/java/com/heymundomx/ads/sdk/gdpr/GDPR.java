@@ -15,7 +15,6 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.applovin.sdk.AppLovinPrivacySettings;
-import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.ump.ConsentDebugSettings;
 import com.google.android.ump.ConsentForm;
@@ -25,7 +24,6 @@ import com.google.android.ump.UserMessagingPlatform;
 import com.ironsource.mediationsdk.IronSource;
 import com.startapp.sdk.adsbase.StartAppSDK;
 import com.unity3d.ads.metadata.MetaData;
-import com.wortise.ads.WortiseSdk;
 import com.wortise.ads.consent.ConsentManager;
 
 import java.security.MessageDigest;
@@ -89,31 +87,30 @@ public class GDPR {
                     initializeMobileAdsSdk();
                 }
                 break;
+
             case STARTAPP:
                 StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                 break;
+
             case UNITY:
                 MetaData gdprMetaData = new MetaData(activity);
                 gdprMetaData.set("gdpr.consent", true);
                 gdprMetaData.commit();
                 break;
-            case APPLOVIN_MAX:
-                AppLovinSdk.initializeSdk(activity, configuration -> {
 
-                });
-                AppLovinPrivacySettings.setHasUserConsent(true, activity);
-                AppLovinPrivacySettings.setIsAgeRestrictedUser(childDirected, activity);
-                break;
+            case APPLOVIN_MAX:
             case APPLOVIN_DISCOVERY:
-                AppLovinPrivacySettings.setIsAgeRestrictedUser(childDirected, activity);
                 AppLovinPrivacySettings.setHasUserConsent(true, activity);
+                AppLovinPrivacySettings.setIsAgeRestrictedUser(childDirected, activity);
                 break;
+
             case IRONSOURCE:
                 IronSource.setConsent(true);
                 break;
+
             case WORTISE:
-                WortiseSdk.wait(() -> {
-                    ConsentManager.requestIfRequired(activity);
+                ConsentManager.requestIfRequired(activity, (shown) -> {
+                    // Este listener será invocado cuando la solicitud finalice
                     return Unit.INSTANCE;
                 });
                 break;

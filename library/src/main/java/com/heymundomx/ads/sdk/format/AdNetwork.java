@@ -36,6 +36,8 @@ import com.wortise.ads.WortiseSdk;
 
 import java.util.Map;
 
+import kotlin.Unit;
+
 public class AdNetwork {
 
     public static class Initialize {
@@ -132,15 +134,18 @@ public class AdNetwork {
                         });
                         AudienceNetworkInitializeHelper.initializeAd(activity, debug);
                         break;
+
                     case FAN:
                     case FACEBOOK:
                         AudienceNetworkInitializeHelper.initializeAd(activity, debug);
                         break;
+
                     case STARTAPP:
                         StartAppSDK.init(activity, startappAppId, false);
                         StartAppSDK.setTestAdsEnabled(debug);
                         StartAppAd.disableSplash();
                         break;
+
                     case UNITY:
                         UnityAds.initialize(activity, unityGameId, debug, new IUnityAdsInitializationListener() {
                             @Override
@@ -154,6 +159,7 @@ public class AdNetwork {
                             }
                         });
                         break;
+
                     case APPLOVIN:
                     case APPLOVIN_MAX:
                     case FAN_BIDDING_APPLOVIN_MAX:
@@ -176,13 +182,13 @@ public class AdNetwork {
                         String advertisingId = IronSource.getAdvertiserId(activity);
                         IronSource.setUserId(advertisingId);
                         IronSource.init(activity, ironSourceAppKey, () -> Log.d(TAG, "[" + adNetwork + "] initialize complete"));
-//                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.REWARDED_VIDEO);
-//                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.INTERSTITIAL);
-//                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.BANNER);
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId);
+                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
+                            // Este listener será llamado cuando la inicialización finalice
+                            return Unit.INSTANCE;
+                        });
                         break;
                 }
                 Log.d(TAG, "[" + adNetwork + "] is selected as Primary Ads");
@@ -206,16 +212,19 @@ public class AdNetwork {
                         });
                         AudienceNetworkInitializeHelper.initialize(activity);
                         break;
+
                     case FAN:
                     case FACEBOOK:
                         AudienceNetworkInitializeHelper.initializeAd(activity, debug);
                         break;
+
                     case STARTAPP:
                         StartAppSDK.init(activity, startappAppId, false);
                         StartAppSDK.setTestAdsEnabled(debug);
                         StartAppAd.disableSplash();
                         StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                         break;
+
                     case UNITY:
                         UnityAds.initialize(activity, unityGameId, debug, new IUnityAdsInitializationListener() {
                             @Override
@@ -229,6 +238,7 @@ public class AdNetwork {
                             }
                         });
                         break;
+
                     case APPLOVIN:
                     case APPLOVIN_MAX:
                     case FAN_BIDDING_APPLOVIN_MAX:
@@ -251,13 +261,13 @@ public class AdNetwork {
                         String advertisingId = IronSource.getAdvertiserId(activity);
                         IronSource.setUserId(advertisingId);
                         IronSource.init(activity, ironSourceAppKey, () -> Log.d(TAG, "[" + adNetwork + "] initialize complete"));
-//                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.REWARDED_VIDEO);
-//                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.INTERSTITIAL);
-//                        IronSource.init(activity, ironSourceAppKey, IronSource.AD_UNIT.BANNER);
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId);
+                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
+                            // Este listener será llamado cuando la inicialización finalice
+                            return Unit.INSTANCE;
+                        });
                         break;
 
                     case NONE:
