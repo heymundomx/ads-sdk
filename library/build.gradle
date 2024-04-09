@@ -64,9 +64,6 @@ dependencies {
     implementation 'com.ironsource.adapters:unityadsadapter:4.3.37'
     implementation 'com.ironsource.adapters:facebookadapter:4.3.45'
 
-    //StartApp mediation
-    implementation 'com.startapp:ironsource-mediation:1.0.6'
-
     //Unity ads mediation
     implementation 'com.unity3d.mediation:mediation-sdk:1.1.0'
     implementation 'com.unity3d.mediation:unityads-adapter:1.1.0'

@@ -36,8 +36,6 @@ import com.wortise.ads.WortiseSdk;
 
 import java.util.Map;
 
-import kotlin.Unit;
-
 public class AdNetwork {
 
     public static class Initialize {
@@ -185,10 +183,7 @@ public class AdNetwork {
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
-                            // Este listener será llamado cuando la inicialización finalice
-                            return Unit.INSTANCE;
-                        });
+                        WortiseSdk.initialize(activity, wortiseAppId);
                         break;
                 }
                 Log.d(TAG, "[" + adNetwork + "] is selected as Primary Ads");
@@ -264,10 +259,7 @@ public class AdNetwork {
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId, () -> {
-                            // Este listener será llamado cuando la inicialización finalice
-                            return Unit.INSTANCE;
-                        });
+                        WortiseSdk.initialize(activity, wortiseAppId);
                         break;
 
                     case NONE:
