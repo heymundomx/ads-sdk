@@ -32,9 +32,12 @@ import com.startapp.sdk.adsbase.StartAppAd;
 import com.startapp.sdk.adsbase.StartAppSDK;
 import com.unity3d.ads.IUnityAdsInitializationListener;
 import com.unity3d.ads.UnityAds;
+import com.wortise.ads.AdSettings;
 import com.wortise.ads.WortiseSdk;
 
 import java.util.Map;
+
+import kotlin.Unit;
 
 public class AdNetwork {
 
@@ -183,7 +186,8 @@ public class AdNetwork {
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId);
+                        WortiseSdk.initialize(activity, wortiseAppId, () -> Unit.INSTANCE);
+                        AdSettings.setTestEnabled(debug);
                         break;
                 }
                 Log.d(TAG, "[" + adNetwork + "] is selected as Primary Ads");
@@ -259,7 +263,8 @@ public class AdNetwork {
                         break;
 
                     case WORTISE:
-                        WortiseSdk.initialize(activity, wortiseAppId);
+                        WortiseSdk.initialize(activity, wortiseAppId, () -> Unit.INSTANCE);
+                        AdSettings.setTestEnabled(debug);
                         break;
 
                     case NONE:

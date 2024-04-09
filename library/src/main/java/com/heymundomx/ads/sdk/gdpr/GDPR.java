@@ -109,10 +109,7 @@ public class GDPR {
                 break;
 
             case WORTISE:
-                ConsentManager.requestIfRequired(activity, (shown) -> {
-                    // Este listener será invocado cuando la solicitud finalice
-                    return Unit.INSTANCE;
-                });
+                ConsentManager.request(activity, (shown) -> Unit.INSTANCE);
                 break;
         }
     }
