@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.ironsource.sdk:mediationsdk:8.0.0'
     implementation 'com.startapp:inapp-sdk:4.11.5'
     implementation 'com.facebook.android:audience-network-sdk:6.17.0'
+    implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
     implementation 'com.wortise:android-sdk:1.5.1'
 
     //AdMob mediation
@@ -55,7 +56,7 @@ dependencies {
     implementation 'com.applovin.mediation:google-ad-manager-adapter:23.0.0.1'
     implementation 'com.applovin.mediation:google-adapter:23.0.0.1'
     implementation 'com.applovin.mediation:unityads-adapter:4.10.0.0'
-    implementation 'com.applovin.mediation:ironsource-adapter:7.9.0.0.0'
+    implementation 'com.applovin.mediation:ironsource-adapter:8.0.0.0.0'
     implementation 'com.applovin.mediation:facebook-adapter:6.17.0.0'
 
     //ironSource mediation

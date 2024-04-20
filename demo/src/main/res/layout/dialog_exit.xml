@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -40,7 +41,8 @@
             android:layout_marginLeft="10dp"
             android:text="@string/app_name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
 
@@ -57,7 +59,8 @@
             android:layout_marginTop="3dp"
             android:text="What do you want to do?"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
