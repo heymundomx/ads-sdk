@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.ironsource.adapters:admobadapter:4.3.43'
     implementation 'com.ironsource.adapters:applovinadapter:4.3.42'
     implementation 'com.ironsource.adapters:unityadsadapter:4.3.37'
-    implementation 'com.ironsource.adapters:facebookadapter:4.3.45'
+    implementation 'com.ironsource.adapters:facebookadapter:4.3.46'
 
     //Unity ads mediation
     implementation 'com.unity3d.mediation:mediation-sdk:1.1.0'
