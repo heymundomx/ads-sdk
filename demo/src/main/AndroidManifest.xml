@@ -29,7 +29,9 @@
 
         <activity
             android:name="com.heymundomx.ads.sdkdemo.activity.ActivitySplash"
-            android:exported="true">
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,9 +41,12 @@
 
         <activity
             android:name="com.heymundomx.ads.sdkdemo.activity.MainActivity"
-            android:exported="true" />
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="standard" />
 
-        <activity android:name="com.heymundomx.ads.sdkdemo.activity.SecondActivity" />
+        <activity android:name="com.heymundomx.ads.sdkdemo.activity.SecondActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 
     </application>
 
