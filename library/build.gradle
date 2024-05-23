@@ -12,7 +12,9 @@ android {
         versionName "1.0.0"
         consumerProguardFiles "consumer-rules.pro"
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -43,18 +45,14 @@ dependencies {
         exclude group: 'io.insert-koin', module: 'koin-bom'
         exclude group: 'io.insert-koin', module: 'koin-annotations-bom'
     }
-    implementation 'com.ironsource.sdk:mediationsdk:8.0.0'
+    implementation 'com.ironsource.sdk:mediationsdk:8.1.0'
     implementation 'com.startapp:inapp-sdk:5.0.0'
     implementation 'com.facebook.android:audience-network-sdk:6.17.0'
     implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
     implementation 'com.wortise:android-sdk:1.5.1'
 
-    // Wortise mediation
-    implementation 'com.wortise:adapter-chartboost:9.6.1-beta01'
-    implementation 'com.wortise:adapter-startio:4.11.5-beta01'
-
     //AdMob mediation
-    implementation 'com.google.ads.mediation:applovin:12.4.3.0'
+    implementation 'com.google.ads.mediation:applovin:12.5.0.0'
     implementation 'com.google.ads.mediation:unity:4.11.3.0'
     implementation 'com.google.ads.mediation:ironsource:8.0.0.1'
     implementation 'com.google.ads.mediation:facebook:6.17.0.0'
@@ -63,7 +61,7 @@ dependencies {
     implementation 'com.applovin.mediation:google-ad-manager-adapter:23.1.0.0'
     implementation 'com.applovin.mediation:google-adapter:23.1.0.0'
     implementation 'com.applovin.mediation:unityads-adapter:4.11.3.0'
-    implementation 'com.applovin.mediation:ironsource-adapter:8.0.0.0.0'
+    implementation 'com.applovin.mediation:ironsource-adapter:8.1.0.0.0'
     implementation 'com.applovin.mediation:facebook-adapter:6.17.0.0'
 
     //ironSource mediation
@@ -79,6 +77,10 @@ dependencies {
     implementation 'com.unity3d.mediation:applovin-adapter:1.1.0'
     implementation 'com.unity3d.mediation:facebook-adapter:1.1.1'
     implementation 'com.unity3d.mediation:ironsource-adapter:1.1.0'
+
+    //Wortise mediation
+    implementation 'com.wortise:adapter-chartboost:9.6.1-beta01'
+    implementation 'com.wortise:adapter-startio:4.11.5-beta01'
 
     //GDPR
     implementation 'com.google.android.ump:user-messaging-platform:2.2.0'
