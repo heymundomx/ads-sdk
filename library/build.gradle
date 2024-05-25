@@ -41,7 +41,10 @@ dependencies {
     //Primary Ad Networks
     implementation 'com.google.android.gms:play-services-ads:23.1.0'
     implementation 'com.applovin:applovin-sdk:12.5.0'
-    implementation 'com.unity3d.ads:unity-ads:4.11.3'
+    implementation ('com.unity3d.ads:unity-ads:4.11.3') {
+        exclude group: 'io.insert-koin', module: 'koin-bom'
+        exclude group: 'io.insert-koin', module: 'koin-annotations-bom'
+    }
     implementation 'com.ironsource.sdk:mediationsdk:8.1.0'
     implementation 'com.startapp:inapp-sdk:5.0.0'
     implementation 'com.facebook.android:audience-network-sdk:6.17.0'
