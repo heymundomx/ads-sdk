@@ -486,14 +486,14 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                         if (wortiseNativeAd.getVisibility() != View.VISIBLE) {
                             mGoogleNativeAd = new GoogleNativeAd(context, wortiseNativeId, new GoogleNativeAd.Listener() {
                                 @Override
-                                public void onNativeClicked(@NonNull GoogleNativeAd googleNativeAd) {
-
-                                }
-
-                                @Override
                                 public void onNativeFailedToLoad(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.wortise.ads.AdError adError) {
                                     loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, adManagerNativeId, fanNativeId, appLovinNativeId, appLovinDiscMrecZoneId, wortiseNativeId, darkTheme, legacyGDPR, nativeAdStyle, nativeBackgroundLight, nativeBackgroundDark);
                                     Log.d(TAG, "Wortise Native Ad failed loaded");
+                                }
+
+                                @Override
+                                public void onNativeClicked(@NonNull GoogleNativeAd googleNativeAd) {
+
                                 }
 
                                 @Override
@@ -880,13 +880,13 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                         if (wortiseNativeAd.getVisibility() != View.VISIBLE) {
                             mGoogleNativeAd = new GoogleNativeAd(context, wortiseNativeId, new GoogleNativeAd.Listener() {
                                 @Override
-                                public void onNativeClicked(@NonNull GoogleNativeAd googleNativeAd) {
-
+                                public void onNativeFailedToLoad(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.wortise.ads.AdError adError) {
+                                    Log.d(TAG, "[Backup] Wortise Native Ad failed loaded");
                                 }
 
                                 @Override
-                                public void onNativeFailedToLoad(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.wortise.ads.AdError adError) {
-                                    Log.d(TAG, "[Backup] Wortise Native Ad failed loaded");
+                                public void onNativeClicked(@NonNull GoogleNativeAd googleNativeAd) {
+
                                 }
 
                                 @Override

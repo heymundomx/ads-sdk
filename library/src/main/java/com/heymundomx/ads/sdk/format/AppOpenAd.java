@@ -230,13 +230,15 @@ public class AppOpenAd {
                         wortiseAppOpenAd = new com.wortise.ads.appopen.AppOpenAd(activity, wortiseAppOpenId);
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                             @Override
-                            public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+                            public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                             }
 
                             @Override
-                            public void onAppOpenDismissed(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
+                            public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                wortiseAppOpenAd = null;
+                                loadBackupAppOpenAd(onShowAdCompleteListener);
+                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] failed to load app open ad: " + adError);
                             }
 
                             @Override
@@ -247,6 +249,16 @@ public class AppOpenAd {
                             }
 
                             @Override
+                            public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                            }
+
+                            @Override
+                            public void onAppOpenDismissed(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                            }
+
+                            @Override
                             public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
                                 showAppOpenAd(onShowAdCompleteListener);
                                 Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad loaded");
@@ -254,16 +266,6 @@ public class AppOpenAd {
 
                             @Override
                             public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                            }
-
-                            @Override
-                            public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                            }
-
-                            @Override
-                            public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
 
                             }
                         });
@@ -360,6 +362,23 @@ public class AppOpenAd {
                         if (wortiseAppOpenAd.isAvailable()) {
                             wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                                 @Override
+                                public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                                }
+
+                                @Override
+                                public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                    onShowAdCompleteListener.onShowAdComplete();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad load failed: " + adError);
+                                }
+
+                                @Override
+                                public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                    onShowAdCompleteListener.onShowAdComplete();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad load failed: " + adError);
+                                }
+
+                                @Override
                                 public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                                 }
@@ -371,29 +390,13 @@ public class AppOpenAd {
                                 }
 
                                 @Override
-                                public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                    onShowAdCompleteListener.onShowAdComplete();
-                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad load failed: " + adError);
-                                }
-
-                                @Override
                                 public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad loaded");
+
                                 }
 
                                 @Override
                                 public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
                                     Log.d(TAG, "[" + adNetwork + "] " + "[on start] show app open ad");
-                                }
-
-                                @Override
-                                public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                                }
-
-                                @Override
-                                public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-
                                 }
                             });
                             wortiseAppOpenAd.showAd(activity);
@@ -505,14 +508,16 @@ public class AppOpenAd {
                         wortiseAppOpenAd = new com.wortise.ads.appopen.AppOpenAd(activity, wortiseAppOpenId);
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                             @Override
-                            public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+                            public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                             }
 
                             @Override
-                            public void onAppOpenDismissed(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+                            public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
                                 wortiseAppOpenAd = null;
                                 isAppOpenAdLoaded = false;
+                                loadBackupAppOpenAd();
+                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] failed to load app open ad: " + adError);
                             }
 
                             @Override
@@ -524,6 +529,17 @@ public class AppOpenAd {
                             }
 
                             @Override
+                            public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                            }
+
+                            @Override
+                            public void onAppOpenDismissed(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+                                wortiseAppOpenAd = null;
+                                isAppOpenAdLoaded = false;
+                            }
+
+                            @Override
                             public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
                                 isAppOpenAdLoaded = true;
                                 Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad loaded");
@@ -531,16 +547,6 @@ public class AppOpenAd {
 
                             @Override
                             public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                            }
-
-                            @Override
-                            public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                            }
-
-                            @Override
-                            public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
 
                             }
                         });
@@ -638,6 +644,25 @@ public class AppOpenAd {
                         if (wortiseAppOpenAd.isAvailable()) {
                             wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                                 @Override
+                                public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                                }
+
+                                @Override
+                                public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                    wortiseAppOpenAd = null;
+                                    loadAppOpenAd();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad load failed: " + adError);
+                                }
+
+                                @Override
+                                public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                    wortiseAppOpenAd = null;
+                                    loadAppOpenAd();
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad load failed: " + adError);
+                                }
+
+                                @Override
                                 public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                                 }
@@ -650,30 +675,13 @@ public class AppOpenAd {
                                 }
 
                                 @Override
-                                public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                    wortiseAppOpenAd = null;
-                                    loadAppOpenAd();
-                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad load failed: " + adError);
-                                }
-
-                                @Override
                                 public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad loaded");
+
                                 }
 
                                 @Override
                                 public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                                }
-
-                                @Override
-                                public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                                }
-
-                                @Override
-                                public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-
+                                    Log.d(TAG, "[" + adNetwork + "] " + "[on resume] show app open ad");
                                 }
                             });
                             wortiseAppOpenAd.showAd(activity);
@@ -786,6 +794,25 @@ public class AppOpenAd {
                         wortiseAppOpenAd = new com.wortise.ads.appopen.AppOpenAd(activity, wortiseAppOpenId);
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                             @Override
+                            public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                            }
+
+                            @Override
+                            public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                wortiseAppOpenAd = null;
+                                showBackupAppOpenAd(onShowAdCompleteListener);
+                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] failed to load app open ad: " + adError);
+                            }
+
+                            @Override
+                            public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                wortiseAppOpenAd = null;
+                                showBackupAppOpenAd(onShowAdCompleteListener);
+                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] failed to load app open ad: " + adError);
+                            }
+
+                            @Override
                             public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                             }
@@ -797,13 +824,6 @@ public class AppOpenAd {
                             }
 
                             @Override
-                            public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                wortiseAppOpenAd = null;
-                                showBackupAppOpenAd(onShowAdCompleteListener);
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] failed to load app open ad: " + adError);
-                            }
-
-                            @Override
                             public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
                                 showBackupAppOpenAd(onShowAdCompleteListener);
                                 Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad loaded");
@@ -811,16 +831,6 @@ public class AppOpenAd {
 
                             @Override
                             public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                            }
-
-                            @Override
-                            public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                            }
-
-                            @Override
-                            public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
 
                             }
                         });
@@ -917,6 +927,23 @@ public class AppOpenAd {
                         if (wortiseAppOpenAd.isAvailable()) {
                             wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                                 @Override
+                                public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                                }
+
+                                @Override
+                                public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                    onShowAdCompleteListener.onShowAdComplete();
+                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad load failed: " + adError);
+                                }
+
+                                @Override
+                                public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                    onShowAdCompleteListener.onShowAdComplete();
+                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad load failed: " + adError);
+                                }
+
+                                @Override
                                 public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                                 }
@@ -928,12 +955,6 @@ public class AppOpenAd {
                                 }
 
                                 @Override
-                                public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                    onShowAdCompleteListener.onShowAdComplete();
-                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad load failed: " + adError);
-                                }
-
-                                @Override
                                 public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                                 }
@@ -941,16 +962,6 @@ public class AppOpenAd {
                                 @Override
                                 public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
                                     Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] show app open ad");
-                                }
-
-                                @Override
-                                public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                                }
-
-                                @Override
-                                public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-
                                 }
                             });
                             wortiseAppOpenAd.showAd(activity);
@@ -1062,14 +1073,16 @@ public class AppOpenAd {
                         wortiseAppOpenAd = new com.wortise.ads.appopen.AppOpenAd(activity, wortiseAppOpenId);
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                             @Override
-                            public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+                            public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                             }
 
                             @Override
-                            public void onAppOpenDismissed(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+                            public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
                                 wortiseAppOpenAd = null;
                                 isAppOpenAdLoaded = false;
+                                loadBackupAppOpenAd();
+                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] failed to load app open ad: " + adError);
                             }
 
                             @Override
@@ -1081,6 +1094,17 @@ public class AppOpenAd {
                             }
 
                             @Override
+                            public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                            }
+
+                            @Override
+                            public void onAppOpenDismissed(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+                                wortiseAppOpenAd = null;
+                                isAppOpenAdLoaded = false;
+                            }
+
+                            @Override
                             public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
                                 isAppOpenAdLoaded = true;
                                 Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] app open ad loaded");
@@ -1088,16 +1112,6 @@ public class AppOpenAd {
 
                             @Override
                             public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                            }
-
-                            @Override
-                            public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                            }
-
-                            @Override
-                            public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
 
                             }
                         });
@@ -1191,6 +1205,25 @@ public class AppOpenAd {
                         if (wortiseAppOpenAd.isAvailable()) {
                             wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
                                 @Override
+                                public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
+
+                                }
+
+                                @Override
+                                public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                    wortiseAppOpenAd = null;
+                                    loadAppOpenAd();
+                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] app open ad load failed: " + adError);
+                                }
+
+                                @Override
+                                public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
+                                    wortiseAppOpenAd = null;
+                                    loadAppOpenAd();
+                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] app open ad load failed: " + adError);
+                                }
+
+                                @Override
                                 public void onAppOpenClicked(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
 
                                 }
@@ -1203,30 +1236,13 @@ public class AppOpenAd {
                                 }
 
                                 @Override
-                                public void onAppOpenFailedToLoad(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-                                    wortiseAppOpenAd = null;
-                                    loadAppOpenAd();
-                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] app open ad load failed: " + adError);
-                                }
-
-                                @Override
                                 public void onAppOpenLoaded(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] app open ad loaded");
+
                                 }
 
                                 @Override
                                 public void onAppOpenShown(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
                                     Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] show app open ad");
-                                }
-
-                                @Override
-                                public void onAppOpenImpression(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd) {
-
-                                }
-
-                                @Override
-                                public void onAppOpenFailedToShow(@NonNull com.wortise.ads.appopen.AppOpenAd appOpenAd, @NonNull com.wortise.ads.AdError adError) {
-
                                 }
                             });
                             wortiseAppOpenAd.showAd(activity);
