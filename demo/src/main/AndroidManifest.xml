@@ -37,10 +37,16 @@
         </activity>
 
         <activity
-            android:name="com.heymundomx.ads.sdkdemo.activity.MainActivity"
-            android:exported="true" />
+            android:name=".activity.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name="com.heymundomx.ads.sdkdemo.activity.SecondActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.SecondActivity" />
 
     </application>
 
