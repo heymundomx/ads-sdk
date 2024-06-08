@@ -69,6 +69,7 @@ public class NativeAdFragment {
 
     @SuppressWarnings("deprecation")
     public static class Builder {
+
         private static final String TAG = "AdNetwork";
         private final Activity activity;
         View view;

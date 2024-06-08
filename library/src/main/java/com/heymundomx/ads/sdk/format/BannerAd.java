@@ -334,7 +334,6 @@ public class BannerAd {
 
                             @Override
                             public void onClick(View banner) {
-
                             }
                         });
                         startAppAdView.addView(banner);

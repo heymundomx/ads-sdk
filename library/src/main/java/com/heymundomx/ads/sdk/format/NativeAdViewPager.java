@@ -60,6 +60,7 @@ import java.util.List;
 public class NativeAdViewPager {
 
     public static class Builder {
+
         private static final String TAG = "AdNetwork";
         private final Activity activity;
 
