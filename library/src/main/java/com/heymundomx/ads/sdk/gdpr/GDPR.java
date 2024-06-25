@@ -24,6 +24,7 @@ import com.google.android.ump.UserMessagingPlatform;
 import com.ironsource.mediationsdk.IronSource;
 import com.startapp.sdk.adsbase.StartAppSDK;
 import com.unity3d.ads.metadata.MetaData;
+import com.wortise.ads.WortiseSdk;
 import com.wortise.ads.consent.ConsentManager;
 
 import java.security.MessageDigest;
@@ -109,7 +110,10 @@ public class GDPR {
                 break;
 
             case WORTISE:
-                ConsentManager.requestIfRequired(activity, (shown) -> Unit.INSTANCE);
+                WortiseSdk.wait(() -> {
+                    ConsentManager.requestIfRequired(activity);
+                    return Unit.INSTANCE;
+                });
                 break;
         }
     }

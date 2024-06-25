@@ -361,7 +361,7 @@ public class InterstitialAd {
                         try {
                             UnityAds.load(unityInterstitialId, unityAdsLoadListener);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            Log.e(TAG, "error: " + e.getMessage());
                         }
                         break;
 
@@ -677,7 +677,7 @@ public class InterstitialAd {
                         try {
                             UnityAds.load(unityInterstitialId, unityAdsLoadListener);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            Log.e(TAG, "error: " + e.getMessage());
                         }
                         break;
 
@@ -1213,7 +1213,7 @@ public class InterstitialAd {
                         try {
                             UnityAds.load(unityInterstitialId, unityAdsLoadListener);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            Log.e(TAG, "error: " + e.getMessage());
                         }
                         break;
 
@@ -1535,7 +1535,7 @@ public class InterstitialAd {
                         try {
                             UnityAds.load(unityInterstitialId, unityAdsLoadListener);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            Log.e(TAG, "error: " + e.getMessage());
                         }
                         break;
 

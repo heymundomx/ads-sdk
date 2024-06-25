@@ -9,8 +9,6 @@ import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -28,6 +26,9 @@ import com.heymundomx.ads.sdkdemo.rest.RestAdapter;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,49 +52,51 @@ public class ActivitySplash extends AppCompatActivity {
 
         if (Constant.AD_STATUS.equals(AD_STATUS_ON) && Constant.OPEN_ADS_ON_START) {
             if (!Constant.FORCE_TO_SHOW_APP_OPEN_AD_ON_START) {
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    switch (Constant.AD_NETWORK) {
-                        case ADMOB:
-                            if (!Constant.ADMOB_APP_OPEN_AD_ID.equals("0")) {
-                                ((MyApplication) getApplication()).showAdIfAvailable(ActivitySplash.this, this::requestConfig);
-                            } else {
-                                requestConfig();
-                            }
-                            break;
-                        case GOOGLE_AD_MANAGER:
-                            if (!Constant.GOOGLE_AD_MANAGER_APP_OPEN_AD_ID.equals("0")) {
-                                ((MyApplication) getApplication()).showAdIfAvailable(ActivitySplash.this, this::requestConfig);
-                            } else {
-                                requestConfig();
-                            }
-                            break;
-                        case APPLOVIN:
-                        case APPLOVIN_MAX:
-                            if (!Constant.APPLOVIN_APP_OPEN_AP_ID.equals("0")) {
-                                ((MyApplication) getApplication()).showAdIfAvailable(ActivitySplash.this, this::requestConfig);
-                            } else {
-                                requestConfig();
-                            }
-                            break;
-                        case WORTISE:
-                            if (!Constant.WORTISE_APP_OPEN_AD_ID.equals("0")) {
-                                ((MyApplication) getApplication()).showAdIfAvailable(ActivitySplash.this, this::requestConfig);
-                            } else {
-                                requestConfig();
-                            }
-                            break;
-                        default:
-                            requestConfig();
-                            break;
-                    }
-                }, DELAY_PROGRESS);
+                ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+                executorService.schedule(this::handleAdShow, DELAY_PROGRESS, TimeUnit.MILLISECONDS);
             } else {
                 requestConfig();
             }
         } else {
             requestConfig();
         }
+    }
 
+    private void handleAdShow() {
+        switch (Constant.AD_NETWORK) {
+            case ADMOB:
+                if (!Constant.ADMOB_APP_OPEN_AD_ID.equals("0")) {
+                    ((MyApplication) getApplication()).showAdIfAvailable(ActivitySplash.this, this::requestConfig);
+                } else {
+                    requestConfig();
+                }
+                break;
+            case GOOGLE_AD_MANAGER:
+                if (!Constant.GOOGLE_AD_MANAGER_APP_OPEN_AD_ID.equals("0")) {
+                    ((MyApplication) getApplication()).showAdIfAvailable(ActivitySplash.this, this::requestConfig);
+                } else {
+                    requestConfig();
+                }
+                break;
+            case APPLOVIN:
+            case APPLOVIN_MAX:
+                if (!Constant.APPLOVIN_APP_OPEN_AP_ID.equals("0")) {
+                    ((MyApplication) getApplication()).showAdIfAvailable(ActivitySplash.this, this::requestConfig);
+                } else {
+                    requestConfig();
+                }
+                break;
+            case WORTISE:
+                if (!Constant.WORTISE_APP_OPEN_AD_ID.equals("0")) {
+                    ((MyApplication) getApplication()).showAdIfAvailable(ActivitySplash.this, this::requestConfig);
+                } else {
+                    requestConfig();
+                }
+                break;
+            default:
+                requestConfig();
+                break;
+        }
     }
 
     private void requestConfig() {
@@ -159,17 +162,13 @@ public class ActivitySplash extends AppCompatActivity {
                     .setApplovinAppOpenId(Constant.APPLOVIN_APP_OPEN_AP_ID)
                     .setWortiseAppOpenId(Constant.WORTISE_APP_OPEN_AD_ID)
                     .build(this::startMainActivity);
-        } else {
-            startMainActivity();
         }
     }
 
     public void startMainActivity() {
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }, DELAY_PROGRESS);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

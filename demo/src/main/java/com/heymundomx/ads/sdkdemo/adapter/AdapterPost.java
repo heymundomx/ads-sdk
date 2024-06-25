@@ -12,6 +12,7 @@ import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.heymundomx.ads.sdk.format.NativeAdViewHolder;
 import com.heymundomx.ads.sdkdemo.R;
@@ -110,10 +112,11 @@ public class AdapterPost extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             OriginalViewHolder vItem = (OriginalViewHolder) holder;
 
             vItem.name.setText(p.name);
-
+            RequestBuilder<Drawable> requestBuilder= Glide.with(holder.itemView.getContext())
+                    .asDrawable().sizeMultiplier(0.1f);
             Glide.with(context)
                     .load(p.image.replace(" ", "%20"))
-                    .thumbnail(0.1f)
+                    .thumbnail(requestBuilder)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
                     .into(vItem.image);
@@ -153,7 +156,7 @@ public class AdapterPost extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
         Post post = posts.get(position);
         if (post != null) {
-            if (post.name == null || post.name.equals("")) {
+            if (post.name == null || post.name.isEmpty()) {
                 return VIEW_AD;
             } else {
                 return VIEW_ITEM;
