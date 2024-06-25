@@ -47,7 +47,7 @@ dependencies {
     implementation 'com.wortise:android-sdk:1.5.1'
 
     //AdMob mediation
-    implementation 'com.google.ads.mediation:applovin:12.5.0.0'
+    implementation 'com.google.ads.mediation:applovin:12.5.0.1'
     implementation 'com.google.ads.mediation:unity:4.12.0.0'
     implementation 'com.google.ads.mediation:ironsource:8.1.0.0'
     implementation 'com.google.ads.mediation:facebook:6.17.0.0'

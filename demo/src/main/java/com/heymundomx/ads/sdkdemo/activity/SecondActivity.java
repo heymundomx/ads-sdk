@@ -60,7 +60,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void displayData(List<Post> posts) {
-        if (posts != null && posts.size() > 0) {
+        if (posts != null && !posts.isEmpty()) {
             adapterPost.setListData(posts, posts.size());
             adapterPost.setOnItemClickListener((view, obj, position) -> Toast.makeText(getApplicationContext(), obj.name, Toast.LENGTH_SHORT).show());
         }
