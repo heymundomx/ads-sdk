@@ -26,6 +26,9 @@ dependencyResolutionManagement {
             url 'https://cboost.jfrog.io/artifactory/chartboost-ads/'
         }
         maven {
+            url 'https://sdk.tapjoy.com/'
+        }
+        maven {
             url 'https://maven.wortise.com/artifactory/public'
         }
     }

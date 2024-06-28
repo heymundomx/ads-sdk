@@ -8,8 +8,6 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 34
-        versionCode 1
-        versionName "1.0.0"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -76,6 +74,9 @@ dependencies {
     //Wortise mediation
     implementation 'com.wortise:adapter-chartboost:9.6.1-beta01'
     implementation 'com.wortise:adapter-startio:4.11.5-beta01'
+    implementation 'com.wortise:adapter-tapjoy:13.2.1-beta01'
+    implementation 'com.wortise:adapter-yandex:7.0.1.0-beta01'
+    implementation 'com.wortise:adapter-tappx:4.1.1.0-beta01'
 
     //GDPR
     implementation 'com.google.android.ump:user-messaging-platform:2.2.0'
