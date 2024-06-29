@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,6 +38,15 @@ public class SecondActivity extends AppCompatActivity {
         initView();
         loadBannerAd();
         initToolbar();
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                bannerAd.destroyAndDetachBanner();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     private void initView() {
@@ -66,12 +76,6 @@ public class SecondActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        bannerAd.destroyAndDetachBanner();
-    }
-
     private void loadBannerAd() {
         bannerAd = new BannerAd.Builder(this)
                 .setAdStatus(Constant.AD_STATUS)
@@ -91,7 +95,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
-            onBackPressed();
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(menuItem);
