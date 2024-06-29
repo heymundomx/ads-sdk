@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
     }
 
+    @SuppressWarnings("unused")
     private void loadMediumRectangleAd() {
         mediumRectangleAd = new MediumRectangleAd.Builder(this)
                 .setAdStatus(Constant.AD_STATUS)

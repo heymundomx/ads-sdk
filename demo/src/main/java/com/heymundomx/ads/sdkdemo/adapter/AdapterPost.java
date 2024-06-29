@@ -202,6 +202,7 @@ public class AdapterPost extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    @SuppressWarnings("unused")
     public void resetListData() {
         this.posts.clear();
         notifyDataSetChanged();
