@@ -26,7 +26,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -117,14 +116,6 @@ public class MainActivity extends AppCompatActivity {
         btnNativeAdStyle.setOnClickListener(v -> changeNativeAdStyle());
 
         switchAppTheme();
-
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                showExitDialog();
-            }
-        };
-        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     private void initAds() {
@@ -289,6 +280,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        showExitDialog();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         destroyBannerAd();
@@ -418,7 +414,7 @@ public class MainActivity extends AppCompatActivity {
                 .setView(view)
                 .setCancelable(false)
                 .setPositiveButton("Exit", (dialogInterface, i) -> {
-                    finish();
+                    super.onBackPressed();
                     destroyBannerAd();
                     destroyAppOpenAd();
                     Constant.isAppOpen = false;
