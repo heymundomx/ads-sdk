@@ -63,6 +63,7 @@ import java.util.Map;
 
 public class RewardedVideoAd {
 
+    @SuppressWarnings("deprecation")
     public static class Builder {
 
         private static final String TAG = "SoloRewarded";

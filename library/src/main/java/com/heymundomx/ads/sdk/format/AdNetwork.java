@@ -41,6 +41,7 @@ import kotlin.Unit;
 
 public class AdNetwork {
 
+    @SuppressWarnings("deprecation")
     public static class Initialize {
 
         private static final String TAG = "AdNetwork";
