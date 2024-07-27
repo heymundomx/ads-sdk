@@ -15,4 +15,4 @@ This policy applies to the following ad networks:
 - Facebook Ads
 - Wortise
 
-Our library is secure.
+This policy applies to ad networks and code implementations, our library is secure.
