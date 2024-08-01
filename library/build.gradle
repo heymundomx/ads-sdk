@@ -59,7 +59,7 @@ dependencies {
 
     //ironSource mediation
     implementation 'com.ironsource.adapters:admobadapter:4.3.43'
-    implementation 'com.ironsource.adapters:applovinadapter:4.3.44'
+    implementation 'com.ironsource.adapters:applovinadapter:4.3.45'
     implementation 'com.ironsource.adapters:unityadsadapter:4.3.41'
     implementation 'com.ironsource.adapters:facebookadapter:4.3.47'
 
@@ -77,6 +77,7 @@ dependencies {
     implementation 'com.wortise:adapter-tapjoy:13.2.1-beta01'
     implementation 'com.wortise:adapter-yandex:7.0.1.0-beta01'
     implementation 'com.wortise:adapter-tappx:4.1.1.0-beta01'
+    implementation 'com.wortise:adapter-ogury:5.6.0.0-beta01'
 
     //GDPR
     implementation 'com.google.android.ump:user-messaging-platform:3.0.0'
