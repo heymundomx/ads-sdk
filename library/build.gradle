@@ -26,6 +26,11 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy.force 'com.wortise:android-core:1.5.1-gt01'
+    resolutionStrategy.force 'com.wortise:android-sdk:1.5.1-gt01'
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -42,42 +47,26 @@ dependencies {
     implementation 'com.startapp:inapp-sdk:5.1.0'
     implementation 'com.facebook.android:audience-network-sdk:6.17.0'
     implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
-    implementation 'com.wortise:android-sdk:1.5.1'
+    implementation 'com.wortise:android-sdk:1.5.1-gt01'
 
     //AdMob mediation
     implementation 'com.google.ads.mediation:applovin:12.6.1.0'
     implementation 'com.google.ads.mediation:unity:4.12.2.0'
-    implementation 'com.google.ads.mediation:ironsource:8.2.1.0'
+    implementation 'com.google.ads.mediation:ironsource:8.3.0.0'
     implementation 'com.google.ads.mediation:facebook:6.17.0.0'
 
     //Applovin mediation
     implementation 'com.applovin.mediation:google-ad-manager-adapter:23.3.0.0'
     implementation 'com.applovin.mediation:google-adapter:23.3.0.0'
     implementation 'com.applovin.mediation:unityads-adapter:4.12.2.0'
-    implementation 'com.applovin.mediation:ironsource-adapter:8.2.1.0.0'
+    implementation 'com.applovin.mediation:ironsource-adapter:8.3.0.0.0'
     implementation 'com.applovin.mediation:facebook-adapter:6.17.0.0'
 
     //ironSource mediation
     implementation 'com.ironsource.adapters:admobadapter:4.3.44'
-    implementation 'com.ironsource.adapters:applovinadapter:4.3.45'
+    implementation 'com.ironsource.adapters:applovinadapter:4.3.46'
     implementation 'com.ironsource.adapters:unityadsadapter:4.3.42'
     implementation 'com.ironsource.adapters:facebookadapter:4.3.47'
-
-    //Unity ads mediation
-    implementation 'com.unity3d.mediation:mediation-sdk:1.1.0'
-    implementation 'com.unity3d.mediation:unityads-adapter:1.1.0'
-    implementation 'com.unity3d.mediation:admob-adapter:1.1.0'
-    implementation 'com.unity3d.mediation:applovin-adapter:1.1.0'
-    implementation 'com.unity3d.mediation:facebook-adapter:1.1.1'
-    implementation 'com.unity3d.mediation:ironsource-adapter:1.1.0'
-
-    //Wortise mediation
-    implementation 'com.wortise:adapter-chartboost:9.6.1-beta01'
-    implementation 'com.wortise:adapter-startio:4.11.5-beta01'
-    implementation 'com.wortise:adapter-tapjoy:13.2.1-beta01'
-    implementation 'com.wortise:adapter-yandex:7.0.1.0-beta01'
-    implementation 'com.wortise:adapter-tappx:4.1.1.0-beta01'
-    implementation 'com.wortise:adapter-ogury:5.6.0.0-beta01'
 
     //GDPR
     implementation 'com.google.android.ump:user-messaging-platform:3.0.0'
