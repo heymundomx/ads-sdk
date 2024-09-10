@@ -26,11 +26,6 @@ android {
     }
 }
 
-configurations.all {
-    resolutionStrategy.force 'com.wortise:android-core:1.5.1-gt01'
-    resolutionStrategy.force 'com.wortise:android-sdk:1.5.1-gt01'
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
     implementation 'androidx.appcompat:appcompat:1.6.1'
