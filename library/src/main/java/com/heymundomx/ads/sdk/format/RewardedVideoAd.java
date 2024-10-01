@@ -354,16 +354,6 @@ public class RewardedVideoAd {
                             }
 
                             @Override
-                            public void onRewardedVideoStarted(@NonNull MaxAd maxAd) {
-
-                            }
-
-                            @Override
-                            public void onRewardedVideoCompleted(@NonNull MaxAd maxAd) {
-
-                            }
-
-                            @Override
                             public void onAdLoaded(@NonNull MaxAd maxAd) {
                                 if (showRewardedAdIfLoaded) {
                                     showRewardedAd(onComplete, onError);
@@ -706,16 +696,6 @@ public class RewardedVideoAd {
                             public void onUserRewarded(@NonNull MaxAd maxAd, @NonNull MaxReward maxReward) {
                                 onComplete.onRewardedAdComplete();
                                 Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad complete");
-                            }
-
-                            @Override
-                            public void onRewardedVideoStarted(@NonNull MaxAd maxAd) {
-
-                            }
-
-                            @Override
-                            public void onRewardedVideoCompleted(@NonNull MaxAd maxAd) {
-
                             }
 
                             @Override

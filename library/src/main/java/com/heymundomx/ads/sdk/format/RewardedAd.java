@@ -337,17 +337,6 @@ public class RewardedAd {
                             }
 
                             @Override
-                            public void onRewardedVideoStarted(@NonNull MaxAd maxAd) {
-                                Log.d(TAG, "[" + mainAds + "] " + "rewarded video started");
-                            }
-
-                            @Override
-                            public void onRewardedVideoCompleted(@NonNull MaxAd maxAd) {
-                                onComplete.onRewardedAdComplete();
-                                Log.d(TAG, "[" + mainAds + "] " + "rewarded video complete");
-                            }
-
-                            @Override
                             public void onAdLoaded(@NonNull MaxAd maxAd) {
                                 Log.d(TAG, "[" + mainAds + "] " + "rewarded ad loaded");
                             }
@@ -663,17 +652,6 @@ public class RewardedAd {
                             public void onUserRewarded(@NonNull MaxAd maxAd, @NonNull MaxReward maxReward) {
                                 onComplete.onRewardedAdComplete();
                                 Log.d(TAG, "[" + backupAds + "] [backup] " + "user earn rewards");
-                            }
-
-                            @Override
-                            public void onRewardedVideoStarted(@NonNull MaxAd maxAd) {
-
-                            }
-
-                            @Override
-                            public void onRewardedVideoCompleted(@NonNull MaxAd maxAd) {
-                                onComplete.onRewardedAdComplete();
-                                Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded video complete");
                             }
 
                             @Override
