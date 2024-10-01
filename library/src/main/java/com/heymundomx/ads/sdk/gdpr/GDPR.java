@@ -102,7 +102,6 @@ public class GDPR {
             case APPLOVIN_MAX:
             case APPLOVIN_DISCOVERY:
                 AppLovinPrivacySettings.setHasUserConsent(true, activity);
-                AppLovinPrivacySettings.setIsAgeRestrictedUser(childDirected, activity);
                 break;
 
             case IRONSOURCE:

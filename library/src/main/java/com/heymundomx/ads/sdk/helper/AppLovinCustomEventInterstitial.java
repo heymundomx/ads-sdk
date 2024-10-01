@@ -187,7 +187,6 @@ public class AppLovinCustomEventInterstitial implements CustomEventInterstitial,
     // Video Playback Listener
     @Override
     public void adReceived(final AppLovinAd ad) {
-        log(DEBUG, "Interstitial did load ad: " + ad.getAdIdNumber());
 
         enqueueAd(ad, zoneId);
 
