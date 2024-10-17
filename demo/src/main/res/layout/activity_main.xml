@@ -77,7 +77,7 @@
                 android:id="@+id/btn_native_ad_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Native Ad Style"
+                android:text="@string/btn_show_native_ad"
                 android:textAllCaps="false"
                 android:textColor="@color/gnt_white"
                 tools:ignore="HardcodedText" />
@@ -86,7 +86,7 @@
                 android:id="@+id/btn_select_ads"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Choose Ad"
+                android:text="@string/btn_show_choose_ad"
                 android:textAllCaps="false"
                 android:textColor="@color/gnt_white"
                 tools:ignore="HardcodedText" />
