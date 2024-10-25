@@ -2,36 +2,20 @@ package com.heymundomx.ads.sdk.format;
 
 import static com.heymundomx.ads.sdk.util.Constant.ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.AD_STATUS_ON;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.heymundomx.ads.sdk.util.Constant.FACEBOOK;
 import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_APPLOVIN_MAX;
-import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_IRONSOURCE;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.IRONSOURCE;
-import static com.heymundomx.ads.sdk.util.Constant.MOPUB;
-import static com.heymundomx.ads.sdk.util.Constant.NONE;
-import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
-import static com.heymundomx.ads.sdk.util.Constant.UNITY;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
+import static com.heymundomx.ads.sdk.util.Constant.NONE;
 
 import android.app.Activity;
 import android.util.Log;
 
-import com.applovin.sdk.AppLovinMediationProvider;
-import com.applovin.sdk.AppLovinSdk;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.AdapterStatus;
 import com.heymundomx.ads.sdk.helper.AudienceNetworkInitializeHelper;
-import com.ironsource.mediationsdk.IronSource;
-import com.startapp.sdk.adsbase.StartAppAd;
-import com.startapp.sdk.adsbase.StartAppSDK;
-import com.unity3d.ads.IUnityAdsInitializationListener;
-import com.unity3d.ads.UnityAds;
 import com.wortise.ads.AdSettings;
 import com.wortise.ads.WortiseSdk;
 
@@ -41,7 +25,6 @@ import kotlin.Unit;
 
 public class AdNetwork {
 
-    @SuppressWarnings("deprecation")
     public static class Initialize {
 
         private static final String TAG = "AdNetwork";
@@ -142,50 +125,6 @@ public class AdNetwork {
                         AudienceNetworkInitializeHelper.initializeAd(activity, debug);
                         break;
 
-                    case STARTAPP:
-                        StartAppSDK.init(activity, startappAppId, false);
-                        StartAppSDK.setTestAdsEnabled(debug);
-                        StartAppAd.disableSplash();
-                        break;
-
-                    case UNITY:
-                        UnityAds.initialize(activity, unityGameId, debug, new IUnityAdsInitializationListener() {
-                            @Override
-                            public void onInitializationComplete() {
-                                Log.d(TAG, "Unity is successfully initialized. with ID : " + unityGameId);
-                            }
-
-                            @Override
-                            public void onInitializationFailed(UnityAds.UnityAdsInitializationError error, String message) {
-                                Log.d(TAG, "Unity Failed to Initialize : " + message);
-                            }
-                        });
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                    case FAN_BIDDING_APPLOVIN_MAX:
-                        AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
-                        AppLovinSdk.getInstance(activity).initializeSdk(config -> {
-                        });
-                        AudienceNetworkInitializeHelper.initialize(activity);
-                        break;
-
-                    case APPLOVIN_DISCOVERY:
-                        AppLovinSdk.initializeSdk(activity);
-                        break;
-
-                    case MOPUB:
-                        //Mopub has been acquired by AppLovin
-                        break;
-
-                    case IRONSOURCE:
-                    case FAN_BIDDING_IRONSOURCE:
-                        String advertisingId = IronSource.getAdvertiserId(activity);
-                        IronSource.setUserId(advertisingId);
-                        IronSource.init(activity, ironSourceAppKey, () -> Log.d(TAG, "[" + adNetwork + "] initialize complete"));
-                        break;
-
                     case WORTISE:
                         WortiseSdk.initialize(activity, wortiseAppId, () -> Unit.INSTANCE);
                         AdSettings.setTestEnabled(debug);
@@ -216,51 +155,6 @@ public class AdNetwork {
                     case FAN:
                     case FACEBOOK:
                         AudienceNetworkInitializeHelper.initializeAd(activity, debug);
-                        break;
-
-                    case STARTAPP:
-                        StartAppSDK.init(activity, startappAppId, false);
-                        StartAppSDK.setTestAdsEnabled(debug);
-                        StartAppAd.disableSplash();
-                        StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
-                        break;
-
-                    case UNITY:
-                        UnityAds.initialize(activity, unityGameId, debug, new IUnityAdsInitializationListener() {
-                            @Override
-                            public void onInitializationComplete() {
-                                Log.d(TAG, "Unity is successfully initialized. with ID : " + unityGameId);
-                            }
-
-                            @Override
-                            public void onInitializationFailed(UnityAds.UnityAdsInitializationError error, String message) {
-                                Log.d(TAG, "Unity Failed to Initialize : " + message);
-                            }
-                        });
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                    case FAN_BIDDING_APPLOVIN_MAX:
-                        AppLovinSdk.getInstance(activity).setMediationProvider(AppLovinMediationProvider.MAX);
-                        AppLovinSdk.getInstance(activity).initializeSdk(config -> {
-                        });
-                        AudienceNetworkInitializeHelper.initialize(activity);
-                        break;
-
-                    case APPLOVIN_DISCOVERY:
-                        AppLovinSdk.initializeSdk(activity);
-                        break;
-
-                    case MOPUB:
-                        //Mopub has been acquired by AppLovin
-                        break;
-
-                    case IRONSOURCE:
-                    case FAN_BIDDING_IRONSOURCE:
-                        String advertisingId = IronSource.getAdvertiserId(activity);
-                        IronSource.setUserId(advertisingId);
-                        IronSource.init(activity, ironSourceAppKey, () -> Log.d(TAG, "[" + adNetwork + "] initialize complete"));
                         break;
 
                     case WORTISE:

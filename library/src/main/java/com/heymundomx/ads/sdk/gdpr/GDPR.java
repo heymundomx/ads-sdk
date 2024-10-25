@@ -1,12 +1,7 @@
 package com.heymundomx.ads.sdk.gdpr;
 
 import static com.heymundomx.ads.sdk.util.Constant.ADMOB;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.IRONSOURCE;
-import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
-import static com.heymundomx.ads.sdk.util.Constant.UNITY;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 
 import android.annotation.SuppressLint;
@@ -14,16 +9,12 @@ import android.app.Activity;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.applovin.sdk.AppLovinPrivacySettings;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.ump.ConsentDebugSettings;
 import com.google.android.ump.ConsentForm;
 import com.google.android.ump.ConsentInformation;
 import com.google.android.ump.ConsentRequestParameters;
 import com.google.android.ump.UserMessagingPlatform;
-import com.ironsource.mediationsdk.IronSource;
-import com.startapp.sdk.adsbase.StartAppSDK;
-import com.unity3d.ads.metadata.MetaData;
 import com.wortise.ads.WortiseSdk;
 import com.wortise.ads.consent.ConsentManager;
 
@@ -87,25 +78,6 @@ public class GDPR {
                 if (consentInformation.canRequestAds()) {
                     initializeMobileAdsSdk();
                 }
-                break;
-
-            case STARTAPP:
-                StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
-                break;
-
-            case UNITY:
-                MetaData gdprMetaData = new MetaData(activity);
-                gdprMetaData.set("gdpr.consent", true);
-                gdprMetaData.commit();
-                break;
-
-            case APPLOVIN_MAX:
-            case APPLOVIN_DISCOVERY:
-                AppLovinPrivacySettings.setHasUserConsent(true, activity);
-                break;
-
-            case IRONSOURCE:
-                IronSource.setConsent(true);
                 break;
 
             case WORTISE:

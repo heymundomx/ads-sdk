@@ -50,4 +50,5 @@ public class AudienceNetworkInitializeHelper implements AudienceNetworkAds.InitL
     public void onInitialized(AudienceNetworkAds.InitResult result) {
         Log.d(AudienceNetworkAds.TAG, result.getMessage());
     }
+
 }

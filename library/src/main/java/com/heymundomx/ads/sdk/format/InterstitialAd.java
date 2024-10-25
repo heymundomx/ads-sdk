@@ -2,72 +2,32 @@ package com.heymundomx.ads.sdk.format;
 
 import static com.heymundomx.ads.sdk.util.Constant.ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.AD_STATUS_ON;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.heymundomx.ads.sdk.util.Constant.FACEBOOK;
 import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_APPLOVIN_MAX;
-import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_IRONSOURCE;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.IRONSOURCE;
-import static com.heymundomx.ads.sdk.util.Constant.MOPUB;
-import static com.heymundomx.ads.sdk.util.Constant.NONE;
-import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
-import static com.heymundomx.ads.sdk.util.Constant.UNITY;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
+import static com.heymundomx.ads.sdk.util.Constant.NONE;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.applovin.adview.AppLovinInterstitialAd;
-import com.applovin.adview.AppLovinInterstitialAdDialog;
-import com.applovin.mediation.MaxAd;
-import com.applovin.mediation.MaxAdListener;
-import com.applovin.mediation.MaxError;
-import com.applovin.mediation.ads.MaxInterstitialAd;
-import com.applovin.sdk.AppLovinAd;
-import com.applovin.sdk.AppLovinAdDisplayListener;
-import com.applovin.sdk.AppLovinAdLoadListener;
-import com.applovin.sdk.AppLovinAdSize;
-import com.applovin.sdk.AppLovinSdk;
 import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
 import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.heymundomx.ads.sdk.helper.AppLovinCustomEventInterstitial;
 import com.heymundomx.ads.sdk.util.OnInterstitialAdDismissedListener;
 import com.heymundomx.ads.sdk.util.OnInterstitialAdShowedListener;
 import com.heymundomx.ads.sdk.util.Tools;
-import com.ironsource.mediationsdk.IronSource;
-import com.ironsource.mediationsdk.adunit.adapter.utility.AdInfo;
-import com.ironsource.mediationsdk.logger.IronSourceError;
-import com.ironsource.mediationsdk.sdk.LevelPlayInterstitialListener;
-import com.startapp.sdk.adsbase.Ad;
-import com.startapp.sdk.adsbase.StartAppAd;
-import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
-import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
-import com.unity3d.ads.IUnityAdsLoadListener;
-import com.unity3d.ads.IUnityAdsShowListener;
-import com.unity3d.ads.UnityAds;
-import com.unity3d.ads.UnityAdsShowOptions;
-
-import java.util.concurrent.TimeUnit;
 
 public class InterstitialAd {
 
-    @SuppressWarnings("deprecation")
     public static class Builder {
 
         private static final String TAG = "AdNetwork";
@@ -75,11 +35,6 @@ public class InterstitialAd {
         private com.google.android.gms.ads.interstitial.InterstitialAd adMobInterstitialAd;
         private AdManagerInterstitialAd adManagerInterstitialAd;
         private com.facebook.ads.InterstitialAd fanInterstitialAd;
-        private StartAppAd startAppAd;
-        private IUnityAdsLoadListener unityAdsLoadListener;
-        private MaxInterstitialAd maxInterstitialAd;
-        public AppLovinInterstitialAdDialog appLovinInterstitialAdDialog;
-        public AppLovinAd appLovinAd;
         public com.wortise.ads.interstitial.InterstitialAd wortiseInterstitialAd;
         private int retryAttempt;
         private int counter = 1;
@@ -93,10 +48,8 @@ public class InterstitialAd {
         private String unityInterstitialId = "";
         private String appLovinInterstitialId = "";
         private String appLovinInterstitialZoneId = "";
-        private String mopubInterstitialId = "";
         private String ironSourceInterstitialId = "";
         private String wortiseInterstitialId = "";
-        private String alienAdsInterstitialId = "";
         private int placementStatus = 1;
         private int interval = 3;
         private boolean legacyGDPR = false;
@@ -168,11 +121,6 @@ public class InterstitialAd {
             return this;
         }
 
-        public Builder setMopubInterstitialId(String mopubInterstitialId) {
-            this.mopubInterstitialId = mopubInterstitialId;
-            return this;
-        }
-
         public Builder setIronSourceInterstitialId(String ironSourceInterstitialId) {
             this.ironSourceInterstitialId = ironSourceInterstitialId;
             return this;
@@ -180,11 +128,6 @@ public class InterstitialAd {
 
         public Builder setWortiseInterstitialId(String wortiseInterstitialId) {
             this.wortiseInterstitialId = wortiseInterstitialId;
-            return this;
-        }
-
-        public Builder setAlienAdsInterstitialId(String alienAdsInterstitialId) {
-            this.alienAdsInterstitialId = alienAdsInterstitialId;
             return this;
         }
 
@@ -327,153 +270,6 @@ public class InterstitialAd {
 
                         com.facebook.ads.InterstitialAd.InterstitialLoadAdConfig loadAdConfig = fanInterstitialAd.buildLoadAdConfig().withAdListener(adListener).build();
                         fanInterstitialAd.loadAd(loadAdConfig);
-                        break;
-
-                    case STARTAPP:
-                        startAppAd = new StartAppAd(activity);
-                        startAppAd.loadAd(new AdEventListener() {
-                            @Override
-                            public void onReceiveAd(@NonNull Ad ad) {
-                                Log.d(TAG, "Startapp Interstitial Ad loaded");
-                            }
-
-                            @Override
-                            public void onFailedToReceiveAd(@Nullable Ad ad) {
-                                Log.d(TAG, "Failed to load Startapp Interstitial Ad");
-                                loadBackupInterstitialAd();
-                            }
-                        });
-                        break;
-
-                    case UNITY:
-                        unityAdsLoadListener = new IUnityAdsLoadListener() {
-                            @Override
-                            public void onUnityAdsAdLoaded(String placementId) {
-                                Log.d(TAG, "unity interstitial ad loaded");
-                            }
-
-                            @Override
-                            public void onUnityAdsFailedToLoad(String placementId, UnityAds.UnityAdsLoadError error, String message) {
-                                Log.e(TAG, "Unity Ads failed to load ad : " + unityInterstitialId + " : error : " + message);
-                                loadBackupInterstitialAd();
-                            }
-                        };
-                        try {
-                            UnityAds.load(unityInterstitialId, unityAdsLoadListener);
-                        } catch (Exception e) {
-                            Log.e(TAG, "error: " + e.getMessage());
-                        }
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                    case FAN_BIDDING_APPLOVIN_MAX:
-                        maxInterstitialAd = new MaxInterstitialAd(appLovinInterstitialId, activity);
-                        maxInterstitialAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-                                retryAttempt = 0;
-                                Log.d(TAG, "AppLovin Interstitial Ad loaded...");
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                maxInterstitialAd.loadAd();
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                retryAttempt++;
-                                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
-                                new Handler().postDelayed(() -> maxInterstitialAd.loadAd(), delayMillis);
-                                loadBackupInterstitialAd();
-                                Log.d(TAG, "failed to load AppLovin Interstitial");
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                maxInterstitialAd.loadAd();
-                            }
-                        });
-
-                        // Load the first ad
-                        maxInterstitialAd.loadAd();
-                        break;
-
-                    case APPLOVIN_DISCOVERY:
-                        AdRequest.Builder builder = new AdRequest.Builder();
-                        Bundle interstitialExtras = new Bundle();
-                        interstitialExtras.putString("zone_id", appLovinInterstitialZoneId);
-                        builder.addCustomEventExtrasBundle(AppLovinCustomEventInterstitial.class, interstitialExtras);
-                        AppLovinSdk.getInstance(activity).getAdService().loadNextAd(AppLovinAdSize.INTERSTITIAL, new AppLovinAdLoadListener() {
-                            @Override
-                            public void adReceived(AppLovinAd ad) {
-                                appLovinAd = ad;
-                            }
-
-                            @Override
-                            public void failedToReceiveAd(int errorCode) {
-                                loadBackupInterstitialAd();
-                            }
-                        });
-                        appLovinInterstitialAdDialog = AppLovinInterstitialAd.create(AppLovinSdk.getInstance(activity), activity);
-                        break;
-
-                    case MOPUB:
-                        //Mopub has been acquired by AppLovin
-                        break;
-
-                    case IRONSOURCE:
-                    case FAN_BIDDING_IRONSOURCE:
-                        IronSource.setLevelPlayInterstitialListener(new LevelPlayInterstitialListener() {
-                            @Override
-                            public void onAdReady(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdReady");
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(IronSourceError ironSourceError) {
-                                Log.d(TAG, "onInterstitialAdLoadFailed" + " " + ironSourceError);
-                                loadBackupInterstitialAd();
-                            }
-
-                            @Override
-                            public void onAdOpened(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdOpened");
-                            }
-
-                            @Override
-                            public void onAdShowSucceeded(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdShowSucceeded");
-                            }
-
-                            @Override
-                            public void onAdShowFailed(IronSourceError ironSourceError, AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdShowFailed" + " " + ironSourceError);
-                                loadBackupInterstitialAd();
-                            }
-
-                            @Override
-                            public void onAdClicked(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdClicked");
-                            }
-
-                            @Override
-                            public void onAdClosed(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdClosed");
-                                loadInterstitialAd();
-                            }
-                        });
-                        IronSource.loadInterstitial();
                         break;
 
                     case WORTISE:
@@ -646,148 +442,6 @@ public class InterstitialAd {
                         fanInterstitialAd.loadAd(loadAdConfig);
                         break;
 
-                    case STARTAPP:
-                        startAppAd = new StartAppAd(activity);
-                        startAppAd.loadAd(new AdEventListener() {
-                            @Override
-                            public void onReceiveAd(@NonNull Ad ad) {
-                                Log.d(TAG, "Startapp Interstitial Ad loaded");
-                            }
-
-                            @Override
-                            public void onFailedToReceiveAd(@Nullable Ad ad) {
-                                Log.d(TAG, "Failed to load Startapp Interstitial Ad");
-                            }
-                        });
-                        Log.d(TAG, "load StartApp as backup Ad");
-                        break;
-
-                    case UNITY:
-                        unityAdsLoadListener = new IUnityAdsLoadListener() {
-                            @Override
-                            public void onUnityAdsAdLoaded(String placementId) {
-                                Log.d(TAG, "unity interstitial ad loaded");
-                            }
-
-                            @Override
-                            public void onUnityAdsFailedToLoad(String placementId, UnityAds.UnityAdsLoadError error, String message) {
-                                Log.e(TAG, "Unity Ads failed to load ad : " + unityInterstitialId + " : error : " + message);
-                            }
-                        };
-                        try {
-                            UnityAds.load(unityInterstitialId, unityAdsLoadListener);
-                        } catch (Exception e) {
-                            Log.e(TAG, "error: " + e.getMessage());
-                        }
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                    case FAN_BIDDING_APPLOVIN_MAX:
-                        maxInterstitialAd = new MaxInterstitialAd(appLovinInterstitialId, activity);
-                        maxInterstitialAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-                                retryAttempt = 0;
-                                Log.d(TAG, "AppLovin Interstitial Ad loaded...");
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                maxInterstitialAd.loadAd();
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                retryAttempt++;
-                                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
-                                new Handler().postDelayed(() -> maxInterstitialAd.loadAd(), delayMillis);
-                                Log.d(TAG, "failed to load AppLovin Interstitial");
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                maxInterstitialAd.loadAd();
-                            }
-                        });
-
-                        // Load the first ad
-                        maxInterstitialAd.loadAd();
-                        break;
-
-                    case APPLOVIN_DISCOVERY:
-                        AdRequest.Builder builder = new AdRequest.Builder();
-                        Bundle interstitialExtras = new Bundle();
-                        interstitialExtras.putString("zone_id", appLovinInterstitialZoneId);
-                        builder.addCustomEventExtrasBundle(AppLovinCustomEventInterstitial.class, interstitialExtras);
-                        AppLovinSdk.getInstance(activity).getAdService().loadNextAd(AppLovinAdSize.INTERSTITIAL, new AppLovinAdLoadListener() {
-                            @Override
-                            public void adReceived(AppLovinAd ad) {
-                                appLovinAd = ad;
-                            }
-
-                            @Override
-                            public void failedToReceiveAd(int errorCode) {
-                            }
-                        });
-                        appLovinInterstitialAdDialog = AppLovinInterstitialAd.create(AppLovinSdk.getInstance(activity), activity);
-                        break;
-
-                    case MOPUB:
-                        //Mopub has been acquired by AppLovin
-                        break;
-
-                    case IRONSOURCE:
-                    case FAN_BIDDING_IRONSOURCE:
-                        IronSource.setLevelPlayInterstitialListener(new LevelPlayInterstitialListener() {
-                            @Override
-                            public void onAdReady(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdReady");
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(IronSourceError ironSourceError) {
-                                Log.d(TAG, "onInterstitialAdLoadFailed" + " " + ironSourceError);
-                            }
-
-                            @Override
-                            public void onAdOpened(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdOpened");
-                            }
-
-                            @Override
-                            public void onAdShowSucceeded(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdShowSucceeded");
-                            }
-
-                            @Override
-                            public void onAdShowFailed(IronSourceError ironSourceError, AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdShowFailed" + " " + ironSourceError);
-                            }
-
-                            @Override
-                            public void onAdClicked(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdClicked");
-                            }
-
-                            @Override
-                            public void onAdClosed(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdClosed");
-                                loadInterstitialAd();
-                            }
-                        });
-                        IronSource.loadInterstitial();
-                        break;
-
                     case WORTISE:
                         wortiseInterstitialAd = new com.wortise.ads.interstitial.InterstitialAd(activity, wortiseInterstitialId);
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
@@ -874,73 +528,6 @@ public class InterstitialAd {
                             }
                             break;
 
-                        case STARTAPP:
-                            if (startAppAd != null) {
-                                startAppAd.showAd();
-                                Log.d(TAG, "startapp interstitial not null [counter] : " + counter);
-                            } else {
-                                showBackupInterstitialAd();
-                                Log.d(TAG, "startapp interstitial null");
-                            }
-                            break;
-
-                        case UNITY:
-                            IUnityAdsShowListener showListener = new IUnityAdsShowListener() {
-                                @Override
-                                public void onUnityAdsShowFailure(String placementId, UnityAds.UnityAdsShowError error, String message) {
-                                    Log.d(TAG, "unity ads show failure");
-                                    showBackupInterstitialAd();
-                                }
-
-                                @Override
-                                public void onUnityAdsShowStart(String placementId) {
-
-                                }
-
-                                @Override
-                                public void onUnityAdsShowClick(String placementId) {
-
-                                }
-
-                                @Override
-                                public void onUnityAdsShowComplete(String placementId, UnityAds.UnityAdsShowCompletionState state) {
-
-                                }
-                            };
-                            UnityAds.show(activity, unityInterstitialId, new UnityAdsShowOptions(), showListener);
-                            break;
-
-                        case APPLOVIN:
-                        case APPLOVIN_MAX:
-                        case FAN_BIDDING_APPLOVIN_MAX:
-                            if (maxInterstitialAd != null && maxInterstitialAd.isReady()) {
-                                Log.d(TAG, "ready : " + counter);
-                                maxInterstitialAd.showAd();
-                                Log.d(TAG, "show ad");
-                            } else {
-                                showBackupInterstitialAd();
-                            }
-                            break;
-
-                        case APPLOVIN_DISCOVERY:
-                            if (appLovinInterstitialAdDialog != null) {
-                                appLovinInterstitialAdDialog.showAndRender(appLovinAd);
-                            }
-                            break;
-
-                        case MOPUB:
-                            //Mopub has been acquired by AppLovin
-                            break;
-
-                        case IRONSOURCE:
-                        case FAN_BIDDING_IRONSOURCE:
-                            if (IronSource.isInterstitialReady()) {
-                                IronSource.showInterstitial(ironSourceInterstitialId);
-                            } else {
-                                showBackupInterstitialAd();
-                            }
-                            break;
-
                         case WORTISE:
                             if (wortiseInterstitialAd != null && wortiseInterstitialAd.isAvailable()) {
                                 wortiseInterstitialAd.showAd();
@@ -979,63 +566,6 @@ public class InterstitialAd {
                     case FACEBOOK:
                         if (fanInterstitialAd != null && fanInterstitialAd.isAdLoaded()) {
                             fanInterstitialAd.show();
-                        }
-                        break;
-
-                    case STARTAPP:
-                        if (startAppAd != null) {
-                            startAppAd.showAd();
-                        }
-                        break;
-
-                    case UNITY:
-                        IUnityAdsShowListener showListener = new IUnityAdsShowListener() {
-                            @Override
-                            public void onUnityAdsShowFailure(String placementId, UnityAds.UnityAdsShowError error, String message) {
-                                Log.d(TAG, "unity ads show failure");
-                                showBackupInterstitialAd();
-                            }
-
-                            @Override
-                            public void onUnityAdsShowStart(String placementId) {
-
-                            }
-
-                            @Override
-                            public void onUnityAdsShowClick(String placementId) {
-
-                            }
-
-                            @Override
-                            public void onUnityAdsShowComplete(String placementId, UnityAds.UnityAdsShowCompletionState state) {
-
-                            }
-                        };
-                        UnityAds.show(activity, unityInterstitialId, new UnityAdsShowOptions(), showListener);
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                    case FAN_BIDDING_APPLOVIN_MAX:
-                        if (maxInterstitialAd != null && maxInterstitialAd.isReady()) {
-                            maxInterstitialAd.showAd();
-                        }
-                        break;
-
-                    case APPLOVIN_DISCOVERY:
-                        if (appLovinInterstitialAdDialog != null) {
-                            appLovinInterstitialAdDialog.showAndRender(appLovinAd);
-                        }
-                        break;
-
-                    case MOPUB:
-                        //Mopub has been acquired by AppLovin
-                        break;
-
-                    case IRONSOURCE:
-                    case FAN_BIDDING_IRONSOURCE:
-                        if (IronSource.isInterstitialReady()) {
-                            IronSource.showInterstitial(ironSourceInterstitialId);
                         }
                         break;
 
@@ -1179,155 +709,6 @@ public class InterstitialAd {
 
                         com.facebook.ads.InterstitialAd.InterstitialLoadAdConfig loadAdConfig = fanInterstitialAd.buildLoadAdConfig().withAdListener(adListener).build();
                         fanInterstitialAd.loadAd(loadAdConfig);
-                        break;
-
-                    case STARTAPP:
-                        startAppAd = new StartAppAd(activity);
-                        startAppAd.loadAd(new AdEventListener() {
-                            @Override
-                            public void onReceiveAd(@NonNull Ad ad) {
-                                Log.d(TAG, "Startapp Interstitial Ad loaded");
-                            }
-
-                            @Override
-                            public void onFailedToReceiveAd(@Nullable Ad ad) {
-                                Log.d(TAG, "Failed to load Startapp Interstitial Ad");
-                                loadBackupInterstitialAd(onInterstitialAdDismissedListener);
-                            }
-                        });
-                        break;
-
-                    case UNITY:
-                        unityAdsLoadListener = new IUnityAdsLoadListener() {
-                            @Override
-                            public void onUnityAdsAdLoaded(String placementId) {
-                                Log.d(TAG, "unity interstitial ad loaded");
-                            }
-
-                            @Override
-                            public void onUnityAdsFailedToLoad(String placementId, UnityAds.UnityAdsLoadError error, String message) {
-                                Log.e(TAG, "Unity Ads failed to load ad : " + unityInterstitialId + " : error : " + message);
-                                loadBackupInterstitialAd(onInterstitialAdDismissedListener);
-                            }
-                        };
-                        try {
-                            UnityAds.load(unityInterstitialId, unityAdsLoadListener);
-                        } catch (Exception e) {
-                            Log.e(TAG, "error: " + e.getMessage());
-                        }
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                    case FAN_BIDDING_APPLOVIN_MAX:
-                        maxInterstitialAd = new MaxInterstitialAd(appLovinInterstitialId, activity);
-                        maxInterstitialAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-                                retryAttempt = 0;
-                                Log.d(TAG, "AppLovin Interstitial Ad loaded...");
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                maxInterstitialAd.loadAd();
-                                onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                retryAttempt++;
-                                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
-                                new Handler().postDelayed(() -> maxInterstitialAd.loadAd(), delayMillis);
-                                loadBackupInterstitialAd(onInterstitialAdDismissedListener);
-                                Log.d(TAG, "failed to load AppLovin Interstitial");
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                maxInterstitialAd.loadAd();
-                            }
-                        });
-
-                        // Load the first ad
-                        maxInterstitialAd.loadAd();
-                        break;
-
-                    case APPLOVIN_DISCOVERY:
-                        AdRequest.Builder builder = new AdRequest.Builder();
-                        Bundle interstitialExtras = new Bundle();
-                        interstitialExtras.putString("zone_id", appLovinInterstitialZoneId);
-                        builder.addCustomEventExtrasBundle(AppLovinCustomEventInterstitial.class, interstitialExtras);
-                        AppLovinSdk.getInstance(activity).getAdService().loadNextAd(AppLovinAdSize.INTERSTITIAL, new AppLovinAdLoadListener() {
-                            @Override
-                            public void adReceived(AppLovinAd ad) {
-                                appLovinAd = ad;
-                            }
-
-                            @Override
-                            public void failedToReceiveAd(int errorCode) {
-                                loadBackupInterstitialAd(onInterstitialAdDismissedListener);
-                            }
-                        });
-                        appLovinInterstitialAdDialog = AppLovinInterstitialAd.create(AppLovinSdk.getInstance(activity), activity);
-                        break;
-
-                    case MOPUB:
-                        //Mopub has been acquired by AppLovin
-                        break;
-
-                    case IRONSOURCE:
-                    case FAN_BIDDING_IRONSOURCE:
-                        IronSource.setLevelPlayInterstitialListener(new LevelPlayInterstitialListener() {
-                            @Override
-                            public void onAdReady(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdReady");
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(IronSourceError ironSourceError) {
-                                Log.d(TAG, "onInterstitialAdLoadFailed" + " " + ironSourceError);
-                                loadBackupInterstitialAd(onInterstitialAdDismissedListener);
-                            }
-
-                            @Override
-                            public void onAdOpened(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdOpened");
-                            }
-
-                            @Override
-                            public void onAdShowSucceeded(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdShowSucceeded");
-                            }
-
-                            @Override
-                            public void onAdShowFailed(IronSourceError ironSourceError, AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdShowFailed" + " " + ironSourceError);
-                                loadBackupInterstitialAd(onInterstitialAdDismissedListener);
-                            }
-
-                            @Override
-                            public void onAdClicked(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdClicked");
-                            }
-
-                            @Override
-                            public void onAdClosed(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdClosed");
-                                loadInterstitialAd(onInterstitialAdDismissedListener);
-                                onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                            }
-                        });
-                        IronSource.loadInterstitial();
                         break;
 
                     case WORTISE:
@@ -1504,150 +885,6 @@ public class InterstitialAd {
                         fanInterstitialAd.loadAd(loadAdConfig);
                         break;
 
-                    case STARTAPP:
-                        startAppAd = new StartAppAd(activity);
-                        startAppAd.loadAd(new AdEventListener() {
-                            @Override
-                            public void onReceiveAd(@NonNull Ad ad) {
-                                Log.d(TAG, "Startapp Interstitial Ad loaded");
-                            }
-
-                            @Override
-                            public void onFailedToReceiveAd(@Nullable Ad ad) {
-                                Log.d(TAG, "Failed to load Startapp Interstitial Ad");
-                            }
-                        });
-                        Log.d(TAG, "load StartApp as backup Ad");
-                        break;
-
-                    case UNITY:
-                        unityAdsLoadListener = new IUnityAdsLoadListener() {
-                            @Override
-                            public void onUnityAdsAdLoaded(String placementId) {
-                                Log.d(TAG, "unity interstitial ad loaded");
-                            }
-
-                            @Override
-                            public void onUnityAdsFailedToLoad(String placementId, UnityAds.UnityAdsLoadError error, String message) {
-                                Log.e(TAG, "Unity Ads failed to load ad : " + unityInterstitialId + " : error : " + message);
-                            }
-                        };
-                        try {
-                            UnityAds.load(unityInterstitialId, unityAdsLoadListener);
-                        } catch (Exception e) {
-                            Log.e(TAG, "error: " + e.getMessage());
-                        }
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                    case FAN_BIDDING_APPLOVIN_MAX:
-                        maxInterstitialAd = new MaxInterstitialAd(appLovinInterstitialId, activity);
-                        maxInterstitialAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-                                retryAttempt = 0;
-                                Log.d(TAG, "AppLovin Interstitial Ad loaded...");
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                maxInterstitialAd.loadAd();
-                                onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                retryAttempt++;
-                                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
-                                new Handler().postDelayed(() -> maxInterstitialAd.loadAd(), delayMillis);
-                                Log.d(TAG, "failed to load AppLovin Interstitial");
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                maxInterstitialAd.loadAd();
-                            }
-                        });
-
-                        // Load the first ad
-                        maxInterstitialAd.loadAd();
-                        break;
-
-                    case APPLOVIN_DISCOVERY:
-                        AdRequest.Builder builder = new AdRequest.Builder();
-                        Bundle interstitialExtras = new Bundle();
-                        interstitialExtras.putString("zone_id", appLovinInterstitialZoneId);
-                        builder.addCustomEventExtrasBundle(AppLovinCustomEventInterstitial.class, interstitialExtras);
-                        AppLovinSdk.getInstance(activity).getAdService().loadNextAd(AppLovinAdSize.INTERSTITIAL, new AppLovinAdLoadListener() {
-                            @Override
-                            public void adReceived(AppLovinAd ad) {
-                                appLovinAd = ad;
-                            }
-
-                            @Override
-                            public void failedToReceiveAd(int errorCode) {
-                            }
-                        });
-                        appLovinInterstitialAdDialog = AppLovinInterstitialAd.create(AppLovinSdk.getInstance(activity), activity);
-                        break;
-
-                    case MOPUB:
-                        //Mopub has been acquired by AppLovin
-                        break;
-
-                    case IRONSOURCE:
-                    case FAN_BIDDING_IRONSOURCE:
-                        IronSource.setLevelPlayInterstitialListener(new LevelPlayInterstitialListener() {
-                            @Override
-                            public void onAdReady(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdReady");
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(IronSourceError ironSourceError) {
-                                Log.d(TAG, "onInterstitialAdLoadFailed" + " " + ironSourceError);
-                            }
-
-                            @Override
-                            public void onAdOpened(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdOpened");
-                            }
-
-                            @Override
-                            public void onAdShowSucceeded(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdShowSucceeded");
-                            }
-
-                            @Override
-                            public void onAdShowFailed(IronSourceError ironSourceError, AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdShowFailed" + " " + ironSourceError);
-                            }
-
-                            @Override
-                            public void onAdClicked(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdClicked");
-                            }
-
-                            @Override
-                            public void onAdClosed(AdInfo adInfo) {
-                                Log.d(TAG, "onInterstitialAdClosed");
-                                loadInterstitialAd(onInterstitialAdDismissedListener);
-                                onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                            }
-                        });
-                        IronSource.loadInterstitial();
-                        break;
-
                     case WORTISE:
                         wortiseInterstitialAd = new com.wortise.ads.interstitial.InterstitialAd(activity, wortiseInterstitialId);
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
@@ -1738,106 +975,6 @@ public class InterstitialAd {
                             }
                             break;
 
-                        case STARTAPP:
-                            if (startAppAd != null) {
-                                startAppAd.showAd(new AdDisplayListener() {
-                                    @Override
-                                    public void adHidden(Ad ad) {
-                                        onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                                    }
-
-                                    @Override
-                                    public void adDisplayed(Ad ad) {
-                                        onInterstitialAdShowedListener.onInterstitialAdShowed();
-                                    }
-
-                                    @Override
-                                    public void adClicked(Ad ad) {
-
-                                    }
-
-                                    @Override
-                                    public void adNotDisplayed(Ad ad) {
-
-                                    }
-                                });
-                                Log.d(TAG, "startapp interstitial not null [counter] : " + counter);
-                            } else {
-                                showBackupInterstitialAd(onInterstitialAdShowedListener, onInterstitialAdDismissedListener);
-                                Log.d(TAG, "startapp interstitial null");
-                            }
-                            break;
-
-                        case UNITY:
-                            IUnityAdsShowListener showListener = new IUnityAdsShowListener() {
-                                @Override
-                                public void onUnityAdsShowFailure(String placementId, UnityAds.UnityAdsShowError error, String message) {
-                                    Log.d(TAG, "unity ads show failure");
-                                    showBackupInterstitialAd(onInterstitialAdShowedListener, onInterstitialAdDismissedListener);
-                                }
-
-                                @Override
-                                public void onUnityAdsShowStart(String placementId) {
-                                    onInterstitialAdShowedListener.onInterstitialAdShowed();
-                                }
-
-                                @Override
-                                public void onUnityAdsShowClick(String placementId) {
-
-                                }
-
-                                @Override
-                                public void onUnityAdsShowComplete(String placementId, UnityAds.UnityAdsShowCompletionState state) {
-                                    onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                                }
-                            };
-                            UnityAds.show(activity, unityInterstitialId, new UnityAdsShowOptions(), showListener);
-                            break;
-
-                        case APPLOVIN:
-                        case APPLOVIN_MAX:
-                        case FAN_BIDDING_APPLOVIN_MAX:
-                            if (maxInterstitialAd != null && maxInterstitialAd.isReady()) {
-                                Log.d(TAG, "ready : " + counter);
-                                maxInterstitialAd.showAd();
-                                onInterstitialAdShowedListener.onInterstitialAdShowed();
-                                Log.d(TAG, "show ad");
-                            } else {
-                                showBackupInterstitialAd(onInterstitialAdShowedListener, onInterstitialAdDismissedListener);
-                            }
-                            break;
-
-                        case APPLOVIN_DISCOVERY:
-                            if (appLovinInterstitialAdDialog != null) {
-                                appLovinInterstitialAdDialog.setAdDisplayListener(new AppLovinAdDisplayListener() {
-                                    @Override
-                                    public void adDisplayed(AppLovinAd appLovinAd) {
-                                        onInterstitialAdShowedListener.onInterstitialAdShowed();
-                                    }
-
-                                    @Override
-                                    public void adHidden(AppLovinAd appLovinAd) {
-                                        onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                                    }
-                                });
-                                appLovinInterstitialAdDialog.showAndRender(appLovinAd);
-                            }
-                            break;
-
-                        case MOPUB:
-                            //Mopub has been acquired by AppLovin
-                            break;
-
-                        case IRONSOURCE:
-                        case FAN_BIDDING_IRONSOURCE:
-                            if (IronSource.isInterstitialReady()) {
-                                IronSource.showInterstitial(ironSourceInterstitialId);
-                                onInterstitialAdShowedListener.onInterstitialAdShowed();
-                            } else {
-                                showBackupInterstitialAd(onInterstitialAdShowedListener, onInterstitialAdDismissedListener);
-                            }
-                            break;
-
                         case WORTISE:
                             if (wortiseInterstitialAd != null && wortiseInterstitialAd.isAvailable()) {
                                 wortiseInterstitialAd.showAd();
@@ -1882,95 +1019,6 @@ public class InterstitialAd {
                     case FACEBOOK:
                         if (fanInterstitialAd != null && fanInterstitialAd.isAdLoaded()) {
                             fanInterstitialAd.show();
-                            onInterstitialAdShowedListener.onInterstitialAdShowed();
-                        }
-                        break;
-
-                    case STARTAPP:
-                        if (startAppAd != null) {
-                            startAppAd.showAd(new AdDisplayListener() {
-                                @Override
-                                public void adHidden(Ad ad) {
-                                    onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                                }
-
-                                @Override
-                                public void adDisplayed(Ad ad) {
-                                    onInterstitialAdShowedListener.onInterstitialAdShowed();
-                                }
-
-                                @Override
-                                public void adClicked(Ad ad) {
-
-                                }
-
-                                @Override
-                                public void adNotDisplayed(Ad ad) {
-
-                                }
-                            });
-                        }
-                        break;
-
-                    case UNITY:
-                        IUnityAdsShowListener showListener = new IUnityAdsShowListener() {
-                            @Override
-                            public void onUnityAdsShowFailure(String placementId, UnityAds.UnityAdsShowError error, String message) {
-                                Log.d(TAG, "unity ads show failure");
-                            }
-
-                            @Override
-                            public void onUnityAdsShowStart(String placementId) {
-                                onInterstitialAdShowedListener.onInterstitialAdShowed();
-                            }
-
-                            @Override
-                            public void onUnityAdsShowClick(String placementId) {
-
-                            }
-
-                            @Override
-                            public void onUnityAdsShowComplete(String placementId, UnityAds.UnityAdsShowCompletionState state) {
-                                onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                            }
-                        };
-                        UnityAds.show(activity, unityInterstitialId, new UnityAdsShowOptions(), showListener);
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                    case FAN_BIDDING_APPLOVIN_MAX:
-                        if (maxInterstitialAd != null && maxInterstitialAd.isReady()) {
-                            maxInterstitialAd.showAd();
-                            onInterstitialAdShowedListener.onInterstitialAdShowed();
-                        }
-                        break;
-
-                    case APPLOVIN_DISCOVERY:
-                        if (appLovinInterstitialAdDialog != null) {
-                            appLovinInterstitialAdDialog.setAdDisplayListener(new AppLovinAdDisplayListener() {
-                                @Override
-                                public void adDisplayed(AppLovinAd appLovinAd) {
-                                    onInterstitialAdShowedListener.onInterstitialAdShowed();
-                                }
-
-                                @Override
-                                public void adHidden(AppLovinAd appLovinAd) {
-                                    onInterstitialAdDismissedListener.onInterstitialAdDismissed();
-                                }
-                            });
-                            appLovinInterstitialAdDialog.showAndRender(appLovinAd);
-                        }
-                        break;
-
-                    case MOPUB:
-                        //Mopub has been acquired by AppLovin
-                        break;
-
-                    case IRONSOURCE:
-                    case FAN_BIDDING_IRONSOURCE:
-                        if (IronSource.isInterstitialReady()) {
-                            IronSource.showInterstitial(ironSourceInterstitialId);
                             onInterstitialAdShowedListener.onInterstitialAdShowed();
                         }
                         break;

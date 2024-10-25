@@ -1,13 +1,8 @@
 package com.heymundomx.ads.sdkdemo.activity;
 
 import static com.heymundomx.ads.sdk.util.Constant.ADMOB;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_DISCOVERY;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.IRONSOURCE;
-import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
-import static com.heymundomx.ads.sdk.util.Constant.UNITY;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 import static com.heymundomx.ads.sdkdemo.data.Constant.STYLE_DEFAULT;
 import static com.heymundomx.ads.sdkdemo.data.Constant.STYLE_NEWS;
@@ -315,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAdChooser() {
-        final String[] ads = {"AdMob", "Google Ad Manager", "Start.io", "AppLovin MAX", "AppLovin Discovery", "Unity Ads", "ironSource", "FAN (Waterfall)", "Wortise"};
+        final String[] ads = {"AdMob", "Google Ad Manager", "FAN (Waterfall)", "Wortise"};
 
         new MaterialAlertDialogBuilder(this)
                 .setTitle("Select Ad")
@@ -327,21 +322,6 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case "Google Ad Manager":
                             Constant.AD_NETWORK = GOOGLE_AD_MANAGER;
-                            break;
-                        case "Start.io":
-                            Constant.AD_NETWORK = STARTAPP;
-                            break;
-                        case "AppLovin MAX":
-                            Constant.AD_NETWORK = APPLOVIN_MAX;
-                            break;
-                        case "AppLovin Discovery":
-                            Constant.AD_NETWORK = APPLOVIN_DISCOVERY;
-                            break;
-                        case "Unity Ads":
-                            Constant.AD_NETWORK = UNITY;
-                            break;
-                        case "ironSource":
-                            Constant.AD_NETWORK = IRONSOURCE;
                             break;
                         case "FAN (Waterfall)":
                             Constant.AD_NETWORK = FAN;

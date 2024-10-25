@@ -2,8 +2,6 @@ package com.heymundomx.ads.sdk.format;
 
 import static com.heymundomx.ads.sdk.util.Constant.ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.AD_STATUS_ON;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN;
-import static com.heymundomx.ads.sdk.util.Constant.APPLOVIN_MAX;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
@@ -15,10 +13,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.applovin.mediation.MaxAd;
-import com.applovin.mediation.MaxAdListener;
-import com.applovin.mediation.MaxError;
-import com.applovin.mediation.ads.MaxAppOpenAd;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -29,7 +23,6 @@ import com.heymundomx.ads.sdk.util.OnShowAdCompleteListener;
 @SuppressLint("StaticFieldLeak")
 public class AppOpenAd {
     public static com.google.android.gms.ads.appopen.AppOpenAd appOpenAd = null;
-    public static MaxAppOpenAd maxAppOpenAd = null;
     public static com.wortise.ads.appopen.AppOpenAd wortiseAppOpenAd = null;
     public static boolean isAppOpenAdLoaded = false;
 
@@ -117,13 +110,6 @@ public class AppOpenAd {
                         }
                         break;
 
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                        if (maxAppOpenAd != null) {
-                            maxAppOpenAd = null;
-                        }
-                        break;
-
                     case WORTISE:
                         if (wortiseAppOpenAd != null) {
                             wortiseAppOpenAd = null;
@@ -179,51 +165,6 @@ public class AppOpenAd {
                                 Log.d(TAG, "[" + adNetwork + "] " + "[on start] failed to load app open ad: " + loadAdError.getMessage());
                             }
                         });
-                        break;
-
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                        if (!applovinAppOpenId.equals("0")) {
-                            maxAppOpenAd = new MaxAppOpenAd(applovinAppOpenId, activity);
-                            maxAppOpenAd.setListener(new MaxAdListener() {
-                                @Override
-                                public void onAdLoaded(@NonNull MaxAd ad) {
-                                    showAppOpenAd(onShowAdCompleteListener);
-                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad loaded");
-                                }
-
-                                @Override
-                                public void onAdDisplayed(@NonNull MaxAd ad) {
-                                }
-
-                                @Override
-                                public void onAdHidden(@NonNull MaxAd ad) {
-                                    maxAppOpenAd = null;
-                                    showAppOpenAd(onShowAdCompleteListener);
-                                }
-
-                                @Override
-                                public void onAdClicked(@NonNull MaxAd ad) {
-                                }
-
-                                @Override
-                                public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                    maxAppOpenAd = null;
-                                    loadBackupAppOpenAd(onShowAdCompleteListener);
-                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] failed to load app open ad: " + error.getMessage());
-                                }
-
-                                @Override
-                                public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                    maxAppOpenAd = null;
-                                    loadBackupAppOpenAd(onShowAdCompleteListener);
-                                    Log.d(TAG, "[" + adNetwork + "] " + "[on start] failed to display app open ad: " + error.getMessage());
-                                }
-                            });
-                            maxAppOpenAd.loadAd();
-                        } else {
-                            loadBackupAppOpenAd(onShowAdCompleteListener);
-                        }
                         break;
 
                     case WORTISE:
@@ -309,49 +250,6 @@ public class AppOpenAd {
                             }
                         });
                         appOpenAd.show(activity);
-                    } else {
-                        onShowAdCompleteListener.onShowAdComplete();
-                    }
-                    break;
-
-                case APPLOVIN:
-                case APPLOVIN_MAX:
-                    if (maxAppOpenAd != null) {
-                        maxAppOpenAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] show app open ad");
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                onShowAdCompleteListener.onShowAdComplete();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] close app open ad");
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                onShowAdCompleteListener.onShowAdComplete();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad load failed: " + error.getMessage());
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                onShowAdCompleteListener.onShowAdComplete();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on start] app open ad display failed: " + error.getMessage());
-                            }
-                        });
-                        maxAppOpenAd.showAd();
                     } else {
                         onShowAdCompleteListener.onShowAdComplete();
                     }
@@ -459,51 +357,6 @@ public class AppOpenAd {
                         });
                         break;
 
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                        maxAppOpenAd = new MaxAppOpenAd(applovinAppOpenId, activity);
-                        maxAppOpenAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-                                isAppOpenAdLoaded = true;
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad loaded");
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                maxAppOpenAd = null;
-                                isAppOpenAdLoaded = false;
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                maxAppOpenAd = null;
-                                isAppOpenAdLoaded = false;
-                                loadBackupAppOpenAd();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] failed to load app open ad: " + error.getMessage());
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                maxAppOpenAd = null;
-                                isAppOpenAdLoaded = false;
-                                loadBackupAppOpenAd();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] failed to display app open ad: " + error.getMessage());
-                            }
-                        });
-                        maxAppOpenAd.loadAd();
-                        break;
-
                     case WORTISE:
                         wortiseAppOpenAd = new com.wortise.ads.appopen.AppOpenAd(activity, wortiseAppOpenId);
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
@@ -588,52 +441,6 @@ public class AppOpenAd {
                             }
                         });
                         appOpenAd.show(activity);
-                    } else {
-                        showBackupAppOpenAd();
-                    }
-                    break;
-
-                case APPLOVIN:
-                case APPLOVIN_MAX:
-                    if (maxAppOpenAd != null) {
-                        maxAppOpenAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] show app open ad");
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                maxAppOpenAd = null;
-                                loadAppOpenAd();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] close app open ad");
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                maxAppOpenAd = null;
-                                loadAppOpenAd();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad load failed: " + error.getMessage());
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                maxAppOpenAd = null;
-                                loadAppOpenAd();
-                                Log.d(TAG, "[" + adNetwork + "] " + "[on resume] app open ad display failed: " + error.getMessage());
-                            }
-                        });
-                        maxAppOpenAd.showAd();
                     } else {
                         showBackupAppOpenAd();
                     }
@@ -743,53 +550,6 @@ public class AppOpenAd {
                         });
                         break;
 
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                        if (!applovinAppOpenId.equals("0")) {
-                            maxAppOpenAd = new MaxAppOpenAd(applovinAppOpenId, activity);
-                            maxAppOpenAd.setListener(new MaxAdListener() {
-                                @Override
-                                public void onAdLoaded(@NonNull MaxAd ad) {
-                                    showBackupAppOpenAd(onShowAdCompleteListener);
-                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad loaded");
-                                }
-
-                                @Override
-                                public void onAdDisplayed(@NonNull MaxAd ad) {
-
-                                }
-
-                                @Override
-                                public void onAdHidden(@NonNull MaxAd ad) {
-                                    maxAppOpenAd = null;
-                                    showBackupAppOpenAd(onShowAdCompleteListener);
-                                }
-
-                                @Override
-                                public void onAdClicked(@NonNull MaxAd ad) {
-
-                                }
-
-                                @Override
-                                public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                    maxAppOpenAd = null;
-                                    showBackupAppOpenAd(onShowAdCompleteListener);
-                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] failed to load app open ad: " + error.getMessage());
-                                }
-
-                                @Override
-                                public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                    maxAppOpenAd = null;
-                                    showBackupAppOpenAd(onShowAdCompleteListener);
-                                    Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] failed to display app open ad: " + error.getMessage());
-                                }
-                            });
-                            maxAppOpenAd.loadAd();
-                        } else {
-                            showBackupAppOpenAd(onShowAdCompleteListener);
-                        }
-                        break;
-
                     case WORTISE:
                         wortiseAppOpenAd = new com.wortise.ads.appopen.AppOpenAd(activity, wortiseAppOpenId);
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
@@ -874,49 +634,6 @@ public class AppOpenAd {
                             }
                         });
                         appOpenAd.show(activity);
-                    } else {
-                        onShowAdCompleteListener.onShowAdComplete();
-                    }
-                    break;
-
-                case APPLOVIN:
-                case APPLOVIN_MAX:
-                    if (maxAppOpenAd != null) {
-                        maxAppOpenAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] show app open ad");
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                onShowAdCompleteListener.onShowAdComplete();
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] close app open ad");
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                onShowAdCompleteListener.onShowAdComplete();
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad load failed: " + error.getMessage());
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                onShowAdCompleteListener.onShowAdComplete();
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on start] [backup] app open ad display failed: " + error.getMessage());
-                            }
-                        });
-                        maxAppOpenAd.showAd();
                     } else {
                         onShowAdCompleteListener.onShowAdComplete();
                     }
@@ -1024,51 +741,6 @@ public class AppOpenAd {
                         });
                         break;
 
-                    case APPLOVIN:
-                    case APPLOVIN_MAX:
-                        maxAppOpenAd = new MaxAppOpenAd(applovinAppOpenId, activity);
-                        maxAppOpenAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-                                isAppOpenAdLoaded = true;
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] app open ad loaded");
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                maxAppOpenAd = null;
-                                isAppOpenAdLoaded = false;
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                maxAppOpenAd = null;
-                                isAppOpenAdLoaded = false;
-                                loadBackupAppOpenAd();
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] failed to load app open ad: " + error.getMessage());
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                maxAppOpenAd = null;
-                                isAppOpenAdLoaded = false;
-                                loadBackupAppOpenAd();
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] failed to display app open ad: " + error.getMessage());
-                            }
-                        });
-                        maxAppOpenAd.loadAd();
-                        break;
-
                     case WORTISE:
                         wortiseAppOpenAd = new com.wortise.ads.appopen.AppOpenAd(activity, wortiseAppOpenId);
                         wortiseAppOpenAd.setListener(new com.wortise.ads.appopen.AppOpenAd.Listener() {
@@ -1153,50 +825,6 @@ public class AppOpenAd {
                             }
                         });
                         appOpenAd.show(activity);
-                    }
-                    break;
-
-                case APPLOVIN:
-                case APPLOVIN_MAX:
-                    if (maxAppOpenAd != null) {
-                        maxAppOpenAd.setListener(new MaxAdListener() {
-                            @Override
-                            public void onAdLoaded(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdDisplayed(@NonNull MaxAd ad) {
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] show app open ad");
-                            }
-
-                            @Override
-                            public void onAdHidden(@NonNull MaxAd ad) {
-                                maxAppOpenAd = null;
-                                loadBackupAppOpenAd();
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] close app open ad");
-                            }
-
-                            @Override
-                            public void onAdClicked(@NonNull MaxAd ad) {
-
-                            }
-
-                            @Override
-                            public void onAdLoadFailed(@NonNull String adUnitId, @NonNull MaxError error) {
-                                maxAppOpenAd = null;
-                                loadBackupAppOpenAd();
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] app open ad load failed: " + error.getMessage());
-                            }
-
-                            @Override
-                            public void onAdDisplayFailed(@NonNull MaxAd ad, @NonNull MaxError error) {
-                                maxAppOpenAd = null;
-                                loadBackupAppOpenAd();
-                                Log.d(TAG, "[" + backupAdNetwork + "] " + "[on resume] [backup] app open ad display failed: " + error.getMessage());
-                            }
-                        });
-                        maxAppOpenAd.showAd();
                     }
                     break;
 
