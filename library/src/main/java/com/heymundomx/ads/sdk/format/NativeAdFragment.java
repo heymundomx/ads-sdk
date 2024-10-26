@@ -189,9 +189,7 @@ public class NativeAdFragment {
         }
 
         public void loadNativeAd() {
-
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
-
                 nativeAdViewContainer = view.findViewById(R.id.native_ad_view_container);
 
                 admobNativeAd = view.findViewById(R.id.admob_native_ad_container);
@@ -400,9 +398,7 @@ public class NativeAdFragment {
                         fanNativeAd.loadAd(loadAdConfig);
                         break;
                 }
-
             }
-
         }
 
         public void loadBackupNativeAd() {
@@ -623,9 +619,7 @@ public class NativeAdFragment {
                         break;
 
                 }
-
             }
-
         }
 
         public void setNativeAdPadding(int left, int top, int right, int bottom) {

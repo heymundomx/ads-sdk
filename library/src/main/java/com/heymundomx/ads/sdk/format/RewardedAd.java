@@ -290,6 +290,9 @@ public class RewardedAd {
                         });
                         wortiseRewardedAd.loadAd();
                         break;
+
+                    default:
+                        break;
                 }
             }
         }
@@ -451,6 +454,9 @@ public class RewardedAd {
                         });
                         wortiseRewardedAd.loadAd();
                         break;
+
+                    default:
+                        break;
                 }
             }
         }
@@ -556,7 +562,6 @@ public class RewardedAd {
                         break;
                 }
             }
-
         }
 
         public void destroyRewardedAd() {

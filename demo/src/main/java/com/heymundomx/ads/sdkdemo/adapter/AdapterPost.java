@@ -128,9 +128,7 @@ public class AdapterPost extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
 
         } else if (holder instanceof NativeAdViewHolder) {
-
             final NativeAdViewHolder vItem = (NativeAdViewHolder) holder;
-
             vItem.loadNativeAd(context,
                     Constant.AD_STATUS,
                     1,
@@ -148,7 +146,6 @@ public class AdapterPost extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     R.color.colorNativeBackgroundLight,
                     R.color.colorNativeBackgroundDark
             );
-
         }
     }
 

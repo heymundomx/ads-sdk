@@ -352,10 +352,10 @@ public class NativeAdViewPager {
                         }
                         break;
 
+                    default:
+                        break;
                 }
-
             }
-
         }
 
         public void loadBackupNativeAd() {
@@ -559,7 +559,6 @@ public class NativeAdViewPager {
                     case NONE:
                         //do nothing
                         break;
-
                 }
             }
         }

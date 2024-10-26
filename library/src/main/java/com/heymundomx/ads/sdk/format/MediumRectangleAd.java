@@ -251,10 +251,6 @@ public class MediumRectangleAd {
                         com.facebook.ads.AdView.AdViewLoadConfig loadAdConfig = fanAdView.buildLoadAdConfig().withAdListener(adListener).build();
                         fanAdView.loadAd(loadAdConfig);
                         break;
-
-                    case NONE:
-                        //do nothing
-                        break;
                 }
                 Log.d(TAG, "Banner Ad is enabled");
             } else {
@@ -384,6 +380,9 @@ public class MediumRectangleAd {
                         };
                         com.facebook.ads.AdView.AdViewLoadConfig loadAdConfig = fanAdView.buildLoadAdConfig().withAdListener(adListener).build();
                         fanAdView.loadAd(loadAdConfig);
+                        break;
+
+                    case NONE:
                         break;
                 }
                 Log.d(TAG, "Banner Ad is enabled");

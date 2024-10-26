@@ -469,6 +469,9 @@ public class NativeAdView {
                             Log.d(TAG, "Wortise Native Ad has been loaded");
                         }
                         break;
+
+                    default:
+                        break;
                 }
 
             }
@@ -476,7 +479,6 @@ public class NativeAdView {
         }
 
         public void loadBackupNativeAd() {
-
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
 
                 nativeAdViewContainer = view.findViewById(R.id.native_ad_view_container);
@@ -751,9 +753,7 @@ public class NativeAdView {
                         break;
 
                 }
-
             }
-
         }
 
         public void setNativeAdPadding(int left, int top, int right, int bottom) {

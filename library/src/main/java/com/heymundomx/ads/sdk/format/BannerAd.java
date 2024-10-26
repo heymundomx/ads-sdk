@@ -294,10 +294,6 @@ public class BannerAd {
                             }
                         });
                         break;
-
-                    case NONE:
-                        //do nothing
-                        break;
                 }
                 Log.d(TAG, "Banner Ad is enabled");
             } else {
@@ -459,6 +455,10 @@ public class BannerAd {
                                 Log.d(TAG, " [backup] Wortise banner loaded");
                             }
                         });
+                        break;
+
+                    case NONE:
+                        //do nothing
                         break;
                 }
                 Log.d(TAG, "Banner Ad is enabled");

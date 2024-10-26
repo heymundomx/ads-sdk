@@ -471,7 +471,6 @@ public class NativeAd {
         }
 
         public void loadBackupNativeAd() {
-
             if (adStatus.equals(AD_STATUS_ON) && placementStatus != 0) {
 
                 nativeAdViewContainer = activity.findViewById(R.id.native_ad_view_container);
@@ -744,9 +743,7 @@ public class NativeAd {
                         nativeAdViewContainer.setVisibility(View.GONE);
                         break;
                 }
-
             }
-
         }
 
         public void setNativeAdPadding(int left, int top, int right, int bottom) {
