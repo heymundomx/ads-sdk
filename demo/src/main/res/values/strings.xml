@@ -5,4 +5,5 @@
     <string name="btn_show_rewarded_ad">Show Rewarded Video Ad</string>
     <string name="btn_show_native_ad">Show Native Ad</string>
     <string name="btn_show_choose_ad">Choose Ad</string>
+
 </resources>
