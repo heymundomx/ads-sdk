@@ -8,26 +8,35 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestAdapter {
-    public static ApiInterface createApi() {
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+    private static ApiInterface apiInterface;
+    private static OkHttpClient okHttpClient;
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(5, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .cache(null)
-                .build();
+    private static OkHttpClient getOkHttpClient() {
+        if (okHttpClient == null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.NONE);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://drive.google.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
-
-        return retrofit.create(ApiInterface.class);
-
+            okHttpClient = new OkHttpClient.Builder()
+                    .connectTimeout(5, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .cache(null)
+                    .addInterceptor(logging)
+                    .build();
+        }
+        return okHttpClient;
     }
 
+    public static ApiInterface createApi() {
+        if (apiInterface == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://drive.google.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(getOkHttpClient())
+                    .build();
+            apiInterface = retrofit.create(ApiInterface.class);
+        }
+        return apiInterface;
+    }
 }

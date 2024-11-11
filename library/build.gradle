@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:23.5.0'
     implementation 'com.facebook.android:audience-network-sdk:6.18.0'
     implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
-    implementation 'com.wortise:android-sdk:1.6.1-beta04'
+    implementation 'com.wortise:android-sdk:1.6.1-beta05'
 
     //AdMob mediation
     implementation 'com.google.ads.mediation:facebook:6.18.0.0'
