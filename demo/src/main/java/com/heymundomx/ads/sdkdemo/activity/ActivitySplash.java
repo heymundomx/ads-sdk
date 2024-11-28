@@ -46,8 +46,9 @@ public class ActivitySplash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
         sharedPref = new SharedPref(this);
+        getAppTheme();
+        setContentView(R.layout.activity_splash);
         initAds();
 
         if (Constant.AD_STATUS.equals(AD_STATUS_ON) && Constant.OPEN_ADS_ON_START) {
@@ -59,6 +60,14 @@ public class ActivitySplash extends AppCompatActivity {
             }
         } else {
             requestConfig();
+        }
+    }
+
+    public void getAppTheme() {
+        if (sharedPref.getIsDarkTheme()) {
+            setTheme(R.style.AppDarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
         }
     }
 

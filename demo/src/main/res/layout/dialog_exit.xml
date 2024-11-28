@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="What do you want to do?"
+            android:text="¿Qué es lo que quieres hacer?"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
             android:textSize="15sp"
             tools:ignore="HardcodedText" />

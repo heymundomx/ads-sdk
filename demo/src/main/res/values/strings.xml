@@ -1,9 +1,12 @@
 <resources>
 
     <string name="app_name">Ads SDK</string>
-    <string name="btn_show_interstitial_ad">Show Interstitial Ad</string>
-    <string name="btn_show_rewarded_ad">Show Rewarded Video Ad</string>
-    <string name="btn_show_native_ad">Show Native Ad</string>
-    <string name="btn_show_choose_ad">Choose Ad</string>
+    <string name="btn_show_interstitial_ad">Mostrar anuncio intersticial</string>
+    <string name="btn_show_rewarded_ad">Mostrar anuncio de recompensa</string>
+    <string name="btn_show_native_ad">Mostrar anuncio nativo</string>
+    <string name="btn_show_choose_ad">Seleccionar red publicitaria</string>
+    <string name="message_show_choose_style_native_ad">Seleccionar estilo de anuncio</string>
+    <string name="btn_ok">Aceptar</string>
+    <string name="btn_cancel">Cancelar</string>
 
 </resources>

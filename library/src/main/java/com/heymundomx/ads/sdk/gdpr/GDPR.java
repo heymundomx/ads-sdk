@@ -115,13 +115,13 @@ public class GDPR {
             byte[] messageDigest = digest.digest();
             StringBuilder hexString = new StringBuilder();
             for (byte b : messageDigest) {
-                StringBuilder h = new StringBuilder(Integer.toHexString(0xFF & b));
-                while (h.length() < 2)
-                    h.insert(0, "0");
+                String h = Integer.toHexString(0xFF & b);
+                if (h.length() < 2) {
+                    hexString.append('0');
+                }
                 hexString.append(h);
             }
             return hexString.toString();
-
         } catch (NoSuchAlgorithmException e) {
             //Logger.logStackTrace(TAG,e);
         }

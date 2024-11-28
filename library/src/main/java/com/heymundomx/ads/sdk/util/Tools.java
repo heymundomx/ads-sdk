@@ -5,9 +5,11 @@ import static com.heymundomx.ads.sdk.util.Constant.VALUE;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+
+import android.os.Build;
 import android.util.Base64;
 import android.util.DisplayMetrics;
-import android.view.Display;
+import android.view.WindowMetrics;
 
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
@@ -20,25 +22,26 @@ import java.nio.charset.StandardCharsets;
 public class Tools {
 
     public static AdSize getAdSize(Activity activity) {
-        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
-        float widthPixels = outMetrics.widthPixels;
-        float density = outMetrics.density;
-        int adWidth = (int) (widthPixels / density);
-        // Step 3 - Get adaptive ad size and return for setting on the ad view.
+        int adWidth = getScreenWidthInDp(activity);
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth);
     }
 
     public static com.wortise.ads.AdSize getWortiseAdSize(Activity activity) {
-        Display display = activity.getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
-        float widthPixels = outMetrics.widthPixels;
-        float density = outMetrics.density;
-        int adWidth = (int) (widthPixels / density);
+        int adWidth = getScreenWidthInDp(activity);
         return com.wortise.ads.AdSize.getAnchoredAdaptiveBannerAdSize(activity, adWidth);
+    }
+
+    public static int getScreenWidthInDp(Activity activity) {
+        float widthPixels;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowMetrics metrics = activity.getWindowManager().getCurrentWindowMetrics();
+            widthPixels = metrics.getBounds().width();
+        } else {
+            DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+            widthPixels = metrics.widthPixels;
+        }
+        float density = activity.getResources().getDisplayMetrics().density;
+        return (int) (widthPixels / density);
     }
 
     public static AdSize getAdSizeMREC() {

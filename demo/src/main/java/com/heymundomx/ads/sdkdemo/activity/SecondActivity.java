@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -51,11 +52,16 @@ public class SecondActivity extends AppCompatActivity {
     private void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (sharedPref.getIsDarkTheme()) {
+            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.color_dark_toolbar));
+        } else {
+            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        }
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setTitle("Second Activity");
+            getSupportActionBar().setTitle(getString(R.string.app_name));
         }
     }
 

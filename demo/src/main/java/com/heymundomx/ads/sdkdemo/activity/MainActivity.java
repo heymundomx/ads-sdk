@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -79,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (sharedPref.getIsDarkTheme()) {
+            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.color_dark_toolbar));
+        } else {
+            toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        }
 
         bannerAdView = findViewById(R.id.banner_ad_view);
         bannerAdView.addView(View.inflate(this, com.heymundomx.ads.sdk.R.layout.view_banner_ad, null));
@@ -312,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
         final String[] ads = {"AdMob", "Google Ad Manager", "FAN (Waterfall)", "Wortise"};
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Select Ad")
+                .setTitle(getString(R.string.btn_show_choose_ad))
                 .setItems(ads, (dialog, which) -> {
                     String selectedItem = ads[which];
                     switch (selectedItem) {
@@ -331,6 +337,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     recreate();
                 })
+                .setCancelable(false)
+                .setNegativeButton(getString(R.string.btn_cancel), (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
@@ -357,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
     private void changeNativeAdStyle() {
         final String[] styles = {"Default", "News", "Radio", "Video Small", "Video Large"};
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Select Native Style")
+                .setTitle(getString(R.string.message_show_choose_style_native_ad))
                 .setItems(styles, (dialog, which) -> {
                     String selectedItem = styles[which];
                     switch (selectedItem) {
@@ -379,6 +387,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     recreate();
                 })
+                .setCancelable(false)
+                .setNegativeButton(getString(R.string.btn_cancel), (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
@@ -392,13 +402,13 @@ public class MainActivity extends AppCompatActivity {
         new MaterialAlertDialogBuilder(this)
                 .setView(view)
                 .setCancelable(false)
-                .setPositiveButton("Exit", (dialogInterface, i) -> {
+                .setPositiveButton(getString(R.string.btn_ok), (dialogInterface, i) -> {
                     super.onBackPressed();
                     destroyBannerAd();
                     destroyAppOpenAd();
                     Constant.isAppOpen = false;
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(getString(R.string.btn_cancel), (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
