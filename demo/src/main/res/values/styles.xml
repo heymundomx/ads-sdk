@@ -75,5 +75,4 @@
     <style name="Widget.App.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
         <item name="thumbTint">@color/color_white</item>
     </style>
-
 </resources>
