@@ -21,9 +21,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    lintOptions {
-        disable 'GradleDependency'
-    }
+    // lintOptions {
+    //     disable 'GradleDependency'
+    // }
     publishing {
         singleVariant("release")
     }
@@ -54,7 +54,7 @@ afterEvaluate {
                 from components["release"]
                 groupId = 'com.github.heymundomx'
                 artifactId = 'ads-sdk'
-                version = '77.0.2'
+                version = '77.0.3'
             }
         }
     }
