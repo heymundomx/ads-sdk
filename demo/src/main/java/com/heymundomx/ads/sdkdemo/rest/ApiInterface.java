@@ -23,5 +23,4 @@ public interface ApiInterface {
     Call<CallbackConfig> getDriveJsonFileId(
             @Query("id") String id
     );
-
 }

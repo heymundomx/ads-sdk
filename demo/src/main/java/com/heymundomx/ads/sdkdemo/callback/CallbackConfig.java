@@ -7,5 +7,4 @@ import java.util.List;
 
 public class CallbackConfig {
     public List<Post> android = new ArrayList<>();
-
 }
