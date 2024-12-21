@@ -79,24 +79,18 @@ public class AdapterPost extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
             vh = new OriginalViewHolder(v);
         } else if (viewType == VIEW_AD) {
-            View v;
-            switch (Constant.NATIVE_STYLE) {
-                case "news":
-                    v = LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_news, parent, false);
-                    break;
-                case "radio":
-                    v = LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_radio, parent, false);
-                    break;
-                case "video_small":
-                    v = LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_video_small, parent, false);
-                    break;
-                case "video_large":
-                    v = LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_video_large, parent, false);
-                    break;
-                default:
-                    v = LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_medium, parent, false);
-                    break;
-            }
+            View v = switch (Constant.NATIVE_STYLE) {
+                case "news" ->
+                        LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_news, parent, false);
+                case "radio" ->
+                        LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_radio, parent, false);
+                case "video_small" ->
+                        LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_video_small, parent, false);
+                case "video_large" ->
+                        LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_video_large, parent, false);
+                default ->
+                        LayoutInflater.from(parent.getContext()).inflate(com.heymundomx.ads.sdk.R.layout.view_native_ad_medium, parent, false);
+            };
             vh = new NativeAdViewHolder(v);
         } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
@@ -107,9 +101,8 @@ public class AdapterPost extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof OriginalViewHolder) {
+        if (holder instanceof OriginalViewHolder vItem) {
             final Post p = posts.get(position);
-            OriginalViewHolder vItem = (OriginalViewHolder) holder;
 
             vItem.name.setText(p.name);
             RequestBuilder<Drawable> requestBuilder= Glide.with(holder.itemView.getContext())
@@ -127,8 +120,7 @@ public class AdapterPost extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             });
 
-        } else if (holder instanceof NativeAdViewHolder) {
-            final NativeAdViewHolder vItem = (NativeAdViewHolder) holder;
+        } else if (holder instanceof NativeAdViewHolder vItem) {
             vItem.loadNativeAd(context,
                     Constant.AD_STATUS,
                     1,

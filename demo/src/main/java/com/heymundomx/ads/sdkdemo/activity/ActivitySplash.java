@@ -125,7 +125,7 @@ public class ActivitySplash extends AppCompatActivity {
         } else {
             callbackConfigCall = RestAdapter.createApi().getDriveJsonFileId(url);
         }
-        callbackConfigCall.enqueue(new Callback<CallbackConfig>() {
+        callbackConfigCall.enqueue(new Callback<>() {
             public void onResponse(@NonNull Call<CallbackConfig> call, @NonNull Response<CallbackConfig> response) {
                 CallbackConfig resp = response.body();
                 if (resp != null) {
