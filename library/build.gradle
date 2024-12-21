@@ -24,9 +24,9 @@ android {
     buildFeatures {
         buildConfig = true
     }
-    // lintOptions {
-    //     disable 'GradleDependency'
-    // }
+    lintOptions {
+        disable 'GradleDependency'
+    }
     publishing {
         singleVariant("release")
     }
@@ -57,7 +57,7 @@ afterEvaluate {
                 from components["release"]
                 groupId = 'com.github.heymundomx'
                 artifactId = 'ads-sdk'
-                version = '78.0.0'
+                version = '78.0.1'
             }
         }
     }
