@@ -327,19 +327,27 @@ public class NativeAdView {
                                 // Add the Ad view into the ad container.
                                 LayoutInflater inflater = LayoutInflater.from(activity);
                                 // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
-                                LinearLayout nativeAdView = switch (nativeAdStyle) {
-                                    case Constant.STYLE_NEWS, Constant.STYLE_MEDIUM ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_news_template_view, fanNativeAdLayout, false);
-                                    case Constant.STYLE_VIDEO_SMALL ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_video_small_template_view, fanNativeAdLayout, false);
-                                    case Constant.STYLE_VIDEO_LARGE ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_video_large_template_view, fanNativeAdLayout, false);
-                                    case Constant.STYLE_RADIO, Constant.STYLE_SMALL ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_radio_template_view, fanNativeAdLayout, false);
-                                    default ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_medium_template_view, fanNativeAdLayout, false);
-                                };
-
+                                LinearLayout nativeAdView;
+                                //noinspection EnhancedSwitchMigration
+                                switch (nativeAdStyle) {
+                                    case Constant.STYLE_NEWS:
+                                    case Constant.STYLE_MEDIUM:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_news_template_view, fanNativeAdLayout, false);
+                                        break;
+                                    case Constant.STYLE_VIDEO_SMALL:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_video_small_template_view, fanNativeAdLayout, false);
+                                        break;
+                                    case Constant.STYLE_VIDEO_LARGE:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_video_large_template_view, fanNativeAdLayout, false);
+                                        break;
+                                    case Constant.STYLE_RADIO:
+                                    case Constant.STYLE_SMALL:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_radio_template_view, fanNativeAdLayout, false);
+                                        break;
+                                    default:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_medium_template_view, fanNativeAdLayout, false);
+                                        break;
+                                }
                                 fanNativeAdLayout.addView(nativeAdView);
 
                                 // Add the AdOptionsView
@@ -428,18 +436,27 @@ public class NativeAdView {
                                 @SuppressLint("InflateParams")
                                 @Override
                                 public void onNativeLoaded(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.google.android.gms.ads.nativead.NativeAd nativeAd) {
-                                    com.google.android.gms.ads.nativead.NativeAdView adView = switch (nativeAdStyle) {
-                                        case Constant.STYLE_NEWS, Constant.STYLE_MEDIUM ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_news_template_view, null);
-                                        case Constant.STYLE_VIDEO_SMALL ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_video_small_template_view, null);
-                                        case Constant.STYLE_VIDEO_LARGE ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_video_large_template_view, null);
-                                        case Constant.STYLE_RADIO, Constant.STYLE_SMALL ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_radio_template_view, null);
-                                        default ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_medium_template_view, null);
-                                    };
+                                    com.google.android.gms.ads.nativead.NativeAdView adView;
+                                    //noinspection EnhancedSwitchMigration
+                                    switch (nativeAdStyle) {
+                                        case Constant.STYLE_NEWS:
+                                        case Constant.STYLE_MEDIUM:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_news_template_view, null);
+                                            break;
+                                        case Constant.STYLE_VIDEO_SMALL:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_video_small_template_view, null);
+                                            break;
+                                        case Constant.STYLE_VIDEO_LARGE:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_video_large_template_view, null);
+                                            break;
+                                        case Constant.STYLE_RADIO:
+                                        case Constant.STYLE_SMALL:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_radio_template_view, null);
+                                            break;
+                                        default:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_medium_template_view, null);
+                                            break;
+                                    }
                                     populateNativeAdView(nativeAd, adView);
                                     wortiseNativeAd.removeAllViews();
                                     wortiseNativeAd.addView(adView);
@@ -590,19 +607,27 @@ public class NativeAdView {
                                 // Add the Ad view into the ad container.
                                 LayoutInflater inflater = LayoutInflater.from(activity);
                                 // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
-                                LinearLayout nativeAdView = switch (nativeAdStyle) {
-                                    case Constant.STYLE_NEWS, Constant.STYLE_MEDIUM ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_news_template_view, fanNativeAdLayout, false);
-                                    case Constant.STYLE_VIDEO_SMALL ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_video_small_template_view, fanNativeAdLayout, false);
-                                    case Constant.STYLE_VIDEO_LARGE ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_video_large_template_view, fanNativeAdLayout, false);
-                                    case Constant.STYLE_RADIO, Constant.STYLE_SMALL ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_radio_template_view, fanNativeAdLayout, false);
-                                    default ->
-                                            (LinearLayout) inflater.inflate(R.layout.gnt_fan_medium_template_view, fanNativeAdLayout, false);
-                                };
-
+                                LinearLayout nativeAdView;
+                                //noinspection EnhancedSwitchMigration
+                                switch (nativeAdStyle) {
+                                    case Constant.STYLE_NEWS:
+                                    case Constant.STYLE_MEDIUM:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_news_template_view, fanNativeAdLayout, false);
+                                        break;
+                                    case Constant.STYLE_VIDEO_SMALL:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_video_small_template_view, fanNativeAdLayout, false);
+                                        break;
+                                    case Constant.STYLE_VIDEO_LARGE:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_video_large_template_view, fanNativeAdLayout, false);
+                                        break;
+                                    case Constant.STYLE_RADIO:
+                                    case Constant.STYLE_SMALL:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_radio_template_view, fanNativeAdLayout, false);
+                                        break;
+                                    default:
+                                        nativeAdView = (LinearLayout) inflater.inflate(R.layout.gnt_fan_medium_template_view, fanNativeAdLayout, false);
+                                        break;
+                                }
                                 fanNativeAdLayout.addView(nativeAdView);
 
                                 // Add the AdOptionsView
@@ -690,18 +715,27 @@ public class NativeAdView {
                                 @SuppressLint("InflateParams")
                                 @Override
                                 public void onNativeLoaded(@NonNull GoogleNativeAd googleNativeAd, @NonNull com.google.android.gms.ads.nativead.NativeAd nativeAd) {
-                                    com.google.android.gms.ads.nativead.NativeAdView adView = switch (nativeAdStyle) {
-                                        case Constant.STYLE_NEWS, Constant.STYLE_MEDIUM ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_news_template_view, null);
-                                        case Constant.STYLE_VIDEO_SMALL ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_video_small_template_view, null);
-                                        case Constant.STYLE_VIDEO_LARGE ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_video_large_template_view, null);
-                                        case Constant.STYLE_RADIO, Constant.STYLE_SMALL ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_radio_template_view, null);
-                                        default ->
-                                                (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_medium_template_view, null);
-                                    };
+                                    com.google.android.gms.ads.nativead.NativeAdView adView;
+                                    //noinspection EnhancedSwitchMigration
+                                    switch (nativeAdStyle) {
+                                        case Constant.STYLE_NEWS:
+                                        case Constant.STYLE_MEDIUM:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_news_template_view, null);
+                                            break;
+                                        case Constant.STYLE_VIDEO_SMALL:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_video_small_template_view, null);
+                                            break;
+                                        case Constant.STYLE_VIDEO_LARGE:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_video_large_template_view, null);
+                                            break;
+                                        case Constant.STYLE_RADIO:
+                                        case Constant.STYLE_SMALL:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_radio_template_view, null);
+                                            break;
+                                        default:
+                                            adView = (com.google.android.gms.ads.nativead.NativeAdView) activity.getLayoutInflater().inflate(R.layout.gnt_wortise_medium_template_view, null);
+                                            break;
+                                    }
                                     populateNativeAdView(nativeAd, adView);
                                     wortiseNativeAd.removeAllViews();
                                     wortiseNativeAd.addView(adView);
