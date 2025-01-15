@@ -7,7 +7,7 @@ android {
     namespace 'com.heymundomx.ads.sdk'
     compileSdk 35
     defaultConfig {
-        minSdk 24
+        minSdk 21
         targetSdk 35
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -57,7 +57,7 @@ afterEvaluate {
                 from components["release"]
                 groupId = 'com.github.heymundomx'
                 artifactId = 'ads-sdk'
-                version = '85.0.0'
+                version = '85.0.1'
             }
         }
     }

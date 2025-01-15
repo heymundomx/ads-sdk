@@ -32,15 +32,17 @@ public class Tools {
     }
 
     public static int getScreenWidthInDp(Activity activity) {
+        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
         float widthPixels;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            WindowMetrics metrics = activity.getWindowManager().getCurrentWindowMetrics();
-            widthPixels = metrics.getBounds().width();
+            WindowMetrics windowMetrics = activity.getWindowManager().getCurrentWindowMetrics();
+            widthPixels = windowMetrics.getBounds().width();
         } else {
-            DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
             widthPixels = metrics.widthPixels;
         }
-        float density = activity.getResources().getDisplayMetrics().density;
+
+        float density = metrics.density;
         return (int) (widthPixels / density);
     }
 
