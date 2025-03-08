@@ -7,7 +7,7 @@ android {
     namespace 'com.heymundomx.ads.sdk'
     compileSdk 35
     defaultConfig {
-        minSdk 21
+        minSdk 24
         targetSdk 35
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -38,13 +38,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
 
     //Primary Ad Networks
-    implementation 'com.google.android.gms:play-services-ads:23.6.0'
-    implementation 'com.facebook.android:audience-network-sdk:6.18.0'
+    implementation 'com.google.android.gms:play-services-ads:24.0.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.19.0'
     implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
     implementation 'com.wortise:android-sdk:1.6.1'
 
     //AdMob mediation
-    implementation 'com.google.ads.mediation:facebook:6.18.0.0'
+    implementation 'com.google.ads.mediation:facebook:6.19.0.1'
 
     //GDPR
     implementation 'com.google.android.ump:user-messaging-platform:3.1.0'
@@ -57,7 +57,7 @@ afterEvaluate {
                 from components["release"]
                 groupId = 'com.github.heymundomx'
                 artifactId = 'ads-sdk'
-                version = '87.0.0'
+                version = '87.0.1'
             }
         }
     }
