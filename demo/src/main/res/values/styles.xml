@@ -11,12 +11,16 @@
         <item name="colorAccent">@color/color_light_accent</item>
         <item name="android:windowBackground">@color/color_light_background</item>
         <item name="android:fontFamily">@font/custom_font</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="colorOnSurface">@color/colorPrimary</item>
         <item name="colorOnSecondaryContainer">@color/colorPrimary</item>
         <item name="materialAlertDialogTheme">@style/Material3AlertDialogDefault</item>
         <item name="android:popupElevation">3dp</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
     <style name="BaseDarkTheme" parent="Theme.Material3.Dark.NoActionBar">
@@ -25,13 +29,17 @@
         <item name="colorAccent">@color/color_dark_accent</item>
         <item name="android:windowBackground">@color/color_dark_background</item>
         <item name="android:fontFamily">@font/custom_font</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="colorOnSurface">@color/color_white</item>
         <item name="colorOnSecondaryContainer">@color/color_white</item>
         <item name="materialAlertDialogTheme">@style/Material3AlertDialogDark</item>
         <item name="materialSwitchStyle">@style/Widget.App.Switch</item>
         <item name="android:popupElevation">3dp</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
     <style name="Material3AlertDialogDefault" parent="ThemeOverlay.Material3.MaterialAlertDialog">

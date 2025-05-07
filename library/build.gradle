@@ -38,16 +38,16 @@ dependencies {
     implementation 'com.google.android.material:material:1.12.0'
 
     //Primary Ad Networks
-    implementation 'com.google.android.gms:play-services-ads:24.0.0'
-    implementation 'com.facebook.android:audience-network-sdk:6.19.0'
+    implementation 'com.google.android.gms:play-services-ads:24.2.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.20.0'
     implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
-    implementation 'com.wortise:android-sdk:1.6.1'
+    implementation 'com.wortise:android-sdk:1.6.2'
 
     //AdMob mediation
-    implementation 'com.google.ads.mediation:facebook:6.19.0.1'
+    implementation 'com.google.ads.mediation:facebook:6.20.0.0'
 
     //GDPR
-    implementation 'com.google.android.ump:user-messaging-platform:3.1.0'
+    implementation 'com.google.android.ump:user-messaging-platform:3.2.0'
 }
 
 afterEvaluate {
@@ -57,7 +57,7 @@ afterEvaluate {
                 from components["release"]
                 groupId = 'com.github.heymundomx'
                 artifactId = 'ads-sdk'
-                version = '90.1.0'
+                version = '90.1.1'
             }
         }
     }
