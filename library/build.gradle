@@ -58,7 +58,7 @@ afterEvaluate {
                 from components["release"]
                 groupId = 'com.github.heymundomx'
                 artifactId = 'ads-sdk'
-                version = '92.0.3'
+                version = '92.0.4'
             }
         }
     }
