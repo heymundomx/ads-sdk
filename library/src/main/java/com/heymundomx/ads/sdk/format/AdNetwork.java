@@ -166,6 +166,12 @@ public class AdNetwork {
                         AudienceNetworkInitializeHelper.initializeAd(activity, debug);
                         break;
 
+                    case STARTAPP:
+                        StartAppSDK.init(activity, startappAppId, false);
+                        StartAppSDK.setTestAdsEnabled(debug);
+                        StartAppAd.disableSplash();
+                        break;
+
                     case WORTISE:
                         WortiseSdk.initialize(activity, wortiseAppId, () -> Unit.INSTANCE);
                         AdSettings.setTestEnabled(debug);
