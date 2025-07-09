@@ -7,12 +7,14 @@ import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
+import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 
 import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.ads.Ad;
 import com.facebook.ads.AdError;
@@ -24,6 +26,9 @@ import com.heymundomx.ads.sdk.util.OnRewardedAdCompleteListener;
 import com.heymundomx.ads.sdk.util.OnRewardedAdDismissedListener;
 import com.heymundomx.ads.sdk.util.OnRewardedAdErrorListener;
 import com.heymundomx.ads.sdk.util.Tools;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
+import com.wortise.ads.RevenueData;
 import com.wortise.ads.rewarded.models.Reward;
 
 public class RewardedAd {
@@ -36,6 +41,7 @@ public class RewardedAd {
         private com.google.android.gms.ads.rewarded.RewardedAd adManagerRewardedAd;
         private com.facebook.ads.RewardedVideoAd fanRewardedVideoAd;
         private com.wortise.ads.rewarded.RewardedAd wortiseRewardedAd;
+        private StartAppAd startAppAd;
         private String adStatus = "";
         private String mainAds = "";
         private String backupAds = "";
@@ -242,9 +248,35 @@ public class RewardedAd {
                                 .build());
                         break;
 
+                    case STARTAPP:
+                        startAppAd = new StartAppAd(activity);
+                        startAppAd.setVideoListener(() -> {
+                            onComplete.onRewardedAdComplete();
+                            Log.d(TAG, "[" + mainAds + "] " + "rewarded ad complete");
+                        });
+                        startAppAd.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+                            @Override
+                            public void onReceiveAd(@NonNull com.startapp.sdk.adsbase.Ad ad) {
+                                Log.d(TAG, "[" + mainAds + "] " + "rewarded ad loaded");
+                            }
+
+                            @Override
+                            public void onFailedToReceiveAd(@Nullable com.startapp.sdk.adsbase.Ad ad) {
+                                loadRewardedBackupAd(onComplete, onDismiss);
+                                Log.d(TAG, "[" + mainAds + "] " + "failed to load rewarded ad, try to load backup ad: " + backupAds);
+
+                            }
+                        });
+                        break;
+
                     case WORTISE:
                         wortiseRewardedAd = new com.wortise.ads.rewarded.RewardedAd(activity, wortiseRewardedId);
                         wortiseRewardedAd.setListener(new com.wortise.ads.rewarded.RewardedAd.Listener() {
+                            @Override
+                            public void onRewardedRevenuePaid(@NonNull com.wortise.ads.rewarded.RewardedAd rewardedAd, @NonNull RevenueData revenueData) {
+
+                            }
+
                             @Override
                             public void onRewardedImpression(@NonNull com.wortise.ads.rewarded.RewardedAd rewardedAd) {
 
@@ -407,9 +439,33 @@ public class RewardedAd {
                                 .build());
                         break;
 
+                    case STARTAPP:
+                        startAppAd = new StartAppAd(activity);
+                        startAppAd.setVideoListener(() -> {
+                            onComplete.onRewardedAdComplete();
+                            Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad complete");
+                        });
+                        startAppAd.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
+                            @Override
+                            public void onReceiveAd(@NonNull com.startapp.sdk.adsbase.Ad ad) {
+                                Log.d(TAG, "[" + backupAds + "] [backup] " + "rewarded ad loaded");
+                            }
+
+                            @Override
+                            public void onFailedToReceiveAd(@Nullable com.startapp.sdk.adsbase.Ad ad) {
+                                Log.d(TAG, "[" + backupAds + "] [backup] " + "failed to load rewarded ad, try to load backup ad: " + backupAds);
+                            }
+                        });
+                        break;
+
                     case WORTISE:
                         wortiseRewardedAd = new com.wortise.ads.rewarded.RewardedAd(activity, wortiseRewardedId);
                         wortiseRewardedAd.setListener(new com.wortise.ads.rewarded.RewardedAd.Listener() {
+                            @Override
+                            public void onRewardedRevenuePaid(@NonNull com.wortise.ads.rewarded.RewardedAd rewardedAd, @NonNull RevenueData revenueData) {
+
+                            }
+
                             @Override
                             public void onRewardedImpression(@NonNull com.wortise.ads.rewarded.RewardedAd rewardedAd) {
 
@@ -497,6 +553,14 @@ public class RewardedAd {
                         }
                         break;
 
+                    case STARTAPP:
+                        if (startAppAd != null) {
+                            startAppAd.showAd();
+                        } else {
+                            showRewardedBackupAd(onComplete, onDismiss, onError);
+                        }
+                        break;
+
                     case WORTISE:
                         if (wortiseRewardedAd != null && wortiseRewardedAd.isAvailable()) {
                             wortiseRewardedAd.showAd();
@@ -544,6 +608,14 @@ public class RewardedAd {
                     case FACEBOOK:
                         if (fanRewardedVideoAd != null && fanRewardedVideoAd.isAdLoaded()) {
                             fanRewardedVideoAd.show();
+                        } else {
+                            onError.onRewardedAdError();
+                        }
+                        break;
+
+                    case STARTAPP:
+                        if (startAppAd != null) {
+                            startAppAd.showAd();
                         } else {
                             onError.onRewardedAdError();
                         }

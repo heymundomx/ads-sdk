@@ -7,6 +7,7 @@ import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
+import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 import static com.heymundomx.ads.sdk.util.Constant.NONE;
 
@@ -14,6 +15,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.ads.InterstitialAdListener;
 import com.google.android.gms.ads.AdError;
@@ -25,6 +27,11 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.heymundomx.ads.sdk.util.OnInterstitialAdDismissedListener;
 import com.heymundomx.ads.sdk.util.OnInterstitialAdShowedListener;
 import com.heymundomx.ads.sdk.util.Tools;
+import com.startapp.sdk.adsbase.Ad;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
+import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
+import com.wortise.ads.RevenueData;
 
 public class InterstitialAd {
 
@@ -35,6 +42,7 @@ public class InterstitialAd {
         private com.google.android.gms.ads.interstitial.InterstitialAd adMobInterstitialAd;
         private AdManagerInterstitialAd adManagerInterstitialAd;
         private com.facebook.ads.InterstitialAd fanInterstitialAd;
+        private StartAppAd startAppAd;
         public com.wortise.ads.interstitial.InterstitialAd wortiseInterstitialAd;
         private int retryAttempt;
         private int counter = 1;
@@ -272,9 +280,30 @@ public class InterstitialAd {
                         fanInterstitialAd.loadAd(loadAdConfig);
                         break;
 
+                    case STARTAPP:
+                        startAppAd = new StartAppAd(activity);
+                        startAppAd.loadAd(new AdEventListener() {
+                            @Override
+                            public void onReceiveAd(@NonNull Ad ad) {
+                                Log.d(TAG, "Startapp Interstitial Ad loaded");
+                            }
+
+                            @Override
+                            public void onFailedToReceiveAd(@Nullable Ad ad) {
+                                Log.d(TAG, "Failed to load Startapp Interstitial Ad");
+                                loadBackupInterstitialAd();
+                            }
+                        });
+                        break;
+
                     case WORTISE:
                         wortiseInterstitialAd = new com.wortise.ads.interstitial.InterstitialAd(activity, wortiseInterstitialId);
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
+                            @Override
+                            public void onInterstitialRevenuePaid(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd, @NonNull RevenueData revenueData) {
+
+                            }
+
                             @Override
                             public void onInterstitialImpression(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
 
@@ -442,9 +471,30 @@ public class InterstitialAd {
                         fanInterstitialAd.loadAd(loadAdConfig);
                         break;
 
+                    case STARTAPP:
+                        startAppAd = new StartAppAd(activity);
+                        startAppAd.loadAd(new AdEventListener() {
+                            @Override
+                            public void onReceiveAd(@NonNull Ad ad) {
+                                Log.d(TAG, "Startapp Interstitial Ad loaded");
+                            }
+
+                            @Override
+                            public void onFailedToReceiveAd(@Nullable Ad ad) {
+                                Log.d(TAG, "Failed to load Startapp Interstitial Ad");
+                            }
+                        });
+                        Log.d(TAG, "load StartApp as backup Ad");
+                        break;
+
                     case WORTISE:
                         wortiseInterstitialAd = new com.wortise.ads.interstitial.InterstitialAd(activity, wortiseInterstitialId);
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
+                            @Override
+                            public void onInterstitialRevenuePaid(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd, @NonNull RevenueData revenueData) {
+
+                            }
+
                             @Override
                             public void onInterstitialImpression(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
 
@@ -528,11 +578,23 @@ public class InterstitialAd {
                             }
                             break;
 
+                        case STARTAPP:
+                            if (startAppAd != null) {
+                                startAppAd.showAd();
+                                Log.d(TAG, "startapp interstitial not null");
+                            } else {
+                                showBackupInterstitialAd();
+                                Log.d(TAG, "startapp interstitial null");
+                            }
+                            break;
+
                         case WORTISE:
                             if (wortiseInterstitialAd != null && wortiseInterstitialAd.isAvailable()) {
                                 wortiseInterstitialAd.showAd();
+                                Log.d(TAG, "wortise interstitial not null");
                             } else {
                                 showBackupInterstitialAd();
+                                Log.d(TAG, "wortise interstitial null");
                             }
                             break;
                     }
@@ -566,6 +628,12 @@ public class InterstitialAd {
                     case FACEBOOK:
                         if (fanInterstitialAd != null && fanInterstitialAd.isAdLoaded()) {
                             fanInterstitialAd.show();
+                        }
+                        break;
+
+                    case STARTAPP:
+                        if (startAppAd != null) {
+                            startAppAd.showAd();
                         }
                         break;
 
@@ -711,9 +779,30 @@ public class InterstitialAd {
                         fanInterstitialAd.loadAd(loadAdConfig);
                         break;
 
+                    case STARTAPP:
+                        startAppAd = new StartAppAd(activity);
+                        startAppAd.loadAd(new AdEventListener() {
+                            @Override
+                            public void onReceiveAd(@NonNull Ad ad) {
+                                Log.d(TAG, "Startapp Interstitial Ad loaded");
+                            }
+
+                            @Override
+                            public void onFailedToReceiveAd(@Nullable Ad ad) {
+                                Log.d(TAG, "Failed to load Startapp Interstitial Ad");
+                                loadBackupInterstitialAd(onInterstitialAdDismissedListener);
+                            }
+                        });
+                        break;
+
                     case WORTISE:
                         wortiseInterstitialAd = new com.wortise.ads.interstitial.InterstitialAd(activity, wortiseInterstitialId);
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
+                            @Override
+                            public void onInterstitialRevenuePaid(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd, @NonNull RevenueData revenueData) {
+
+                            }
+
                             @Override
                             public void onInterstitialImpression(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
 
@@ -885,9 +974,30 @@ public class InterstitialAd {
                         fanInterstitialAd.loadAd(loadAdConfig);
                         break;
 
+                    case STARTAPP:
+                        startAppAd = new StartAppAd(activity);
+                        startAppAd.loadAd(new AdEventListener() {
+                            @Override
+                            public void onReceiveAd(@NonNull Ad ad) {
+                                Log.d(TAG, "Startapp Interstitial Ad loaded");
+                            }
+
+                            @Override
+                            public void onFailedToReceiveAd(@Nullable Ad ad) {
+                                Log.d(TAG, "Failed to load Startapp Interstitial Ad");
+                            }
+                        });
+                        Log.d(TAG, "load StartApp as backup Ad");
+                        break;
+
                     case WORTISE:
                         wortiseInterstitialAd = new com.wortise.ads.interstitial.InterstitialAd(activity, wortiseInterstitialId);
                         wortiseInterstitialAd.setListener(new com.wortise.ads.interstitial.InterstitialAd.Listener() {
+                            @Override
+                            public void onInterstitialRevenuePaid(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd, @NonNull RevenueData revenueData) {
+
+                            }
+
                             @Override
                             public void onInterstitialImpression(@NonNull com.wortise.ads.interstitial.InterstitialAd interstitialAd) {
 
@@ -975,6 +1085,36 @@ public class InterstitialAd {
                             }
                             break;
 
+                        case STARTAPP:
+                            if (startAppAd != null) {
+                                startAppAd.showAd(new AdDisplayListener() {
+                                    @Override
+                                    public void adHidden(Ad ad) {
+                                        onInterstitialAdDismissedListener.onInterstitialAdDismissed();
+                                    }
+
+                                    @Override
+                                    public void adDisplayed(Ad ad) {
+                                        onInterstitialAdShowedListener.onInterstitialAdShowed();
+                                    }
+
+                                    @Override
+                                    public void adClicked(Ad ad) {
+
+                                    }
+
+                                    @Override
+                                    public void adNotDisplayed(Ad ad) {
+
+                                    }
+                                });
+                                Log.d(TAG, "startapp interstitial not null [counter] : " + counter);
+                            } else {
+                                showBackupInterstitialAd(onInterstitialAdShowedListener, onInterstitialAdDismissedListener);
+                                Log.d(TAG, "startapp interstitial null");
+                            }
+                            break;
+
                         case WORTISE:
                             if (wortiseInterstitialAd != null && wortiseInterstitialAd.isAvailable()) {
                                 wortiseInterstitialAd.showAd();
@@ -1020,6 +1160,32 @@ public class InterstitialAd {
                         if (fanInterstitialAd != null && fanInterstitialAd.isAdLoaded()) {
                             fanInterstitialAd.show();
                             onInterstitialAdShowedListener.onInterstitialAdShowed();
+                        }
+                        break;
+
+                    case STARTAPP:
+                        if (startAppAd != null) {
+                            startAppAd.showAd(new AdDisplayListener() {
+                                @Override
+                                public void adHidden(Ad ad) {
+                                    onInterstitialAdDismissedListener.onInterstitialAdDismissed();
+                                }
+
+                                @Override
+                                public void adDisplayed(Ad ad) {
+                                    onInterstitialAdShowedListener.onInterstitialAdShowed();
+                                }
+
+                                @Override
+                                public void adClicked(Ad ad) {
+
+                                }
+
+                                @Override
+                                public void adNotDisplayed(Ad ad) {
+
+                                }
+                            });
                         }
                         break;
 

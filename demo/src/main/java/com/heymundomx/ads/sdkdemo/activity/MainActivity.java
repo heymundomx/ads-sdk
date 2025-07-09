@@ -3,6 +3,7 @@ package com.heymundomx.ads.sdkdemo.activity;
 import static com.heymundomx.ads.sdk.util.Constant.ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
+import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 import static com.heymundomx.ads.sdkdemo.data.Constant.STYLE_DEFAULT;
 import static com.heymundomx.ads.sdkdemo.data.Constant.STYLE_NEWS;
@@ -26,6 +27,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -74,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = new SharedPref(this);
         getAppTheme();
         setContentView(R.layout.activity_main);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root_view), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        controller.setAppearanceLightStatusBars(false);
 
         if (Constant.FORCE_TO_SHOW_APP_OPEN_AD_ON_START) {
             ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleObserver);
@@ -318,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAdChooser() {
-        final String[] ads = {"AdMob", "Google Ad Manager", "FAN (Waterfall)", "Wortise"};
+        final String[] ads = {"AdMob", "Google Ad Manager", "FAN (Waterfall)", "StartApp", "Wortise"};
 
         new MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.btn_show_choose_ad))
@@ -333,6 +347,9 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case "FAN (Waterfall)":
                             Constant.AD_NETWORK = FAN;
+                            break;
+                        case "StartApp":
+                            Constant.AD_NETWORK = STARTAPP;
                             break;
                         case "Wortise":
                             Constant.AD_NETWORK = WORTISE;

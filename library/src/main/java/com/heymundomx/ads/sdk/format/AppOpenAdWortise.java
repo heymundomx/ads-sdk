@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.heymundomx.ads.sdk.util.OnShowAdCompleteListener;
 import com.wortise.ads.AdError;
+import com.wortise.ads.RevenueData;
 import com.wortise.ads.appopen.AppOpenAd;
 
 import java.util.Date;
@@ -64,6 +65,11 @@ public class AppOpenAdWortise {
         Log.d(LOG_TAG, "Will show ad.");
         wortiseAppOpenAd.setListener(new AppOpenAd.Listener() {
             @Override
+            public void onAppOpenRevenuePaid(@NonNull AppOpenAd appOpenAd, @NonNull RevenueData revenueData) {
+
+            }
+
+            @Override
             public void onAppOpenImpression(@NonNull AppOpenAd appOpenAd) {
 
             }
@@ -114,6 +120,11 @@ public class AppOpenAdWortise {
     }
 
     AppOpenAd.Listener wortiseAppOpenAdListener = new AppOpenAd.Listener() {
+        @Override
+        public void onAppOpenRevenuePaid(@NonNull AppOpenAd appOpenAd, @NonNull RevenueData revenueData) {
+
+        }
+
         @Override
         public void onAppOpenImpression(@NonNull AppOpenAd appOpenAd) {
 

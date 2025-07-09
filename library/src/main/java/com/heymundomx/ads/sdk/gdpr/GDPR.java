@@ -2,6 +2,7 @@ package com.heymundomx.ads.sdk.gdpr;
 
 import static com.heymundomx.ads.sdk.util.Constant.ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
+import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 
 import android.annotation.SuppressLint;
@@ -15,6 +16,7 @@ import com.google.android.ump.ConsentForm;
 import com.google.android.ump.ConsentInformation;
 import com.google.android.ump.ConsentRequestParameters;
 import com.google.android.ump.UserMessagingPlatform;
+import com.startapp.sdk.adsbase.StartAppSDK;
 import com.wortise.ads.WortiseSdk;
 import com.wortise.ads.consent.ConsentManager;
 
@@ -78,6 +80,10 @@ public class GDPR {
                 if (consentInformation.canRequestAds()) {
                     initializeMobileAdsSdk();
                 }
+                break;
+
+            case STARTAPP:
+                StartAppSDK.setUserConsent(activity, "pas", System.currentTimeMillis(), true);
                 break;
 
             case WORTISE:
