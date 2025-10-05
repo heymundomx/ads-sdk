@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -126,6 +127,7 @@ public class SecondActivity extends AppCompatActivity {
         } else {
             setTheme(R.style.AppTheme);
         }
+        EdgeToEdge.enable((this));
     }
 
 }

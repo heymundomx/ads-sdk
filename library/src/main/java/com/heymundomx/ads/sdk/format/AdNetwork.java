@@ -7,7 +7,6 @@ import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 import static com.heymundomx.ads.sdk.util.Constant.NONE;
 
@@ -17,8 +16,6 @@ import android.util.Log;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.AdapterStatus;
 import com.heymundomx.ads.sdk.helper.AudienceNetworkInitializeHelper;
-import com.startapp.sdk.adsbase.StartAppAd;
-import com.startapp.sdk.adsbase.StartAppSDK;
 import com.wortise.ads.AdSettings;
 import com.wortise.ads.WortiseSdk;
 
@@ -128,12 +125,6 @@ public class AdNetwork {
                         AudienceNetworkInitializeHelper.initializeAd(activity, debug);
                         break;
 
-                    case STARTAPP:
-                        StartAppSDK.init(activity, startappAppId, false);
-                        StartAppSDK.setTestAdsEnabled(debug);
-                        StartAppAd.disableSplash();
-                        break;
-
                     case WORTISE:
                         WortiseSdk.initialize(activity, wortiseAppId, () -> Unit.INSTANCE);
                         AdSettings.setTestEnabled(debug);
@@ -164,12 +155,6 @@ public class AdNetwork {
                     case FAN:
                     case FACEBOOK:
                         AudienceNetworkInitializeHelper.initializeAd(activity, debug);
-                        break;
-
-                    case STARTAPP:
-                        StartAppSDK.init(activity, startappAppId, false);
-                        StartAppSDK.setTestAdsEnabled(debug);
-                        StartAppAd.disableSplash();
                         break;
 
                     case WORTISE:

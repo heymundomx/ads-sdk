@@ -7,7 +7,6 @@ import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 import static com.heymundomx.ads.sdk.util.Constant.NONE;
 
@@ -44,11 +43,6 @@ import com.heymundomx.ads.sdk.util.Constant;
 import com.heymundomx.ads.sdk.util.NativeTemplateStyle;
 import com.heymundomx.ads.sdk.util.TemplateView;
 import com.heymundomx.ads.sdk.util.Tools;
-import com.startapp.sdk.ads.nativead.NativeAdDetails;
-import com.startapp.sdk.ads.nativead.NativeAdPreferences;
-import com.startapp.sdk.ads.nativead.StartAppNativeAd;
-import com.startapp.sdk.adsbase.Ad;
-import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
 import com.wortise.ads.RevenueData;
 import com.wortise.ads.natives.GoogleNativeAd;
 
@@ -312,59 +306,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                         }
                         break;
 
-                    case STARTAPP:
-                        if (startappNativeAd.getVisibility() != View.VISIBLE) {
-                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
-                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
-                                    .setAdsNumber(3)
-                                    .setAutoBitmapDownload(true)
-                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
-                            AdEventListener adListener = new AdEventListener() {
-                                @Override
-                                public void onReceiveAd(@NonNull Ad arg0) {
-                                    Log.d("STARTAPP_ADS", "ad loaded");
-                                    startappNativeAd.setVisibility(View.VISIBLE);
-                                    nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds(); // get NativeAds list
-
-                                    // Print all ads details to log
-                                    for (Object ad : ads) {
-                                        Log.d("STARTAPP_ADS", ad.toString());
-                                    }
-
-                                    NativeAdDetails ad = ads.get(0);
-                                    if (ad != null) {
-                                        startappNativeImage.setImageBitmap(ad.getImageBitmap());
-                                        startappNativeIcon.setImageBitmap(ad.getSecondaryImageBitmap());
-                                        startappNativeTitle.setText(ad.getTitle());
-                                        startappNativeDescription.setText(ad.getDescription());
-                                        startappNativeButton.setText(ad.isApp() ? "Descargar" : "Abrir");
-                                        ad.registerViewForInteraction(itemView);
-                                    }
-
-                                    if (darkTheme) {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundDark);
-                                    } else {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundLight);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailedToReceiveAd(Ad arg0) {
-                                    //startapp_native_ad.setVisibility(View.GONE);
-                                    //native_ad_view_container.setVisibility(View.GONE);
-                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, adManagerNativeId, fanNativeId, appLovinNativeId, appLovinDiscMrecZoneId, wortiseNativeId, darkTheme, legacyGDPR, nativeAdStyle, nativeBackgroundLight, nativeBackgroundDark);
-                                    Log.d(TAG, "ad failed");
-                                }
-                            };
-                            //noinspection deprecation
-                            startAppNativeAd.loadAd(nativePrefs, adListener);
-                        } else {
-                            Log.d(TAG, "StartApp native ads has been loaded");
-                        }
-                        break;
-
                     case WORTISE:
                         if (wortiseNativeAd.getVisibility() != View.VISIBLE) {
                             mGoogleNativeAd = new GoogleNativeAd(context, wortiseNativeId, new GoogleNativeAd.Listener() {
@@ -604,58 +545,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                             fanNativeAd.loadAd(loadAdConfig);
                         } else {
                             Log.d(TAG, "FAN Native Ad has been loaded");
-                        }
-                        break;
-
-                    case STARTAPP:
-                        if (startappNativeAd.getVisibility() != View.VISIBLE) {
-                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
-                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
-                                    .setAdsNumber(3)
-                                    .setAutoBitmapDownload(true)
-                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
-                            AdEventListener adListener = new AdEventListener() {
-                                @Override
-                                public void onReceiveAd(@NonNull Ad arg0) {
-                                    Log.d("STARTAPP_ADS", "ad loaded");
-                                    startappNativeAd.setVisibility(View.VISIBLE);
-                                    nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds(); // get NativeAds list
-
-                                    // Print all ads details to log
-                                    for (Object ad : ads) {
-                                        Log.d("STARTAPP_ADS", ad.toString());
-                                    }
-
-                                    NativeAdDetails ad = ads.get(0);
-                                    if (ad != null) {
-                                        startappNativeImage.setImageBitmap(ad.getImageBitmap());
-                                        startappNativeIcon.setImageBitmap(ad.getSecondaryImageBitmap());
-                                        startappNativeTitle.setText(ad.getTitle());
-                                        startappNativeDescription.setText(ad.getDescription());
-                                        startappNativeButton.setText(ad.isApp() ? "Descargar" : "Abrir");
-                                        ad.registerViewForInteraction(itemView);
-                                    }
-
-                                    if (darkTheme) {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundDark);
-                                    } else {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundLight);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailedToReceiveAd(Ad arg0) {
-                                    startappNativeAd.setVisibility(View.GONE);
-                                    nativeAdViewContainer.setVisibility(View.GONE);
-                                    Log.d(TAG, "ad failed");
-                                }
-                            };
-                            //noinspection deprecation
-                            startAppNativeAd.loadAd(nativePrefs, adListener);
-                        } else {
-                            Log.d(TAG, "StartApp native ads has been loaded");
                         }
                         break;
 
@@ -901,59 +790,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                             Log.d(TAG, "FAN Native Ad has been loaded");
                         }
                         break;
-
-                    case STARTAPP:
-                        if (startappNativeAd.getVisibility() != View.VISIBLE) {
-                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
-                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
-                                    .setAdsNumber(3)
-                                    .setAutoBitmapDownload(true)
-                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
-                            AdEventListener adListener = new AdEventListener() {
-                                @Override
-                                public void onReceiveAd(@NonNull Ad arg0) {
-                                    Log.d("STARTAPP_ADS", "ad loaded");
-                                    startappNativeAd.setVisibility(View.VISIBLE);
-                                    nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds(); // get NativeAds list
-
-                                    // Print all ads details to log
-                                    for (Object ad : ads) {
-                                        Log.d("STARTAPP_ADS", ad.toString());
-                                    }
-
-                                    NativeAdDetails ad = ads.get(0);
-                                    if (ad != null) {
-                                        startappNativeImage.setImageBitmap(ad.getImageBitmap());
-                                        startappNativeIcon.setImageBitmap(ad.getSecondaryImageBitmap());
-                                        startappNativeTitle.setText(ad.getTitle());
-                                        startappNativeDescription.setText(ad.getDescription());
-                                        startappNativeButton.setText(ad.isApp() ? "Descargar" : "Abrir");
-                                        ad.registerViewForInteraction(itemView);
-                                    }
-
-                                    if (darkTheme) {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundDark);
-                                    } else {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundLight);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailedToReceiveAd(Ad arg0) {
-                                    //startapp_native_ad.setVisibility(View.GONE);
-                                    //native_ad_view_container.setVisibility(View.GONE);
-                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, adManagerNativeId, fanNativeId, appLovinNativeId, appLovinDiscMrecZoneId, darkTheme, legacyGDPR, nativeAdStyle, nativeBackgroundLight, nativeBackgroundDark);
-                                    Log.d(TAG, "ad failed");
-                                }
-                            };
-                            //noinspection deprecation
-                            startAppNativeAd.loadAd(nativePrefs, adListener);
-                        } else {
-                            Log.d(TAG, "StartApp native ads has been loaded");
-                        }
-                        break;
                 }
             }
         }
@@ -1140,58 +976,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                             fanNativeAd.loadAd(loadAdConfig);
                         } else {
                             Log.d(TAG, "FAN Native Ad has been loaded");
-                        }
-                        break;
-
-                    case STARTAPP:
-                        if (startappNativeAd.getVisibility() != View.VISIBLE) {
-                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
-                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
-                                    .setAdsNumber(3)
-                                    .setAutoBitmapDownload(true)
-                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
-                            AdEventListener adListener = new AdEventListener() {
-                                @Override
-                                public void onReceiveAd(@NonNull Ad arg0) {
-                                    Log.d("STARTAPP_ADS", "ad loaded");
-                                    startappNativeAd.setVisibility(View.VISIBLE);
-                                    nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds(); // get NativeAds list
-
-                                    // Print all ads details to log
-                                    for (Object ad : ads) {
-                                        Log.d("STARTAPP_ADS", ad.toString());
-                                    }
-
-                                    NativeAdDetails ad = ads.get(0);
-                                    if (ad != null) {
-                                        startappNativeImage.setImageBitmap(ad.getImageBitmap());
-                                        startappNativeIcon.setImageBitmap(ad.getSecondaryImageBitmap());
-                                        startappNativeTitle.setText(ad.getTitle());
-                                        startappNativeDescription.setText(ad.getDescription());
-                                        startappNativeButton.setText(ad.isApp() ? "Descargar" : "Abrir");
-                                        ad.registerViewForInteraction(itemView);
-                                    }
-
-                                    if (darkTheme) {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundDark);
-                                    } else {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundLight);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailedToReceiveAd(Ad arg0) {
-                                    startappNativeAd.setVisibility(View.GONE);
-                                    nativeAdViewContainer.setVisibility(View.GONE);
-                                    Log.d(TAG, "ad failed");
-                                }
-                            };
-                            //noinspection deprecation
-                            startAppNativeAd.loadAd(nativePrefs, adListener);
-                        } else {
-                            Log.d(TAG, "StartApp native ads has been loaded");
                         }
                         break;
 
@@ -1384,59 +1168,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                             Log.d(TAG, "FAN Native Ad has been loaded");
                         }
                         break;
-
-                    case STARTAPP:
-                        if (startappNativeAd.getVisibility() != View.VISIBLE) {
-                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
-                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
-                                    .setAdsNumber(3)
-                                    .setAutoBitmapDownload(true)
-                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
-                            AdEventListener adListener = new AdEventListener() {
-                                @Override
-                                public void onReceiveAd(@NonNull Ad arg0) {
-                                    Log.d("STARTAPP_ADS", "ad loaded");
-                                    startappNativeAd.setVisibility(View.VISIBLE);
-                                    nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds(); // get NativeAds list
-
-                                    // Print all ads details to log
-                                    for (Object ad : ads) {
-                                        Log.d("STARTAPP_ADS", ad.toString());
-                                    }
-
-                                    NativeAdDetails ad = ads.get(0);
-                                    if (ad != null) {
-                                        startappNativeImage.setImageBitmap(ad.getImageBitmap());
-                                        startappNativeIcon.setImageBitmap(ad.getSecondaryImageBitmap());
-                                        startappNativeTitle.setText(ad.getTitle());
-                                        startappNativeDescription.setText(ad.getDescription());
-                                        startappNativeButton.setText(ad.isApp() ? "Descargar" : "Abrir");
-                                        ad.registerViewForInteraction(itemView);
-                                    }
-
-                                    if (darkTheme) {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundDark);
-                                    } else {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundLight);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailedToReceiveAd(Ad arg0) {
-                                    //startapp_native_ad.setVisibility(View.GONE);
-                                    //native_ad_view_container.setVisibility(View.GONE);
-                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, adManagerNativeId, fanNativeId, appLovinNativeId, darkTheme, legacyGDPR, nativeAdStyle, nativeBackgroundLight, nativeBackgroundDark);
-                                    Log.d(TAG, "ad failed");
-                                }
-                            };
-                            //noinspection deprecation
-                            startAppNativeAd.loadAd(nativePrefs, adListener);
-                        } else {
-                            Log.d(TAG, "StartApp native ads has been loaded");
-                        }
-                        break;
                 }
             }
         }
@@ -1626,58 +1357,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                         }
                         break;
 
-                    case STARTAPP:
-                        if (startappNativeAd.getVisibility() != View.VISIBLE) {
-                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
-                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
-                                    .setAdsNumber(3)
-                                    .setAutoBitmapDownload(true)
-                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
-                            AdEventListener adListener = new AdEventListener() {
-                                @Override
-                                public void onReceiveAd(@NonNull Ad arg0) {
-                                    Log.d("STARTAPP_ADS", "ad loaded");
-                                    startappNativeAd.setVisibility(View.VISIBLE);
-                                    nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds(); // get NativeAds list
-
-                                    // Print all ads details to log
-                                    for (Object ad : ads) {
-                                        Log.d("STARTAPP_ADS", ad.toString());
-                                    }
-
-                                    NativeAdDetails ad = ads.get(0);
-                                    if (ad != null) {
-                                        startappNativeImage.setImageBitmap(ad.getImageBitmap());
-                                        startappNativeIcon.setImageBitmap(ad.getSecondaryImageBitmap());
-                                        startappNativeTitle.setText(ad.getTitle());
-                                        startappNativeDescription.setText(ad.getDescription());
-                                        startappNativeButton.setText(ad.isApp() ? "Descargar" : "Abrir");
-                                        ad.registerViewForInteraction(itemView);
-                                    }
-
-                                    if (darkTheme) {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundDark);
-                                    } else {
-                                        startappNativeBackground.setBackgroundResource(nativeBackgroundLight);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailedToReceiveAd(Ad arg0) {
-                                    startappNativeAd.setVisibility(View.GONE);
-                                    nativeAdViewContainer.setVisibility(View.GONE);
-                                    Log.d(TAG, "ad failed");
-                                }
-                            };
-                            //noinspection deprecation
-                            startAppNativeAd.loadAd(nativePrefs, adListener);
-                        } else {
-                            Log.d(TAG, "StartApp native ads has been loaded");
-                        }
-                        break;
-
                     case NONE:
                         nativeAdViewContainer.setVisibility(View.GONE);
                         break;
@@ -1863,59 +1542,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                             Log.d(TAG, "FAN Native Ad has been loaded");
                         }
                         break;
-
-                    case STARTAPP:
-                        if (startappNativeAd.getVisibility() != View.VISIBLE) {
-                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
-                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
-                                    .setAdsNumber(3)
-                                    .setAutoBitmapDownload(true)
-                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
-                            AdEventListener adListener = new AdEventListener() {
-                                @Override
-                                public void onReceiveAd(@NonNull Ad arg0) {
-                                    Log.d("STARTAPP_ADS", "ad loaded");
-                                    startappNativeAd.setVisibility(View.VISIBLE);
-                                    nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds(); // get NativeAds list
-
-                                    // Print all ads details to log
-                                    for (Object ad : ads) {
-                                        Log.d("STARTAPP_ADS", ad.toString());
-                                    }
-
-                                    NativeAdDetails ad = ads.get(0);
-                                    if (ad != null) {
-                                        startappNativeImage.setImageBitmap(ad.getImageBitmap());
-                                        startappNativeIcon.setImageBitmap(ad.getSecondaryImageBitmap());
-                                        startappNativeTitle.setText(ad.getTitle());
-                                        startappNativeDescription.setText(ad.getDescription());
-                                        startappNativeButton.setText(ad.isApp() ? "Descargar" : "Abrir");
-                                        ad.registerViewForInteraction(itemView);
-                                    }
-
-                                    if (darkTheme) {
-                                        startappNativeBackground.setBackgroundResource(R.color.color_native_background_dark);
-                                    } else {
-                                        startappNativeBackground.setBackgroundResource(R.color.color_native_background_light);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailedToReceiveAd(Ad arg0) {
-                                    //startapp_native_ad.setVisibility(View.GONE);
-                                    //native_ad_view_container.setVisibility(View.GONE);
-                                    loadBackupNativeAd(context, adStatus, placementStatus, backupAdNetwork, adMobNativeId, adManagerNativeId, fanNativeId, appLovinNativeId, darkTheme, legacyGDPR, nativeAdStyle);
-                                    Log.d(TAG, "ad failed");
-                                }
-                            };
-                            //noinspection deprecation
-                            startAppNativeAd.loadAd(nativePrefs, adListener);
-                        } else {
-                            Log.d(TAG, "StartApp native ads has been loaded");
-                        }
-                        break;
                 }
             }
         }
@@ -2098,58 +1724,6 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                             fanNativeAd.loadAd(loadAdConfig);
                         } else {
                             Log.d(TAG, "FAN Native Ad has been loaded");
-                        }
-                        break;
-
-                    case STARTAPP:
-                        if (startappNativeAd.getVisibility() != View.VISIBLE) {
-                            StartAppNativeAd startAppNativeAd = new StartAppNativeAd(context);
-                            NativeAdPreferences nativePrefs = new NativeAdPreferences()
-                                    .setAdsNumber(3)
-                                    .setAutoBitmapDownload(true)
-                                    .setPrimaryImageSize(Constant.STARTAPP_IMAGE_MEDIUM);
-                            AdEventListener adListener = new AdEventListener() {
-                                @Override
-                                public void onReceiveAd(@NonNull Ad arg0) {
-                                    Log.d("STARTAPP_ADS", "ad loaded");
-                                    startappNativeAd.setVisibility(View.VISIBLE);
-                                    nativeAdViewContainer.setVisibility(View.VISIBLE);
-                                    ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds(); // get NativeAds list
-
-                                    // Print all ads details to log
-                                    for (Object ad : ads) {
-                                        Log.d("STARTAPP_ADS", ad.toString());
-                                    }
-
-                                    NativeAdDetails ad = ads.get(0);
-                                    if (ad != null) {
-                                        startappNativeImage.setImageBitmap(ad.getImageBitmap());
-                                        startappNativeIcon.setImageBitmap(ad.getSecondaryImageBitmap());
-                                        startappNativeTitle.setText(ad.getTitle());
-                                        startappNativeDescription.setText(ad.getDescription());
-                                        startappNativeButton.setText(ad.isApp() ? "Descargar" : "Abrir");
-                                        ad.registerViewForInteraction(itemView);
-                                    }
-
-                                    if (darkTheme) {
-                                        startappNativeBackground.setBackgroundResource(R.color.color_native_background_dark);
-                                    } else {
-                                        startappNativeBackground.setBackgroundResource(R.color.color_native_background_light);
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailedToReceiveAd(Ad arg0) {
-                                    startappNativeAd.setVisibility(View.GONE);
-                                    nativeAdViewContainer.setVisibility(View.GONE);
-                                    Log.d(TAG, "ad failed");
-                                }
-                            };
-                            //noinspection deprecation
-                            startAppNativeAd.loadAd(nativePrefs, adListener);
-                        } else {
-                            Log.d(TAG, "StartApp native ads has been loaded");
                         }
                         break;
 

@@ -20,8 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.activity.ComponentActivity;
+import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -320,6 +323,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setTheme(R.style.AppTheme);
         }
+        EdgeToEdge.enable((this));
     }
 
     private void switchAppTheme() {

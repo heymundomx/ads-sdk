@@ -8,7 +8,6 @@ import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN_BIDDING_AD_MANAGER;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
 import static com.heymundomx.ads.sdk.util.Constant.NONE;
-import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
 
 import android.app.Activity;
 import android.util.Log;
@@ -26,8 +25,6 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.admanager.AdManagerAdView;
 import com.heymundomx.ads.sdk.R;
 import com.heymundomx.ads.sdk.util.Tools;
-import com.startapp.sdk.ads.banner.Banner;
-import com.startapp.sdk.ads.banner.BannerListener;
 
 public class MediumRectangleAd {
 
@@ -255,33 +252,6 @@ public class MediumRectangleAd {
                         fanAdView.loadAd(loadAdConfig);
                         break;
 
-                    case STARTAPP:
-                        RelativeLayout startAppAdView = activity.findViewById(R.id.startapp_banner_view_container);
-                        Banner banner = new Banner(activity, new BannerListener() {
-                            @Override
-                            public void onReceiveAd(View banner) {
-                                startAppAdView.setVisibility(View.VISIBLE);
-                            }
-
-                            @Override
-                            public void onFailedToReceiveAd(View banner) {
-                                startAppAdView.setVisibility(View.GONE);
-                                loadBackupBannerAd();
-                                Log.d(TAG, adNetwork + " failed load startapp banner ad : ");
-                            }
-
-                            @Override
-                            public void onImpression(View view) {
-
-                            }
-
-                            @Override
-                            public void onClick(View banner) {
-                            }
-                        });
-                        startAppAdView.addView(banner);
-                        break;
-
                     case NONE:
                         break;
                 }
@@ -413,32 +383,6 @@ public class MediumRectangleAd {
                         };
                         com.facebook.ads.AdView.AdViewLoadConfig loadAdConfig = fanAdView.buildLoadAdConfig().withAdListener(adListener).build();
                         fanAdView.loadAd(loadAdConfig);
-                        break;
-
-                    case STARTAPP:
-                        RelativeLayout startAppAdView = activity.findViewById(R.id.startapp_banner_view_container);
-                        Banner banner = new Banner(activity, new BannerListener() {
-                            @Override
-                            public void onReceiveAd(View banner) {
-                                startAppAdView.setVisibility(View.VISIBLE);
-                            }
-
-                            @Override
-                            public void onFailedToReceiveAd(View banner) {
-                                startAppAdView.setVisibility(View.GONE);
-                                Log.d(TAG, adNetwork + " failed load startapp banner ad : ");
-                            }
-
-                            @Override
-                            public void onImpression(View view) {
-
-                            }
-
-                            @Override
-                            public void onClick(View banner) {
-                            }
-                        });
-                        startAppAdView.addView(banner);
                         break;
                 }
                 Log.d(TAG, "Banner Ad is enabled");
