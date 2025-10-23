@@ -36,16 +36,15 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'com.google.android.material:material:1.13.0'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
 
     //Primary Ad Networks
-    implementation 'com.google.android.gms:play-services-ads:24.6.0'
+    implementation 'com.google.android.gms:play-services-ads:24.7.0'
     implementation 'com.facebook.android:audience-network-sdk:6.20.0'
     implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
-    implementation 'com.wortise:android-sdk:1.7.1'
+    implementation 'com.wortise:android-sdk:1.7.2'
 
     //AdMob mediation
-    implementation 'com.google.ads.mediation:facebook:6.20.0.1'
+    implementation 'com.google.ads.mediation:facebook:6.20.0.2'
 
     //GDPR
     implementation 'com.google.android.ump:user-messaging-platform:3.2.0'
@@ -58,7 +57,7 @@ afterEvaluate {
                 from components["release"]
                 groupId = 'com.github.heymundomx'
                 artifactId = 'ads-sdk'
-                version = '94.0.0'
+                version = '94.0.1'
             }
         }
     }
