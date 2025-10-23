@@ -3,7 +3,6 @@ package com.heymundomx.ads.sdkdemo.activity;
 import static com.heymundomx.ads.sdk.util.Constant.ADMOB;
 import static com.heymundomx.ads.sdk.util.Constant.FAN;
 import static com.heymundomx.ads.sdk.util.Constant.GOOGLE_AD_MANAGER;
-import static com.heymundomx.ads.sdk.util.Constant.STARTAPP;
 import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 import static com.heymundomx.ads.sdkdemo.data.Constant.STYLE_DEFAULT;
 import static com.heymundomx.ads.sdkdemo.data.Constant.STYLE_NEWS;
@@ -334,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAdChooser() {
-        final String[] ads = {"AdMob", "Google Ad Manager", "FAN (Waterfall)", "StartApp", "Wortise"};
+        final String[] ads = {"AdMob", "Google Ad Manager", "FAN (Waterfall)", "Wortise"};
 
         new MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.btn_show_choose_ad))
@@ -349,9 +348,6 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case "FAN (Waterfall)":
                             Constant.AD_NETWORK = FAN;
-                            break;
-                        case "StartApp":
-                            Constant.AD_NETWORK = STARTAPP;
                             break;
                         case "Wortise":
                             Constant.AD_NETWORK = WORTISE;
