@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:text="¿Qué es lo que quieres hacer?"
+            android:text="¿Quieres salir de la aplicación?"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
             android:textSize="15sp"
             tools:ignore="HardcodedText" />
