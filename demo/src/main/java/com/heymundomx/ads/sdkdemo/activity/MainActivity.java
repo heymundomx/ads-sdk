@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout nativeAdViewContainer;
     LinearLayout bannerAdView;
     AppOpenAd.Builder appOpenAdBuilder;
+    RelativeLayout parentView;
+    RelativeLayout backgroundView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
             toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.color_dark_toolbar));
         } else {
             toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        }
+
+        parentView = findViewById(R.id.root_view);
+        backgroundView = findViewById(R.id.background_view);
+        if (sharedPref.getIsDarkTheme()) {
+            parentView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_dark_toolbar));
+            backgroundView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_dark_background));
+        } else {
+            parentView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_light_status_bar));
+            backgroundView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_light_background));
         }
 
         bannerAdView = findViewById(R.id.banner_ad_view);

@@ -10,9 +10,11 @@ import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.heymundomx.ads.sdk.format.AdNetwork;
 import com.heymundomx.ads.sdk.format.AppOpenAd;
@@ -42,6 +44,7 @@ public class ActivitySplash extends AppCompatActivity {
     AdNetwork.Initialize adNetwork;
     AppOpenAd.Builder appOpenAdBuilder;
     SharedPref sharedPref;
+    RelativeLayout parentView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,9 @@ public class ActivitySplash extends AppCompatActivity {
         } else {
             requestConfig();
         }
+
+        parentView = findViewById(R.id.root_view);
+        parentView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_light_background));
     }
 
     public void getAppTheme() {

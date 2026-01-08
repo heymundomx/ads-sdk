@@ -2,6 +2,7 @@ package com.heymundomx.ads.sdkdemo.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -35,6 +36,8 @@ public class SecondActivity extends AppCompatActivity {
     AdapterPost adapterPost;
     BannerAd.Builder bannerAd;
     Toolbar toolbar;
+    RelativeLayout parentView;
+    RelativeLayout backgroundView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,16 @@ public class SecondActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setTitle(getString(R.string.app_name));
+        }
+
+        parentView = findViewById(R.id.root_view);
+        backgroundView = findViewById(R.id.background_view);
+        if (sharedPref.getIsDarkTheme()) {
+            parentView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_dark_toolbar));
+            backgroundView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_dark_background));
+        } else {
+            parentView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_light_status_bar));
+            backgroundView.setBackgroundColor(ContextCompat.getColor(this, R.color.color_light_background));
         }
     }
 
