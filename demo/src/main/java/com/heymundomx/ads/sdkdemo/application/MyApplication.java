@@ -9,7 +9,6 @@ import static com.heymundomx.ads.sdk.util.Constant.WORTISE;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
-import androidx.multidex.MultiDex;
 
 import com.heymundomx.ads.sdk.format.AppOpenAdAppLovin;
 import com.heymundomx.ads.sdk.format.AppOpenAdManager;
@@ -46,12 +44,6 @@ public class MyApplication extends Application {
             appOpenAdAppLovin = new AppOpenAdAppLovin();
             appOpenAdWortise = new AppOpenAdWortise();
         }
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
     }
 
     LifecycleObserver lifecycleObserver = new DefaultLifecycleObserver() {
