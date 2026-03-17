@@ -11,7 +11,7 @@ public class AudienceNetworkInitializeHelper implements AudienceNetworkAds.InitL
 
     /**
      * It's recommended to call this method from Application.onCreate().
-     * Otherwise you can call it from all Activity.onCreate()
+     * Otherwise, you can call it from all Activity.onCreate()
      * methods for Activities that contain ads.
      *
      * @param context Application or Activity.
