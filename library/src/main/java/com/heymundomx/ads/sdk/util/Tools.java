@@ -23,8 +23,7 @@ public class Tools {
 
     public static AdSize getAdSize(Activity activity) {
         int adWidth = getScreenWidthInDp(activity);
-        return AdSize.getLargePortraitAnchoredAdaptiveBannerAdSize(activity, adWidth);
-
+        return AdSize.getLargeAnchoredAdaptiveBannerAdSize(activity, adWidth);
     }
 
     public static com.wortise.ads.AdSize getWortiseAdSize(Activity activity) {
