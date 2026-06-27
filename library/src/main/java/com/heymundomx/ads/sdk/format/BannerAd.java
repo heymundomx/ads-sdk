@@ -145,9 +145,9 @@ public class BannerAd {
                         adContainerView.post(() -> {
                             adView = new AdView(activity);
                             adView.setAdUnitId(adMobBannerId);
+                            adView.setAdSize(Tools.getAdSize(activity));
                             adContainerView.removeAllViews();
                             adContainerView.addView(adView);
-                            adView.setAdSize(Tools.getAdSize(activity));
                             adView.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                             adView.setAdListener(new AdListener() {
                                 @Override
@@ -190,9 +190,9 @@ public class BannerAd {
                         googleAdContainerView.post(() -> {
                             adManagerAdView = new AdManagerAdView(activity);
                             adManagerAdView.setAdUnitId(googleAdManagerBannerId);
+                            adManagerAdView.setAdSize(Tools.getAdSize(activity));
                             googleAdContainerView.removeAllViews();
                             googleAdContainerView.addView(adManagerAdView);
-                            adManagerAdView.setAdSize(Tools.getAdSize(activity));
                             adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
                             adManagerAdView.setAdListener(new AdListener() {
                                 @Override
@@ -316,9 +316,9 @@ public class BannerAd {
                         adContainerView.post(() -> {
                             adView = new AdView(activity);
                             adView.setAdUnitId(adMobBannerId);
+                            adView.setAdSize(Tools.getAdSize(activity));
                             adContainerView.removeAllViews();
                             adContainerView.addView(adView);
-                            adView.setAdSize(Tools.getAdSize(activity));
                             adView.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                             adView.setAdListener(new AdListener() {
                                 @Override
@@ -360,9 +360,9 @@ public class BannerAd {
                         googleAdContainerView.post(() -> {
                             adManagerAdView = new AdManagerAdView(activity);
                             adManagerAdView.setAdUnitId(googleAdManagerBannerId);
+                            adManagerAdView.setAdSize(Tools.getAdSize(activity));
                             googleAdContainerView.removeAllViews();
                             googleAdContainerView.addView(adManagerAdView);
-                            adManagerAdView.setAdSize(Tools.getAdSize(activity));
                             adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
                             adManagerAdView.setAdListener(new AdListener() {
                                 @Override
