@@ -15,7 +15,8 @@
         android:paddingStart="@dimen/item_post_padding_medium"
         android:paddingTop="@dimen/item_post_padding_small"
         android:paddingEnd="@dimen/item_post_padding_medium"
-        android:paddingBottom="@dimen/item_post_padding_small">
+        android:paddingBottom="@dimen/item_post_padding_small"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="match_parent"

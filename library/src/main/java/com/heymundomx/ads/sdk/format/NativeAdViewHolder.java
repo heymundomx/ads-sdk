@@ -350,10 +350,19 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                             .setCallToActionButtonId(R.id.cta)
                                             .setIconImageViewId(R.id.icon)
                                             .setMediaContentViewId(R.id.media_view)
-                                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                                            //.setAdvertiserTextViewId(R.id.advertiser_textView)
                                             .build();
 
                                     com.wortise.ads.natives.NativeAdView adView = new com.wortise.ads.natives.NativeAdView(context, binder);
+
+                                    LinearLayout backgroundLayout = adView.findViewById(R.id.background);
+                                    if (backgroundLayout != null) {
+                                        if (darkTheme) {
+                                            backgroundLayout.setBackgroundResource(nativeBackgroundDark);
+                                        } else {
+                                            backgroundLayout.setBackgroundResource(nativeBackgroundLight);
+                                        }
+                                    }
 
                                     mNativeAdLoader.renderAd(adView, nativeAd);
                                     wortiseNativeAd.removeAllViews();
@@ -602,10 +611,19 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                             .setCallToActionButtonId(R.id.cta)
                                             .setIconImageViewId(R.id.icon)
                                             .setMediaContentViewId(R.id.media_view)
-                                            .setAdvertiserTextViewId(R.id.advertiser_textView)
+                                            //.setAdvertiserTextViewId(R.id.advertiser_textView)
                                             .build();
 
                                     com.wortise.ads.natives.NativeAdView adView = new com.wortise.ads.natives.NativeAdView(context, binder);
+
+                                    LinearLayout backgroundLayout = adView.findViewById(R.id.background);
+                                    if (backgroundLayout != null) {
+                                        if (darkTheme) {
+                                            backgroundLayout.setBackgroundResource(nativeBackgroundDark);
+                                        } else {
+                                            backgroundLayout.setBackgroundResource(nativeBackgroundLight);
+                                        }
+                                    }
 
                                     mNativeAdLoader.renderAd(adView, nativeAd);
                                     wortiseNativeAd.removeAllViews();
