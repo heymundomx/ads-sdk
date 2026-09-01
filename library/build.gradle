@@ -40,7 +40,7 @@ dependencies {
     implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
     implementation 'com.wortise:android-sdk:1.8.0-beta09'
 
-    //AdMob mediation
+    //Mediation
     implementation 'com.google.ads.mediation:facebook:6.22.0.0'
     implementation 'com.google.ads.mediation:bidmachine:3.8.0.0'
     implementation 'com.google.ads.mediation:fyber:8.4.7.0'
