@@ -29,7 +29,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.ads.AdError;
-import com.facebook.ads.AdOptionsView;
 import com.facebook.ads.NativeAdLayout;
 import com.facebook.ads.NativeAdListener;
 import com.google.android.gms.ads.AdListener;
@@ -237,11 +236,11 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     };
                                     fanNativeAdLayout.addView(nativeAdView);
 
-                                    // Add the AdOptionsView
+                                    // Clean up ad choices container since AdOptionsView is deprecated
                                     LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                    AdOptionsView adOptionsView = new AdOptionsView(context, fanNativeAd, fanNativeAdLayout);
-                                    adChoicesContainer.removeAllViews();
-                                    adChoicesContainer.addView(adOptionsView, 0);
+                                    if (adChoicesContainer != null) {
+                                        adChoicesContainer.removeAllViews();
+                                    }
 
                                     // Create native UI using the ad metadata.
                                     TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
@@ -499,11 +498,11 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     };
                                     fanNativeAdLayout.addView(nativeAdView);
 
-                                    // Add the AdOptionsView
+                                    // Clean up ad choices container since AdOptionsView is deprecated
                                     LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                    AdOptionsView adOptionsView = new AdOptionsView(context, fanNativeAd, fanNativeAdLayout);
-                                    adChoicesContainer.removeAllViews();
-                                    adChoicesContainer.addView(adOptionsView, 0);
+                                    if (adChoicesContainer != null) {
+                                        adChoicesContainer.removeAllViews();
+                                    }
 
                                     // Create native UI using the ad metadata.
                                     TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
@@ -762,11 +761,11 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     };
                                     fanNativeAdLayout.addView(nativeAdView);
 
-                                    // Add the AdOptionsView
+                                    // Clean up ad choices container since AdOptionsView is deprecated
                                     LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                    AdOptionsView adOptionsView = new AdOptionsView(context, fanNativeAd, fanNativeAdLayout);
-                                    adChoicesContainer.removeAllViews();
-                                    adChoicesContainer.addView(adOptionsView, 0);
+                                    if (adChoicesContainer != null) {
+                                        adChoicesContainer.removeAllViews();
+                                    }
 
                                     // Create native UI using the ad metadata.
                                     TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
@@ -950,11 +949,11 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     };
                                     fanNativeAdLayout.addView(nativeAdView);
 
-                                    // Add the AdOptionsView
+                                    // Clean up ad choices container since AdOptionsView is deprecated
                                     LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                    AdOptionsView adOptionsView = new AdOptionsView(context, fanNativeAd, fanNativeAdLayout);
-                                    adChoicesContainer.removeAllViews();
-                                    adChoicesContainer.addView(adOptionsView, 0);
+                                    if (adChoicesContainer != null) {
+                                        adChoicesContainer.removeAllViews();
+                                    }
 
                                     // Create native UI using the ad metadata.
                                     TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
@@ -1140,11 +1139,11 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     };
                                     fanNativeAdLayout.addView(nativeAdView);
 
-                                    // Add the AdOptionsView
+                                    // Clean up ad choices container since AdOptionsView is deprecated
                                     LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                    AdOptionsView adOptionsView = new AdOptionsView(context, fanNativeAd, fanNativeAdLayout);
-                                    adChoicesContainer.removeAllViews();
-                                    adChoicesContainer.addView(adOptionsView, 0);
+                                    if (adChoicesContainer != null) {
+                                        adChoicesContainer.removeAllViews();
+                                    }
 
                                     // Create native UI using the ad metadata.
                                     TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
@@ -1328,11 +1327,11 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     };
                                     fanNativeAdLayout.addView(nativeAdView);
 
-                                    // Add the AdOptionsView
+                                    // Clean up ad choices container since AdOptionsView is deprecated
                                     LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                    AdOptionsView adOptionsView = new AdOptionsView(context, fanNativeAd, fanNativeAdLayout);
-                                    adChoicesContainer.removeAllViews();
-                                    adChoicesContainer.addView(adOptionsView, 0);
+                                    if (adChoicesContainer != null) {
+                                        adChoicesContainer.removeAllViews();
+                                    }
 
                                     // Create native UI using the ad metadata.
                                     TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
@@ -1518,11 +1517,11 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     };
                                     fanNativeAdLayout.addView(nativeAdView);
 
-                                    // Add the AdOptionsView
+                                    // Clean up ad choices container since AdOptionsView is deprecated
                                     LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                    AdOptionsView adOptionsView = new AdOptionsView(context, fanNativeAd, fanNativeAdLayout);
-                                    adChoicesContainer.removeAllViews();
-                                    adChoicesContainer.addView(adOptionsView, 0);
+                                    if (adChoicesContainer != null) {
+                                        adChoicesContainer.removeAllViews();
+                                    }
 
                                     // Create native UI using the ad metadata.
                                     TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
@@ -1702,11 +1701,11 @@ public class NativeAdViewHolder extends RecyclerView.ViewHolder {
                                     };
                                     fanNativeAdLayout.addView(nativeAdView);
 
-                                    // Add the AdOptionsView
+                                    // Clean up ad choices container since AdOptionsView is deprecated
                                     LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                    AdOptionsView adOptionsView = new AdOptionsView(context, fanNativeAd, fanNativeAdLayout);
-                                    adChoicesContainer.removeAllViews();
-                                    adChoicesContainer.addView(adOptionsView, 0);
+                                    if (adChoicesContainer != null) {
+                                        adChoicesContainer.removeAllViews();
+                                    }
 
                                     // Create native UI using the ad metadata.
                                     TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);

@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 .setAdNetwork(Constant.AD_NETWORK)
                 .setBackupAdNetwork(Constant.BACKUP_AD_NETWORK)
                 .setAdMobAppId(null)
-                .setStartappAppId(Constant.STARTAPP_APP_ID)
+                .setStartappAppId(Constant.ADMOB_APP_ID)
                 .setUnityGameId(Constant.UNITY_GAME_ID)
                 .setIronSourceAppKey(Constant.IRONSOURCE_APP_KEY)
                 .setWortiseAppId(Constant.WORTISE_APP_ID)

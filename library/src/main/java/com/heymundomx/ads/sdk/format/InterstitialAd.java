@@ -239,12 +239,12 @@ public class InterstitialAd {
                         fanInterstitialAd = new com.facebook.ads.InterstitialAd(activity, fanInterstitialId);
                         com.facebook.ads.InterstitialAdListener adListener = new InterstitialAdListener() {
                             @Override
-                            public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
+                            public void onInterstitialDisplayed(@NonNull com.facebook.ads.Ad ad) {
 
                             }
 
                             @Override
-                            public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
+                            public void onInterstitialDismissed(@NonNull com.facebook.ads.Ad ad) {
                                 fanInterstitialAd.loadAd();
                             }
 
@@ -414,12 +414,12 @@ public class InterstitialAd {
                         fanInterstitialAd = new com.facebook.ads.InterstitialAd(activity, fanInterstitialId);
                         com.facebook.ads.InterstitialAdListener adListener = new InterstitialAdListener() {
                             @Override
-                            public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
+                            public void onInterstitialDisplayed(@NonNull com.facebook.ads.Ad ad) {
 
                             }
 
                             @Override
-                            public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
+                            public void onInterstitialDismissed(@NonNull com.facebook.ads.Ad ad) {
                                 fanInterstitialAd.loadAd();
                             }
 
@@ -689,12 +689,12 @@ public class InterstitialAd {
                         fanInterstitialAd = new com.facebook.ads.InterstitialAd(activity, fanInterstitialId);
                         com.facebook.ads.InterstitialAdListener adListener = new InterstitialAdListener() {
                             @Override
-                            public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
+                            public void onInterstitialDisplayed(@NonNull com.facebook.ads.Ad ad) {
 
                             }
 
                             @Override
-                            public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
+                            public void onInterstitialDismissed(@NonNull com.facebook.ads.Ad ad) {
                                 fanInterstitialAd.loadAd();
                                 onInterstitialAdDismissedListener.onInterstitialAdDismissed();
                             }
@@ -868,12 +868,12 @@ public class InterstitialAd {
                         fanInterstitialAd = new com.facebook.ads.InterstitialAd(activity, fanInterstitialId);
                         com.facebook.ads.InterstitialAdListener adListener = new InterstitialAdListener() {
                             @Override
-                            public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
+                            public void onInterstitialDisplayed(@NonNull com.facebook.ads.Ad ad) {
 
                             }
 
                             @Override
-                            public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
+                            public void onInterstitialDismissed(@NonNull com.facebook.ads.Ad ad) {
                                 fanInterstitialAd.loadAd();
                                 onInterstitialAdDismissedListener.onInterstitialAdDismissed();
                             }

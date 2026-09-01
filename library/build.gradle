@@ -31,17 +31,20 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
-    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.appcompat:appcompat:1.8.0'
     implementation 'com.google.android.material:material:1.14.0'
 
     //Primary Ad Networks
     implementation 'com.google.android.gms:play-services-ads:25.4.0'
-    implementation 'com.facebook.android:audience-network-sdk:6.21.0'
+    implementation 'com.facebook.android:audience-network-sdk:6.22.0'
     implementation 'com.facebook.infer.annotation:infer-annotation:0.18.0'
-    implementation 'com.wortise:android-sdk:1.8.0-beta07'
+    implementation 'com.wortise:android-sdk:1.8.0-beta09'
 
     //AdMob mediation
-    implementation 'com.google.ads.mediation:facebook:6.21.0.3'
+    implementation 'com.google.ads.mediation:facebook:6.22.0.0'
+    implementation 'com.google.ads.mediation:bidmachine:3.8.0.0'
+    implementation 'com.google.ads.mediation:fyber:8.4.7.0'
+    implementation 'com.google.ads.mediation:unity:4.20.0.1'
 
     //GDPR
     implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
@@ -54,7 +57,7 @@ afterEvaluate {
                 from components["release"]
                 groupId = 'com.github.heymundomx'
                 artifactId = 'ads-sdk'
-                version = '99.2.0'
+                version = '99.2.1'
             }
         }
     }

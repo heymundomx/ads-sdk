@@ -335,11 +335,11 @@ public class NativeAd {
                                 };
                                 fanNativeAdLayout.addView(nativeAdView);
 
-                                // Add the AdOptionsView
+                                // Clean up ad choices container since AdOptionsView is deprecated
                                 LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                AdOptionsView adOptionsView = new AdOptionsView(activity, fanNativeAd, fanNativeAdLayout);
-                                adChoicesContainer.removeAllViews();
-                                adChoicesContainer.addView(adOptionsView, 0);
+                                if (adChoicesContainer != null) {
+                                    adChoicesContainer.removeAllViews();
+                                }
 
                                 // Create native UI using the ad metadata.
                                 TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
@@ -593,18 +593,14 @@ public class NativeAd {
 
                             @Override
                             public void onAdLoaded(com.facebook.ads.Ad ad) {
-                                // Race condition, load() called again before last ad was displayed
                                 fanNativeAdLayout.setVisibility(View.VISIBLE);
                                 nativeAdViewContainer.setVisibility(View.VISIBLE);
                                 if (fanNativeAd != ad) {
                                     return;
                                 }
-                                // Inflate Native Ad into Container
-                                //inflateAd(nativeAd);
                                 fanNativeAd.unregisterView();
-                                // Add the Ad view into the ad container.
+
                                 LayoutInflater inflater = LayoutInflater.from(activity);
-                                // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
                                 LinearLayout nativeAdView = switch (nativeAdStyle) {
                                     case Constant.STYLE_NEWS, Constant.STYLE_MEDIUM ->
                                             (LinearLayout) inflater.inflate(R.layout.gnt_fan_news_template_view, fanNativeAdLayout, false);
@@ -619,13 +615,13 @@ public class NativeAd {
                                 };
                                 fanNativeAdLayout.addView(nativeAdView);
 
-                                // Add the AdOptionsView
+                                // Removed AdOptionsView block entirely.
+                                // Optional: clear container if layout XML still holds an old view placeholder
                                 LinearLayout adChoicesContainer = nativeAdView.findViewById(R.id.ad_choices_container);
-                                AdOptionsView adOptionsView = new AdOptionsView(activity, fanNativeAd, fanNativeAdLayout);
-                                adChoicesContainer.removeAllViews();
-                                adChoicesContainer.addView(adOptionsView, 0);
+                                if (adChoicesContainer != null) {
+                                    adChoicesContainer.removeAllViews();
+                                }
 
-                                // Create native UI using the ad metadata.
                                 TextView nativeAdTitle = nativeAdView.findViewById(R.id.native_ad_title);
                                 com.facebook.ads.MediaView nativeAdIcon = nativeAdView.findViewById(R.id.native_ad_icon);
                                 com.facebook.ads.MediaView nativeAdMedia = nativeAdView.findViewById(R.id.native_ad_media);
@@ -645,7 +641,6 @@ public class NativeAd {
                                     fanNativeBackground.setBackgroundResource(nativeBackgroundLight);
                                 }
 
-                                // Set the Text.
                                 nativeAdTitle.setText(fanNativeAd.getAdvertiserName());
                                 nativeAdBody.setText(fanNativeAd.getAdBodyText());
                                 nativeAdSocialContext.setText(fanNativeAd.getAdSocialContext());
@@ -653,7 +648,6 @@ public class NativeAd {
                                 nativeAdCallToAction.setText(fanNativeAd.getAdCallToAction());
                                 sponsoredLabel.setText(fanNativeAd.getSponsoredTranslation());
 
-                                // Create a list of clickable views
                                 List<View> clickableViews = new ArrayList<>();
                                 clickableViews.add(nativeAdTitle);
                                 clickableViews.add(sponsoredLabel);
@@ -663,9 +657,7 @@ public class NativeAd {
                                 clickableViews.add(nativeAdSocialContext);
                                 clickableViews.add(nativeAdCallToAction);
 
-                                // Register the Title and CTA button to listen for clicks.
                                 fanNativeAd.registerViewForInteraction(nativeAdView, nativeAdIcon, nativeAdMedia, clickableViews);
-
                             }
 
                             @Override

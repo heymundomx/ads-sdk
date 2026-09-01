@@ -23,6 +23,8 @@ public class Constant {
     public static final String FAN_REWARDED_ID = "YOUR_PLACEMENT_ID";
     public static final String FAN_NATIVE_ID = "YOUR_PLACEMENT_ID";
 
+    public static final String ADMOB_APP_ID = "ca-app-pub-3940256099942544~3347511713";
+
     public static final String STARTAPP_APP_ID = "0";
 
     public static final String UNITY_GAME_ID = "4089993";
