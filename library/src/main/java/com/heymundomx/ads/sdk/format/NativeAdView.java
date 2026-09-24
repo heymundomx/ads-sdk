@@ -40,6 +40,7 @@ import com.heymundomx.ads.sdk.util.Constant;
 import com.heymundomx.ads.sdk.util.NativeTemplateStyle;
 import com.heymundomx.ads.sdk.util.TemplateView;
 import com.heymundomx.ads.sdk.util.Tools;
+import com.wortise.ads.natives.NativeAdViewBinder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -443,7 +444,7 @@ public class NativeAdView {
                                                 R.layout.gnt_wortise_medium_template_view;
                                     };
 
-                                    com.wortise.ads.natives.NativeAdViewBinder binder = new com.wortise.ads.natives.NativeAdViewBinder.Builder(layoutId)
+                                    NativeAdViewBinder binder = new NativeAdViewBinder.Builder(layoutId)
                                             .setHeadlineTextViewId(R.id.primary)
                                             .setBodyTextViewId(R.id.body)
                                             .setCallToActionButtonId(R.id.cta)
@@ -730,7 +731,7 @@ public class NativeAdView {
                                                 R.layout.gnt_wortise_medium_template_view;
                                     };
 
-                                    com.wortise.ads.natives.NativeAdViewBinder binder = new com.wortise.ads.natives.NativeAdViewBinder.Builder(layoutId)
+                                    NativeAdViewBinder binder = new NativeAdViewBinder.Builder(layoutId)
                                             .setHeadlineTextViewId(R.id.primary)
                                             .setBodyTextViewId(R.id.body)
                                             .setCallToActionButtonId(R.id.cta)
