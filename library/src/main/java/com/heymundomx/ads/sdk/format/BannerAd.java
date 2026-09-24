@@ -27,6 +27,8 @@ import com.google.android.gms.ads.admanager.AdManagerAdView;
 import com.heymundomx.ads.sdk.R;
 import com.heymundomx.ads.sdk.util.Tools;
 import com.wortise.ads.AdError;
+import com.wortise.ads.CollapsiblePosition;
+import com.wortise.ads.RequestParameters;
 import com.wortise.ads.RevenueData;
 
 public class BannerAd {
@@ -269,16 +271,16 @@ public class BannerAd {
                         wortiseBannerAd.setAdUnitId(wortiseBannerId);
                         wortiseBannerView = activity.findViewById(R.id.wortise_banner_view_container);
                         wortiseBannerView.addView(wortiseBannerAd);
-                        wortiseBannerAd.loadAd();
+                        RequestParameters parameters = new RequestParameters();
+                        parameters.setCollapsible(CollapsiblePosition.BOTTOM);
+                        wortiseBannerAd.loadAd(parameters);
                         wortiseBannerAd.setListener(new com.wortise.ads.banner.BannerAd.Listener() {
                             @Override
                             public void onBannerRevenuePaid(@NonNull com.wortise.ads.banner.BannerAd bannerAd, @NonNull RevenueData revenueData) {
-
                             }
 
                             @Override
                             public void onBannerImpression(@NonNull com.wortise.ads.banner.BannerAd bannerAd) {
-
                             }
 
                             @Override
@@ -290,7 +292,6 @@ public class BannerAd {
 
                             @Override
                             public void onBannerClicked(@NonNull com.wortise.ads.banner.BannerAd bannerAd) {
-
                             }
 
                             @Override
@@ -437,7 +438,9 @@ public class BannerAd {
                         wortiseBannerAd.setAdUnitId(wortiseBannerId);
                         wortiseBannerView = activity.findViewById(R.id.wortise_banner_view_container);
                         wortiseBannerView.addView(wortiseBannerAd);
-                        wortiseBannerAd.loadAd();
+                        RequestParameters parameters = new RequestParameters();
+                        parameters.setCollapsible(CollapsiblePosition.BOTTOM);
+                        wortiseBannerAd.loadAd(parameters);
                         wortiseBannerAd.setListener(new com.wortise.ads.banner.BannerAd.Listener() {
                             @Override
                             public void onBannerRevenuePaid(@NonNull com.wortise.ads.banner.BannerAd bannerAd, @NonNull RevenueData revenueData) {
