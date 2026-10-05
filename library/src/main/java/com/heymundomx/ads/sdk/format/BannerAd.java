@@ -13,6 +13,7 @@ import static com.heymundomx.ads.sdk.util.Constant.NONE;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -193,9 +194,32 @@ public class BannerAd {
                             adManagerAdView = new AdManagerAdView(activity);
                             adManagerAdView.setAdUnitId(googleAdManagerBannerId);
                             adManagerAdView.setAdSize(Tools.getAdSize(activity));
+                            adManagerAdView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+                                int newHeight = bottom - top;
+                                int oldHeight = oldBottom - oldTop;
+                                if (newHeight != oldHeight && newHeight > 0) {
+                                    ViewGroup.LayoutParams containerParams = googleAdContainerView.getLayoutParams();
+                                    if (containerParams != null) {
+                                        containerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                                        googleAdContainerView.setLayoutParams(containerParams);
+                                    }
+                                    View sdkBannerAdView = (View) googleAdContainerView.getParent();
+                                    if (sdkBannerAdView != null) {
+                                        ViewGroup.LayoutParams sdkParams = sdkBannerAdView.getLayoutParams();
+                                        if (sdkParams != null) {
+                                            sdkParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                                            sdkBannerAdView.setLayoutParams(sdkParams);
+                                        }
+                                    }
+                                    View rootView = activity.findViewById(android.R.id.content);
+                                    if (rootView != null) {
+                                        rootView.requestLayout();
+                                        rootView.invalidate();
+                                    }
+                                }
+                            });
                             googleAdContainerView.removeAllViews();
                             googleAdContainerView.addView(adManagerAdView);
-                            adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
                             adManagerAdView.setAdListener(new AdListener() {
                                 @Override
                                 public void onAdClicked() {
@@ -230,6 +254,7 @@ public class BannerAd {
                                     super.onAdOpened();
                                 }
                             });
+                            adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
                         });
                         break;
 
@@ -362,9 +387,32 @@ public class BannerAd {
                             adManagerAdView = new AdManagerAdView(activity);
                             adManagerAdView.setAdUnitId(googleAdManagerBannerId);
                             adManagerAdView.setAdSize(Tools.getAdSize(activity));
+                            adManagerAdView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+                                int newHeight = bottom - top;
+                                int oldHeight = oldBottom - oldTop;
+                                if (newHeight != oldHeight && newHeight > 0) {
+                                    ViewGroup.LayoutParams containerParams = googleAdContainerView.getLayoutParams();
+                                    if (containerParams != null) {
+                                        containerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                                        googleAdContainerView.setLayoutParams(containerParams);
+                                    }
+                                    View sdkBannerAdView = (View) googleAdContainerView.getParent();
+                                    if (sdkBannerAdView != null) {
+                                        ViewGroup.LayoutParams sdkParams = sdkBannerAdView.getLayoutParams();
+                                        if (sdkParams != null) {
+                                            sdkParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                                            sdkBannerAdView.setLayoutParams(sdkParams);
+                                        }
+                                    }
+                                    View rootView = activity.findViewById(android.R.id.content);
+                                    if (rootView != null) {
+                                        rootView.requestLayout();
+                                        rootView.invalidate();
+                                    }
+                                }
+                            });
                             googleAdContainerView.removeAllViews();
                             googleAdContainerView.addView(adManagerAdView);
-                            adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
                             adManagerAdView.setAdListener(new AdListener() {
                                 @Override
                                 public void onAdClicked() {
@@ -398,6 +446,7 @@ public class BannerAd {
                                     super.onAdOpened();
                                 }
                             });
+                            adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
                         });
                         break;
 

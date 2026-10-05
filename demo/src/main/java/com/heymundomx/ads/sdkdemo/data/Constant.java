@@ -6,17 +6,17 @@ public class Constant {
     public static String AD_NETWORK = "admob";
     public static final String BACKUP_AD_NETWORK = "none";
 
-    public static final String ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
+    public static final String ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/9214589741";
     public static final String ADMOB_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712";
     public static final String ADMOB_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917";
     public static final String ADMOB_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110";
     public static final String ADMOB_APP_OPEN_AD_ID = "ca-app-pub-3940256099942544/9257395921";
 
-    public static final String GOOGLE_AD_MANAGER_BANNER_ID = "/6499/example/banner";
-    public static final String GOOGLE_AD_MANAGER_INTERSTITIAL_ID = "/6499/example/interstitial";
-    public static final String GOOGLE_AD_MANAGER_REWARDED_ID = "/6499/example/rewarded";
-    public static final String GOOGLE_AD_MANAGER_NATIVE_ID = "/6499/example/native";
-    public static final String GOOGLE_AD_MANAGER_APP_OPEN_AD_ID = "/6499/example/app-open";
+    public static final String GOOGLE_AD_MANAGER_BANNER_ID = "/21775744923/example/adaptive-banner";
+    public static final String GOOGLE_AD_MANAGER_INTERSTITIAL_ID = "/21775744923/example/interstitial";
+    public static final String GOOGLE_AD_MANAGER_REWARDED_ID = "/21775744923/example/rewarded";
+    public static final String GOOGLE_AD_MANAGER_NATIVE_ID = "/21775744923/example/native";
+    public static final String GOOGLE_AD_MANAGER_APP_OPEN_AD_ID = "/21775744923/example/app-open";
 
     public static final String FAN_BANNER_ID = "YOUR_PLACEMENT_ID";
     public static final String FAN_INTERSTITIAL_ID = "YOUR_PLACEMENT_ID";
