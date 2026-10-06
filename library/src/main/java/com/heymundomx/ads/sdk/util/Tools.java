@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.WindowMetrics;
@@ -68,6 +69,15 @@ public class Tools {
 
     @SuppressLint("VisibleForTests")
     public static AdManagerAdRequest getGoogleAdManagerRequest() {
+        Bundle extras = new Bundle();
+        extras.putString("collapsible", "bottom");
+        return new AdManagerAdRequest.Builder()
+                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+                .build();
+    }
+
+    @SuppressLint("VisibleForTests")
+    public static AdManagerAdRequest getGoogleAdManagerRequestBack() {
         return new AdManagerAdRequest.Builder()
                 .build();
     }

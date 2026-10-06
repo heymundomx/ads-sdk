@@ -151,38 +151,19 @@ public class BannerAd {
                             adView.setAdSize(Tools.getAdSize(activity));
                             adContainerView.removeAllViews();
                             adContainerView.addView(adView);
-                            adView.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                             adView.setAdListener(new AdListener() {
                                 @Override
                                 public void onAdLoaded() {
-                                    // Code to be executed when an ad finishes loading.
                                     adContainerView.setVisibility(View.VISIBLE);
                                 }
 
                                 @Override
                                 public void onAdFailedToLoad(@NonNull LoadAdError adError) {
-                                    // Code to be executed when an ad request fails.
                                     adContainerView.setVisibility(View.GONE);
                                     loadBackupBannerAd();
                                 }
-
-                                @Override
-                                public void onAdOpened() {
-                                    // Code to be executed when an ad opens an overlay that
-                                    // covers the screen.
-                                }
-
-                                @Override
-                                public void onAdClicked() {
-                                    // Code to be executed when the user clicks on an ad.
-                                }
-
-                                @Override
-                                public void onAdClosed() {
-                                    // Code to be executed when the user is about to return
-                                    // to the app after tapping on an ad.
-                                }
                             });
+                            adView.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                         });
                         Log.d(TAG, adNetwork + " Banner Ad unit Id : " + adMobBannerId);
                         break;
@@ -194,43 +175,9 @@ public class BannerAd {
                             adManagerAdView = new AdManagerAdView(activity);
                             adManagerAdView.setAdUnitId(googleAdManagerBannerId);
                             adManagerAdView.setAdSize(Tools.getAdSize(activity));
-                            adManagerAdView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-                                int newHeight = bottom - top;
-                                int oldHeight = oldBottom - oldTop;
-                                if (newHeight != oldHeight && newHeight > 0) {
-                                    ViewGroup.LayoutParams containerParams = googleAdContainerView.getLayoutParams();
-                                    if (containerParams != null) {
-                                        containerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                                        googleAdContainerView.setLayoutParams(containerParams);
-                                    }
-                                    View sdkBannerAdView = (View) googleAdContainerView.getParent();
-                                    if (sdkBannerAdView != null) {
-                                        ViewGroup.LayoutParams sdkParams = sdkBannerAdView.getLayoutParams();
-                                        if (sdkParams != null) {
-                                            sdkParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                                            sdkBannerAdView.setLayoutParams(sdkParams);
-                                        }
-                                    }
-                                    View rootView = activity.findViewById(android.R.id.content);
-                                    if (rootView != null) {
-                                        rootView.requestLayout();
-                                        rootView.invalidate();
-                                    }
-                                }
-                            });
                             googleAdContainerView.removeAllViews();
                             googleAdContainerView.addView(adManagerAdView);
                             adManagerAdView.setAdListener(new AdListener() {
-                                @Override
-                                public void onAdClicked() {
-                                    super.onAdClicked();
-                                }
-
-                                @Override
-                                public void onAdClosed() {
-                                    super.onAdClosed();
-                                }
-
                                 @Override
                                 public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                                     super.onAdFailedToLoad(loadAdError);
@@ -239,19 +186,9 @@ public class BannerAd {
                                 }
 
                                 @Override
-                                public void onAdImpression() {
-                                    super.onAdImpression();
-                                }
-
-                                @Override
                                 public void onAdLoaded() {
                                     super.onAdLoaded();
                                     googleAdContainerView.setVisibility(View.VISIBLE);
-                                }
-
-                                @Override
-                                public void onAdOpened() {
-                                    super.onAdOpened();
                                 }
                             });
                             adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
@@ -296,9 +233,6 @@ public class BannerAd {
                         wortiseBannerAd.setAdUnitId(wortiseBannerId);
                         wortiseBannerView = activity.findViewById(R.id.wortise_banner_view_container);
                         wortiseBannerView.addView(wortiseBannerAd);
-                        RequestParameters parameters = new RequestParameters();
-                        parameters.setCollapsible(CollapsiblePosition.BOTTOM);
-                        wortiseBannerAd.loadAd(parameters);
                         wortiseBannerAd.setListener(new com.wortise.ads.banner.BannerAd.Listener() {
                             @Override
                             public void onBannerRevenuePaid(@NonNull com.wortise.ads.banner.BannerAd bannerAd, @NonNull RevenueData revenueData) {
@@ -325,6 +259,7 @@ public class BannerAd {
                                 Log.d(TAG, "Wortise banner loaded");
                             }
                         });
+                        wortiseBannerAd.loadAd();
                         break;
                 }
                 Log.d(TAG, "Banner Ad is enabled");
@@ -345,7 +280,6 @@ public class BannerAd {
                             adView.setAdSize(Tools.getAdSize(activity));
                             adContainerView.removeAllViews();
                             adContainerView.addView(adView);
-                            adView.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                             adView.setAdListener(new AdListener() {
                                 @Override
                                 public void onAdLoaded() {
@@ -358,24 +292,8 @@ public class BannerAd {
                                     // Code to be executed when an ad request fails.
                                     adContainerView.setVisibility(View.GONE);
                                 }
-
-                                @Override
-                                public void onAdOpened() {
-                                    // Code to be executed when an ad opens an overlay that
-                                    // covers the screen.
-                                }
-
-                                @Override
-                                public void onAdClicked() {
-                                    // Code to be executed when the user clicks on an ad.
-                                }
-
-                                @Override
-                                public void onAdClosed() {
-                                    // Code to be executed when the user is about to return
-                                    // to the app after tapping on an ad.
-                                }
                             });
+                            adView.loadAd(Tools.getAdRequest(activity, legacyGDPR));
                         });
                         Log.d(TAG, adNetwork + " Banner Ad unit Id : " + adMobBannerId);
                         break;
@@ -387,43 +305,9 @@ public class BannerAd {
                             adManagerAdView = new AdManagerAdView(activity);
                             adManagerAdView.setAdUnitId(googleAdManagerBannerId);
                             adManagerAdView.setAdSize(Tools.getAdSize(activity));
-                            adManagerAdView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-                                int newHeight = bottom - top;
-                                int oldHeight = oldBottom - oldTop;
-                                if (newHeight != oldHeight && newHeight > 0) {
-                                    ViewGroup.LayoutParams containerParams = googleAdContainerView.getLayoutParams();
-                                    if (containerParams != null) {
-                                        containerParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                                        googleAdContainerView.setLayoutParams(containerParams);
-                                    }
-                                    View sdkBannerAdView = (View) googleAdContainerView.getParent();
-                                    if (sdkBannerAdView != null) {
-                                        ViewGroup.LayoutParams sdkParams = sdkBannerAdView.getLayoutParams();
-                                        if (sdkParams != null) {
-                                            sdkParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                                            sdkBannerAdView.setLayoutParams(sdkParams);
-                                        }
-                                    }
-                                    View rootView = activity.findViewById(android.R.id.content);
-                                    if (rootView != null) {
-                                        rootView.requestLayout();
-                                        rootView.invalidate();
-                                    }
-                                }
-                            });
                             googleAdContainerView.removeAllViews();
                             googleAdContainerView.addView(adManagerAdView);
                             adManagerAdView.setAdListener(new AdListener() {
-                                @Override
-                                public void onAdClicked() {
-                                    super.onAdClicked();
-                                }
-
-                                @Override
-                                public void onAdClosed() {
-                                    super.onAdClosed();
-                                }
-
                                 @Override
                                 public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                                     super.onAdFailedToLoad(loadAdError);
@@ -431,22 +315,12 @@ public class BannerAd {
                                 }
 
                                 @Override
-                                public void onAdImpression() {
-                                    super.onAdImpression();
-                                }
-
-                                @Override
                                 public void onAdLoaded() {
                                     super.onAdLoaded();
                                     googleAdContainerView.setVisibility(View.VISIBLE);
                                 }
-
-                                @Override
-                                public void onAdOpened() {
-                                    super.onAdOpened();
-                                }
                             });
-                            adManagerAdView.loadAd(Tools.getGoogleAdManagerRequest());
+                            adManagerAdView.loadAd(Tools.getGoogleAdManagerRequestBack());
                         });
                         break;
 
@@ -489,7 +363,6 @@ public class BannerAd {
                         wortiseBannerView.addView(wortiseBannerAd);
                         RequestParameters parameters = new RequestParameters();
                         parameters.setCollapsible(CollapsiblePosition.BOTTOM);
-                        wortiseBannerAd.loadAd(parameters);
                         wortiseBannerAd.setListener(new com.wortise.ads.banner.BannerAd.Listener() {
                             @Override
                             public void onBannerRevenuePaid(@NonNull com.wortise.ads.banner.BannerAd bannerAd, @NonNull RevenueData revenueData) {
@@ -518,6 +391,7 @@ public class BannerAd {
                                 Log.d(TAG, " [backup] Wortise banner loaded");
                             }
                         });
+                        wortiseBannerAd.loadAd(parameters);
                         break;
 
                     case NONE:
@@ -530,7 +404,41 @@ public class BannerAd {
             }
         }
 
+        public void pauseBanner() {
+            if (adView != null) {
+                adView.resume();
+            }
+            if (adManagerAdView != null) {
+                adManagerAdView.pause();
+            }
+        }
+
+        public void resumeBanner() {
+            if (adView != null) {
+                adView.resume();
+            }
+            if (adManagerAdView != null) {
+                adManagerAdView.resume();
+            }
+        }
+
         public void destroyAndDetachBanner() {
+            if (adView != null) {
+                adView.destroy();
+                adView = null;
+            }
+            if (adManagerAdView != null) {
+                adManagerAdView.destroy();
+                adManagerAdView = null;
+            }
+            if (fanAdView != null) {
+                fanAdView.destroy();
+                fanAdView = null;
+            }
+            if (wortiseBannerAd != null) {
+                wortiseBannerAd.destroy();
+                wortiseBannerAd = null;
+            }
         }
 
     }

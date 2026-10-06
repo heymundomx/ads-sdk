@@ -325,6 +325,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        if (bannerAd != null) {
+            bannerAd.resumeBanner();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (bannerAd != null) {
+            bannerAd.pauseBanner();
+        }
     }
 
     public void getAppTheme() {
