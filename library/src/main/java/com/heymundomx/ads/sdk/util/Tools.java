@@ -69,16 +69,16 @@ public class Tools {
 
     @SuppressLint("VisibleForTests")
     public static AdManagerAdRequest getGoogleAdManagerRequest() {
-        Bundle extras = new Bundle();
-        extras.putString("collapsible", "bottom");
         return new AdManagerAdRequest.Builder()
-                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                 .build();
     }
 
     @SuppressLint("VisibleForTests")
     public static AdManagerAdRequest getGoogleAdManagerRequestBack() {
+        Bundle extras = new Bundle();
+        extras.putString("collapsible", "bottom");
         return new AdManagerAdRequest.Builder()
+                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                 .build();
     }
 
